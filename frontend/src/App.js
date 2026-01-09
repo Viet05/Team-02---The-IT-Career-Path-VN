@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Navigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function Placeholder({ title }) {
+  return <div style={{ padding: 24 }}>{title}</div>;
 }
 
-export default App;
+export default function App() {
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Placeholder title="Home" />} />
+        <Route path="/about" element={<Placeholder title="About" />} />
+        <Route path="/roadmaps" element={<Placeholder title="Roadmaps" />} />
+        <Route path="/jobs" element={<Placeholder title="Jobs" />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Placeholder title="Dashboard (tạm)" />} />
+        <Route path="/reset-password" element={<Placeholder title="Reset Password (tạm)" />} />
+        <Route path="/signup" element={<Placeholder title="Sign up (tạm)" />} />
+
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </>
+  );
+}

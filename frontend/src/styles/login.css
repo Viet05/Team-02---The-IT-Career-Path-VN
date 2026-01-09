@@ -1,0 +1,151 @@
+/* quan trọng để không bị lệch kích thước */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 16px;
+  background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+}
+.card {
+  width: 420px;
+  max-width: 100%;
+  border: 2px solid #111;
+  border-radius: 14px;
+  padding: 26px 22px;
+  background: #fff;
+}
+
+/* title/subtitle gọn đều */
+.card-title {
+  text-align: center;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.card-subtitle {
+  text-align: center;
+  font-size: 13px;
+  margin: 0 0 18px;
+}
+
+/* ✅ Nút social: dùng height cố định + bỏ margin-bottom để đều khoảng cách */
+.social-btn {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid #111;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Nếu bạn đang render 3 nút liên tiếp -> dùng selector này để tạo gap đều */
+.social-btn + .social-btn {
+  margin-top: 10px;
+}
+
+/* Divider OR: đảm bảo line cân 2 bên */
+.or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.line {
+  height: 2px;
+  background: #111;
+  flex: 1;
+  border-radius: 2px;
+}
+
+.or-text {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* label/input đều nhau */
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 10px 0 6px;
+}
+
+.input {
+  width: 100%;
+  height: 44px;          /* ✅ bằng nút */
+  padding: 0 12px;       /* ✅ giống nút */
+  border: 2px solid #111;
+  border-radius: 10px;
+  outline: none;
+}
+
+.reset {
+  margin: 10px 0 16px;
+  font-size: 12px;
+}
+
+.reset a {
+  color: #111;
+  text-decoration: none;
+}
+
+.reset a:hover {
+  text-decoration: underline;
+}
+
+/* ✅ nút login cũng cùng height */
+.login-btn {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid #111;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.footer a {
+  color: #111;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  border: 2px solid #ff3b3b;
+  color: #b00000;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.error p {
+  margin: 0;
+}
+
