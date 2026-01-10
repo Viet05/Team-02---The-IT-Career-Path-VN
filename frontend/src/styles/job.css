@@ -1,0 +1,306 @@
+.jobs-page {
+  background: #fff;
+}
+
+.jobs-container {
+  max-width: none;
+  width: 100%;
+  margin: 0 auto;
+  padding: 18px 18px 60px;
+}
+
+/* card style giống wireframe */
+.card {
+  border: 2px solid #111;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.jobs-hint {
+  margin: 0 0 10px;
+  opacity: 0.85;
+}
+
+/* search bar */
+.jobs-search {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 12px;
+  padding: 14px;
+  border: 2px solid #111;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.jobs-input {
+  width: 100%;
+  border: 2px solid #111;
+  border-radius: 14px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+/* ✅ 2 CỘT: filter trái + results phải */
+.jobs-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr); /* trái giữ nguyên */
+  gap: 14px;
+  align-items: start;
+}
+
+/* ✅ filter đứng trái, không kéo dài */
+.jobs-filters {
+  height: fit-content;
+  position: sticky; /* giữ filter khi scroll */
+  top: 90px;        /* chỉnh theo chiều cao navbar */
+}
+
+/* ✅ results chiếm cột phải */
+.jobs-results {
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* fields */
+.jobs-filters .card {
+  padding: 14px;
+}
+
+.jobs-filters h3 {
+  margin: 0 0 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.field span {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.input {
+  width: 100%;
+  border: 2px solid #111;
+  border-radius: 12px;
+  padding: 9px 10px;
+  outline: none;
+  background: #fff;
+}
+
+.range {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.filter-actions {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+/* buttons */
+.btn {
+  border: 2px solid #111;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #111;
+  color: #fff;
+}
+
+.btn-outline {
+  background: #fff;
+  color: #111;
+}
+
+/* results head */
+.jobs-results .card {
+  padding: 14px;
+}
+
+.results-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.results-title {
+  font-weight: 900;
+}
+
+.results-sub {
+  opacity: 0.75;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sort-select {
+  width: 140px;
+  padding: 8px 10px;
+  border-radius: 999px;
+}
+
+/* job list */
+.jobs-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.job-item {
+  padding: 14px;
+}
+
+.job-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.job-title {
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.job-meta {
+  font-size: 13px;
+  opacity: 0.85;
+  display: grid;
+  gap: 4px;
+}
+
+.job-view {
+  min-width: 92px;
+}
+
+.job-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.job-tag {
+  border: 2px solid #111;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.job-time {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* ✅ pagination nằm ngang + căn giữa */
+.pagination {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.page-btn {
+  border: 2px solid #111;
+  border-radius: 10px;
+  padding: 6px 12px;
+  background: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.page-btn.active {
+  background: #111;
+  color: #fff;
+}
+
+/* responsive */
+@media (max-width: 1024px) {
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
+  .jobs-search {
+    grid-template-columns: 1fr;
+  }
+  .jobs-filters {
+    position: static;
+  }
+}
+/* ===== FORCE RIGHT COLUMN FULL WIDTH (giống wireframe) ===== */
+.jobs-results {
+  width: 100% !important;
+  min-width: 0;
+}
+
+/* ép mọi card bên phải chiếm hết cột */
+.jobs-results .card,
+.jobs-results .results-head,
+.jobs-results .job-item {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* ép list full */
+.jobs-results .jobs-list {
+  width: 100% !important;
+}
+
+/* đẩy Sort qua sát phải */
+.results-head {
+  width: 100% !important;
+}
+
+.sort {
+  margin-left: auto;
+}
+/* ===== Hoán đổi tỉ lệ: nội dung rộng hơn, nút View nhỏ lại ===== */
+.job-top {
+  display: grid !important;
+  grid-template-columns: 1fr 140px;  /* trái rộng, phải (View) nhỏ */
+  gap: 12px;
+  align-items: start;
+}
+
+/* nút View gọn lại */
+.job-view {
+  width: 140px;          /* chỉnh 120/140/160 tùy ý */
+  min-width: 140px;
+  justify-self: end;     /* sát phải */
+  padding: 10px 14px;
+}
+
+/* tránh text bị tràn do grid */
+.job-meta {
+  word-break: break-word;
+}
+
