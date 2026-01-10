@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import jdk.jfr.Timestamp;
@@ -26,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobPosting {
+public class JobPosting implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
