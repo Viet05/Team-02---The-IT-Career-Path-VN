@@ -1,0 +1,200 @@
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+.home73{
+  min-height: 100vh;
+  background: #fff;
+  color: #111;
+  padding: 28px 16px 70px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.home73-head{
+  max-width: 1200px;
+  margin: 0 auto 18px;
+}
+
+.home73-title{
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.home73-subtitle{
+  margin: 6px 0 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* 7:3 layout */
+.home73-grid{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* box chung */
+.box{
+  border: 2px solid #111;
+  border-radius: 14px;
+  background: #fff;
+  padding: 16px;
+}
+
+.left, .right{
+  display: grid;
+  gap: 16px;
+}
+
+.box-title{
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+/* roles */
+.role-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.role-btn{
+  height: 44px;
+  border: 2px solid #111;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  padding: 0 12px;
+}
+
+.role-btn:hover{
+  background: #111;
+  color: #fff;
+}
+
+/* chips */
+.chip-row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip{
+  height: 28px;
+  padding: 0 14px;
+  border: 2px solid #111;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* jobs */
+.job-list{
+  display: grid;
+  gap: 12px;
+}
+
+.job-card{
+  border: 2px solid #111;
+  border-radius: 14px;
+  padding: 12px;
+  background: #fff;
+}
+
+.job-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.job-time{
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.job-badge{
+  font-size: 10px;
+  font-weight: 900;
+  border: 2px solid #111;
+  border-radius: 8px;
+  padding: 3px 8px;
+}
+
+.job-badge.super{
+  /* vẫn trắng đen, chỉ làm nổi hơn */
+  background: #111;
+  color: #fff;
+}
+
+.job-title{
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+.job-row{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.job-muted{
+  opacity: 0.8;
+}
+
+.job-dot{
+  width: 18px;
+  height: 18px;
+  border: 2px solid #111;
+  border-radius: 4px;
+}
+
+.job-ico{
+  width: 18px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.job-sep{
+  opacity: 0.6;
+}
+
+/* tags */
+.job-tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.job-tag{
+  border: 2px solid #111;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* responsive */
+@media (max-width: 900px){
+  .home73-grid{
+    grid-template-columns: 1fr;
+  }
+  .role-grid{
+    grid-template-columns: 1fr;
+  }
+}
