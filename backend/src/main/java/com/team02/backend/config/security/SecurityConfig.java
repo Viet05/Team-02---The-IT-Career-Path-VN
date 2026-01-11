@@ -29,8 +29,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecurityConfig {
 
-  JwtAuthenticationFilter jwtAuthenticationFilter;
-
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
@@ -43,15 +41,17 @@ public class SecurityConfig {
   }
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter)
+      throws Exception {
 
     http
         .csrf(Customizer.withDefaults())
         .csrf(csrf -> csrf.disable())
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("roadmap/register").permitAll()
-            .requestMatchers("roadmap/login").permitAll()
+            .requestMatchers("/roadmap/register").permitAll()
+            .requestMatchers("/roadmap/login").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -64,12 +64,10 @@ public class SecurityConfig {
 
     corsConfiguration.setAllowedOrigins(List.of(
         "http://localhost:3000",
-        "http://localhost:5173"
-    ));
+        "http://localhost:5173"));
 
     corsConfiguration.setAllowedMethods(List.of(
-        "GET", "POST", "PUT", "DELETE"
-    ));
+        "GET", "POST", "PUT", "DELETE"));
     corsConfiguration.setAllowCredentials(true);
     corsConfiguration.setAllowedHeaders(List.of("*"));
 

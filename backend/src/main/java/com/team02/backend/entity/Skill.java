@@ -40,7 +40,4 @@ public class Skill implements Serializable {
 
   @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<UserProfileSkill> userProfileSkills;
-
-  @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Skill> skills;
 }

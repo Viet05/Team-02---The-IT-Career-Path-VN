@@ -3,25 +3,38 @@ spring:
     import: optional:application-env.yml
 
   datasource:
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3307}/${DB_NAME:GymDB}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
     redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
-      password: ${REDIS_PASSWORD}
+      host: redis-server
+      port: 6379
+      password: 123456@
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
 
   jackson:
     time-zone: Asia/Ho_Chi_Minh
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: vitcon202205@gmail.com
+    password: Vitcon2005@
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:KJ5V7oXO1ddz_utM0Y1ATqa9klyETrc6z9SRjrOB87k}

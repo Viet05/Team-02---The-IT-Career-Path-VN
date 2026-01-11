@@ -4,7 +4,7 @@ import com.team02.backend.dto.request.RegisterRequest;
 import com.team02.backend.entity.Users;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
   Users registerMapper(RegisterRequest request);
