@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user_profile_skill", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"user_profile_id", "skill_id"})
+    @UniqueConstraint(columnNames = { "user_profile_id", "skill_id" })
 })
 @Data
 @Builder
@@ -33,7 +33,7 @@ public class UserProfileSkill implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_profile_id", nullable = false)
-  private Users userProfile;
+  private UserProfile userProfile;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "skill_id", nullable = false)

@@ -9,6 +9,9 @@ import com.team02.backend.enums.UserStatus;
 import com.team02.backend.mapper.UserMapper;
 import com.team02.backend.repository.UserRepository;
 import com.team02.backend.security.JwtUtils;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,37 +29,72 @@ public class AuthenticationService {
   UserRepository userRepository;
   PasswordEncoder passwordEncoder;
   UserMapper userMapper;
+  EmailService emailService;
 
-  public AuthenticationResponse register(RegisterRequest request) {
+  public String register(RegisterRequest request) {
 
-    if (!(userRepository.existsByUsername(request.getUsername())) || !(userRepository.existsByEmail(request.getEmail()))) {
-      throw  new IllegalArgumentException("Invalid username or email");
+    if (userRepository.existsByUsername(request.getUsername())) {
+      throw new IllegalArgumentException("Username already exists");
+    }
+    if (userRepository.existsByEmail(request.getEmail())) {
+      throw new IllegalArgumentException("Email already exists");
     }
 
     Users users = userMapper.registerMapper(request);
     users.setRole(UserRole.STUDENT);
     users.setPassword(passwordEncoder.encode(users.getPassword()));
-    users.setStatus(UserStatus.ACTIVE);
+    users.setStatus(UserStatus.INACTIVE);
+    users.setEmailVerified(false);
+
+    String verificationToken = UUID.randomUUID().toString();
+    users.setVerificationToken(verificationToken);
+    users.setVerificationTokenExpiry(LocalDateTime.now().plusHours(24));
 
     userRepository.save(users);
 
-    String token = utils.generateToken(users);
+    emailService.sendEmail(users.getEmail(), verificationToken);
 
-    return new AuthenticationResponse(
-        token,
-        "Bearer",
-        users.getUserId(),
-        users.getUsername(),
-        users.getRole().toString());
+    String token = "Verification email";
+
+    return users.getEmail();
+  }
+
+  public String emailVerification(String verificationToken) {
+
+    Users user = userRepository.findByVerificationToken(verificationToken);
+
+    if (user == null) {
+      throw new IllegalArgumentException("Invalid verification token");
+    }
+
+    if (user.getVerificationTokenExpiry().isBefore(LocalDateTime.now())) {
+      throw new IllegalArgumentException("Expired verification token");
+    }
+
+    user.setStatus(UserStatus.ACTIVE);
+    user.setEmailVerified(true);
+    user.setVerificationToken(null);
+    user.setVerificationTokenExpiry(null);
+
+    userRepository.save(user);
+    return user.getEmail();
   }
 
   public AuthenticationResponse login(LoginRequest request) {
 
+
     Users users = userRepository.findByUsername(request.getUsername());
+    if (users == null) {
+      throw  new IllegalArgumentException("Invalid username or email");
+    }
     boolean matches = passwordEncoder.matches(request.getPassword(), users.getPassword());
 
     if (!matches) {
       throw  new IllegalArgumentException("Invalid username or password");
+    }
+
+    if (!users.getStatus().equals(UserStatus.ACTIVE)) {
+      throw  new IllegalArgumentException("Verify email before login");
     }
 
     String token = utils.generateToken(users);
