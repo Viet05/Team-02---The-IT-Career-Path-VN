@@ -1,0 +1,163 @@
+/* quan trọng để không bị lệch kích thước */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 16px;
+  background: #fff; /* ✅ thay cho background-image: white */
+}
+
+.card {
+  width: 420px;
+  max-width: 100%;
+  border: 2px solid #111;
+  border-radius: 14px;
+  padding: 26px 22px;
+  background: #fff;
+}
+
+/* title/subtitle gọn đều */
+.card-title {
+  text-align: center;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.card-subtitle {
+  text-align: center;
+  font-size: 13px;
+  margin: 0 0 18px;
+}
+
+/* label/input đều nhau */
+.label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 10px 0 6px;
+}
+
+.input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid #111;
+  border-radius: 10px;
+  outline: none;
+}
+
+/* form spacing */
+.form {
+  display: block;
+}
+
+/* ============ REGISTER EXTRA ============ */
+
+/* Role group */
+.group {
+  margin: 10px 0 6px;
+}
+
+.role-row {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 6px;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.radio input {
+  width: 14px;
+  height: 14px;
+}
+
+/* checkbox */
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  margin: 10px 0 16px;
+}
+
+.check input {
+  width: 14px;
+  height: 14px;
+}
+
+/* Nút register giống nút login */
+.register-btn {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid #111;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* footer */
+.footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.footer a {
+  color: #111;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* error */
+.error {
+  border: 2px solid #ff3b3b;
+  color: #b00000;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.error p {
+  margin: 0;
+}
+.btn{
+width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 2px solid #111;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
