@@ -2,6 +2,7 @@ package com.team02.backend.security;
 
 import com.team02.backend.entity.Users;
 import com.team02.backend.repository.UserRepository;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-    Users user = userRepository.findByUsername(username);
-    return new  CustomUserDetail(user);
+    Users users = userRepository.findByUsername(username);
+    return new CustomUserDetail(users);
   }
 }
