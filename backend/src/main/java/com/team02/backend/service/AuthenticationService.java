@@ -9,8 +9,10 @@ import com.team02.backend.enums.UserStatus;
 import com.team02.backend.mapper.UserMapper;
 import com.team02.backend.repository.UserRepository;
 import com.team02.backend.security.JwtUtils;
+
+import jakarta.transaction.Transactional;
+
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ public class AuthenticationService {
   UserMapper userMapper;
   EmailService emailService;
 
+  @Transactional
   public String register(RegisterRequest request) {
 
     if (userRepository.existsByUsername(request.getUsername())) {
@@ -53,8 +56,6 @@ public class AuthenticationService {
     userRepository.save(users);
 
     emailService.sendEmail(users.getEmail(), verificationToken);
-
-    String token = "Verification email";
 
     return users.getEmail();
   }

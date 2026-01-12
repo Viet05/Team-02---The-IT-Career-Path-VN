@@ -27,7 +27,7 @@ public class JwtUtils {
 
   public String generateToken(Users user) {
 
-    JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
+    JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
 
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
         .subject(user.getUsername())
