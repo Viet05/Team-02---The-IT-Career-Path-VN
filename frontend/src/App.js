@@ -4,7 +4,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
-
+import AboutPage from "./pages/About";
+import JobsPage from "./pages/Job";
 
 function Placeholder({ title }) {
   return <div style={{ padding: 24 }}>{title}</div>;
@@ -16,9 +17,9 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<Placeholder title="About" />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/roadmap" element={<Placeholder title="Roadmap" />} />
-        <Route path="/jobs" element={<Placeholder title="Jobs" />} />
+        <Route path="/jobs" element={<JobsPage />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Placeholder title="Dashboard (tạm)" />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />

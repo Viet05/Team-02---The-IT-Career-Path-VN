@@ -1,0 +1,235 @@
+.about-page {
+  background: #fff;
+}
+
+/* căn giữa giống Home */
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 18px 60px;
+}
+
+/* style “khung viền dày” giống Home */
+.about-hero,
+.card,
+.timeline-card,
+.about-cta {
+  border: 2px solid #111;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.about-hero {
+  padding: 22px;
+}
+
+.about-badge {
+  display: inline-block;
+  border: 2px solid #111;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.about-title {
+  margin: 12px 0 8px;
+  font-size: 34px;
+}
+
+.about-desc {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.about-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* nút giống Home: viền dày, bo tròn */
+.btn {
+  text-decoration: none;
+  border: 2px solid #111;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: #111;
+  color: #fff;
+}
+
+.btn-outline {
+  background: #fff;
+  color: #111;
+}
+
+.about-section {
+  margin-top: 18px;
+}
+
+.about-head h2 {
+  margin: 0;
+}
+
+.sub {
+  margin: 6px 0 0;
+  opacity: 0.7;
+}
+
+/* grid giống Home */
+.grid {
+  margin-top: 12px;
+  display: grid;
+  gap: 12px;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card {
+  padding: 16px;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+}
+
+.card p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* TEAM */
+.team-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.team-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 2px solid #111;
+}
+
+.team-name {
+  font-weight: 800;
+}
+
+.team-role {
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.team-bio {
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.about-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.about-link {
+  border: 2px solid #111;
+  border-radius: 999px;
+  padding: 6px 10px;
+  text-decoration: none;
+  color: #111;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Timeline */
+.timeline {
+  margin-top: 12px;
+  border-left: 2px solid #111;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -23px;
+  top: 18px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #111;
+}
+
+.timeline-card {
+  padding: 14px;
+}
+
+.timeline-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  border: 2px solid #111;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.about-cta {
+  margin-top: 18px;
+  padding: 18px;
+  background: #111;
+  color: #fff;
+}
+
+.about-cta p {
+  opacity: 0.85;
+  margin: 8px 0 0;
+}
+
+.btn-light {
+  background: #fff;
+  color: #111;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+/* responsive */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .grid-4 { grid-template-columns: 1fr; }
+  .about-title { font-size: 28px; }
+}
