@@ -52,6 +52,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/roadmap/register").permitAll()
             .requestMatchers("/roadmap/login").permitAll()
+                .requestMatchers("/roadmap/admin/users").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

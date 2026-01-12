@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EmailService {
 
-  JavaMailSender mailSender;
+  private final JavaMailSender mailSender;
 
   public void sendEmail(String toEmail, String token) {
 
