@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "user_role_progress",
@@ -42,6 +43,6 @@ public class UserRoleProgress implements Serializable {
   @JoinColumn(name = "roadmap_node_id", nullable = false)
   private RoadmapNode roadmapNode;
 
-  @Timestamp
+  @UpdateTimestamp
   private LocalDateTime updatedAt;
 }

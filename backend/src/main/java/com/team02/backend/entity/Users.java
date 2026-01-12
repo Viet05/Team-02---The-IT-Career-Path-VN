@@ -22,6 +22,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "users")
@@ -53,7 +55,7 @@ public class Users implements Serializable {
   @Enumerated(EnumType.STRING)
   private UserStatus status;
 
-  @OneToOne(mappedBy = "usersId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private UserProfile userProfile;
 
   @OneToMany(mappedBy = "usersId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -62,9 +64,18 @@ public class Users implements Serializable {
   @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<UserFavoriteJob> userFavoriteJobList;
 
-  @Timestamp
+  @Column(name = "email_verified")
+  private boolean emailVerified = false;
+
+  @Column(name = "verification_token")
+  private String verificationToken;
+
+  @Column(name = "verification_token_expiry")
+  private LocalDateTime verificationTokenExpiry;
+
+  @CreationTimestamp
   private LocalDateTime createdAt;
 
-  @Timestamp
+  @UpdateTimestamp
   private LocalDateTime updatedAt;
 }
