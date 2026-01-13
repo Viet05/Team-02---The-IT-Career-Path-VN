@@ -1,16 +1,21 @@
-const TOKEN_KEY = "access_token";
-const ROLE_KEY = "role";
-
+// Save session data (token + role) to localStorage
 export const saveSession = ({ token, role }) => {
-  localStorage.setItem(TOKEN_KEY, token);
-  localStorage.setItem(ROLE_KEY, role);
+  localStorage.setItem("access_token", token);
+  localStorage.setItem("role", role);
 };
 
-export const getToken = () => localStorage.getItem(TOKEN_KEY);
-export const getRole = () => localStorage.getItem(ROLE_KEY);
-export const isAuthed = () => Boolean(getToken());
+// Get token from localStorage
+export const getToken = () => {
+  return localStorage.getItem("access_token");
+};
 
+// Get role from localStorage
+export const getRole = () => {
+  return localStorage.getItem("role");
+};
+
+// Logout: clear localStorage
 export const logout = () => {
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(ROLE_KEY);
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("role");
 };

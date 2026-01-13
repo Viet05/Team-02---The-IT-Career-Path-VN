@@ -7,9 +7,12 @@ import { saveSession } from "../services/auth";
 
 const routeByRole = (role) => {
   if (role === "Admin") return "/admin";
-  if (role === "Company") return "/company";
-  return "/home"; // Student mặc định
+
+  // User (Company/Student) -> vào giao diện bình thường
+  if (role === "Company") return "/jobs";
+  return "/"; // Student
 };
+
 
 export default function Login() {
   const nav = useNavigate();
