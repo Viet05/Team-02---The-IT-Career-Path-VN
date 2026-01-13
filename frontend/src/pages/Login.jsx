@@ -1,92 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
-const USERS_KEY = "mock_users";
-const TOKEN_KEY = "access_token";
-const ROLE_KEY = "role";
+import { loginMock } from "../services/authMock";
+import { saveSession } from "../services/auth";
 
-const makeFakeJwt = (payload) => {
-  const header = btoa(JSON.stringify({ alg: "none", typ: "JWT" }));
-  const body = btoa(JSON.stringify(payload));
-  return `${header}.${body}.fake`;
-};
-
-const loadUsers = () => {
-  try {
-    return JSON.parse(localStorage.getItem(USERS_KEY)) || {};
-  } catch {
-    return {};
-  }
+const routeByRole = (role) => {
+  if (role === "Admin") return "/admin";
+  if (role === "Company") return "/company";
+  return "/home"; // Student mặc định
 };
 
 export default function Login() {
   const nav = useNavigate();
-  const location = useLocation();
-
-  const [username, setUsername] = useState("");
-  const [pass, setPass] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // ✅ Prefill username từ Register
-  useEffect(() => {
-    const prefill = location.state?.prefillUser;
-    if (prefill) setUsername(prefill);
-  }, [location.state]);
+  const [error, setError] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    if (!username.trim()) return setError("Vui lòng nhập username.");
-    if (!pass) return setError("Vui lòng nhập mật khẩu.");
-    if (pass.length < 6) return setError("Mật khẩu tối thiểu 6 ký tự.");
-
     try {
       setLoading(true);
 
-      // ✅ Check for hardcoded admin
-      if (username.trim() === "admin" && pass === "admin123") {
-        const role = "ADMIN";
-        const token = makeFakeJwt({
-          sub: "admin",
-          username: "admin",
-          role,
-          exp: Date.now() + 60 * 60 * 1000,
-        });
-
-        localStorage.setItem(TOKEN_KEY, token);
-        localStorage.setItem(ROLE_KEY, role);
-
-        nav("/admin", { replace: true });
-        return;
-      }
-
-      const usersObj = loadUsers();
-      const users = Object.values(usersObj);
-
-      // ✅ login bằng username
-      const user = users.find((u) => u.username === username.trim());
-      if (!user) return setError("Username không tồn tại.");
-      if (user.password !== pass) return setError("Sai mật khẩu.");
+      // ✅ chưa gọi backend: dùng mock
+      const { token, role } = await loginMock({ email, password });
 
       // ✅ lưu token + role
-      const role = user.role || "STUDENT";
-      const token = makeFakeJwt({
-        sub: user.email || user.username,
-        username: user.username,
-        role,
-        exp: Date.now() + 60 * 60 * 1000,
-      });
+      saveSession({ token, role });
 
-      localStorage.setItem(TOKEN_KEY, token);
-      localStorage.setItem(ROLE_KEY, role);
-
-      // ✅ Redirect theo role (bạn đổi route theo dự án)
-      if (role === "ADMIN") nav("/admin", { replace: true });
-      else if (role === "COMPANY") nav("/company", { replace: true });
-      else nav("/home", { replace: true });
+      // ✅ redirect theo role
+      nav(routeByRole(role), { replace: true });
+    } catch (err) {
+      setError(err?.message || "Đăng nhập thất bại.");
     } finally {
       setLoading(false);
     }
@@ -98,17 +46,26 @@ export default function Login() {
         <div className="card-title">Login</div>
         <div className="card-subtitle">Welcome back! Sign in to your account.</div>
 
-        {error ? <div className="error">{error}</div> : null}
+        <button className="social-btn" type="button">Continue with GitHub</button>
+        <button className="social-btn" type="button">Continue with Google</button>
+        <button className="social-btn" type="button">Continue with LinkedIn</button>
 
-        <form onSubmit={onSubmit} className="form">
-          <label className="label">User name</label>
+        <div className="or">
+          <span className="line" />
+          <span className="or-text">OR</span>
+          <span className="line" />
+        </div>
+
+        {error && <div className="error">{error}</div>}
+
+        <form onSubmit={onSubmit}>
+          <label className="label">Email Address</label>
           <input
             className="input"
-            placeholder="Your username"
+            placeholder="email@example.com"
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            autoComplete="username"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <label className="label">Password</label>
@@ -116,13 +73,12 @@ export default function Login() {
             className="input"
             placeholder="••••••••"
             type="password"
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <div className="reset">
-            <Link to="/forgotPassword">Forgot password?</Link>
+            <Link to="/forgotPassword">Forgot Password?</Link>
           </div>
 
           <button className="login-btn" type="submit" disabled={loading}>
@@ -132,6 +88,10 @@ export default function Login() {
 
         <div className="footer">
           Don&apos;t have an account? <Link to="/register">Sign up</Link>
+        </div>
+
+        <div style={{ marginTop: 10, fontSize: 12, opacity: 0.7 }}>
+          Admin test: email <b>admin</b>, password <b>admin</b>
         </div>
       </div>
     </div>
