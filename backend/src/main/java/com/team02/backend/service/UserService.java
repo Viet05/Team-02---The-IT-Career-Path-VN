@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,7 +29,9 @@ public class UserService {
                         user.getUsername(),
                         user.getEmail(),
                         user.getRole(),
-                        user.getStatus()
+                        user.getStatus(),
+                        user.getCreatedAt(),
+                        user.getUpdatedAt()
                 ))
                 .toList();
     }
@@ -39,6 +42,7 @@ public class UserService {
 
         user.setUsername(request.getUsername());
         user.setRole(request.getRole());
+        user.setUpdatedAt(LocalDateTime.now());
 
         userRepository.save(user);
         return new UserAdminResponse(
@@ -46,7 +50,9 @@ public class UserService {
                 user.getUsername(),
                 user.getEmail(),
                 user.getRole(),
-                user.getStatus()
+                user.getStatus(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
         );
     }
 
@@ -73,7 +79,9 @@ public class UserService {
                 user.getUsername(),
                 user.getEmail(),
                 user.getRole(),
-                user.getStatus()
+                user.getStatus(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()
         );
     }
 }

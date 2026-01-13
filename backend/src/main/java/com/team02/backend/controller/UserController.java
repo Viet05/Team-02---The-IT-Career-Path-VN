@@ -41,6 +41,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ApiResponse<Object> deleteUser(@PathVariable long id){
+        userService.deleteUserById(id);
         return ApiResponse.builder()
                 .code(200)
                 .message("Delete successfully")

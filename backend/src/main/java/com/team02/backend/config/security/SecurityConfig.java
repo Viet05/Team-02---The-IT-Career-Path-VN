@@ -53,6 +53,10 @@ public class SecurityConfig {
             .requestMatchers("/roadmap/register").permitAll()
             .requestMatchers("/roadmap/login").permitAll()
                 .requestMatchers("/roadmap/admin/users").permitAll()
+                .requestMatchers("/roadmap/admin/users/{id}").permitAll()
+                .requestMatchers("/roadmap/admin/users/{id}/status").permitAll()
+                .requestMatchers("/roadmap/reset-password/request").permitAll()
+                .requestMatchers("/roadmap/reset-password/confirm").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
