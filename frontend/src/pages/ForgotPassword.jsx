@@ -46,7 +46,7 @@ export default function ForgotPassword() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      setMessage("Đã gửi hướng dẫn. Vui lòng đặt mật khẩu mới.");
+      setMessage("Vui lòng đặt mật khẩu mới.");
       setStep(2);
     }, 300);
   };

@@ -4,15 +4,7 @@ import "../styles/Register.css";
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-const USERS_KEY = "mock_users"; // nơi lưu danh sách user mock
-const TOKEN_KEY = "access_token";
-const ROLE_KEY = "role";
-
-const makeFakeJwt = (payload) => {
-  const header = btoa(JSON.stringify({ alg: "none", typ: "JWT" }));
-  const body = btoa(JSON.stringify(payload));
-  return `${header}.${body}.fake`;
-};
+const USERS_KEY = "mock_users";
 
 const loadUsers = () => {
   try {
@@ -29,11 +21,10 @@ const saveUsers = (users) => {
 export default function Register() {
   const nav = useNavigate();
 
-  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [role, setRole] = useState("STUDENT");
   const [agree, setAgree] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,7 +33,7 @@ export default function Register() {
     e.preventDefault();
     setError("");
 
-    if (!fullName.trim()) return setError("Vui lòng nhập họ tên.");
+    if (!username.trim()) return setError("Vui lòng nhập username.");
     if (!isValidEmail(email)) return setError("Email không đúng định dạng.");
     if (pass.length < 6) return setError("Mật khẩu tối thiểu 6 ký tự.");
     if (pass !== confirm) return setError("Mật khẩu nhập lại không khớp.");
@@ -51,38 +42,28 @@ export default function Register() {
     try {
       setLoading(true);
 
-      // ✅ Lưu user vào LocalStorage (mock DB)
       const users = loadUsers();
       const key = email.trim().toLowerCase();
+      const uname = username.trim();
 
-      if (key === "admin") {
-        return setError("Email này không hợp lệ.");
-      }
+      // check trùng email
+      if (users[key]) return setError("Email đã tồn tại. Vui lòng đăng nhập.");
 
-      if (users[key]) {
-        return setError("Email đã tồn tại. Vui lòng đăng nhập.");
-      }
+      // check trùng username
+      const usernameExists = Object.values(users).some((u) => u.username === uname);
+      if (usernameExists) return setError("Username đã tồn tại. Vui lòng chọn username khác.");
 
       users[key] = {
-        fullName: fullName.trim(),
+        username: uname,
         email: key,
         password: pass,
-        role, // STUDENT | COMPANY
+        role: "STUDENT", // nếu chưa làm chọn role, để mặc định
       };
       saveUsers(users);
 
-      // ✅ Auto-login luôn (lưu token + role)
-      const token = makeFakeJwt({
-        sub: key,
-        role,
-        exp: Date.now() + 60 * 60 * 1000,
-      });
-
-      localStorage.setItem(TOKEN_KEY, token);
-      localStorage.setItem(ROLE_KEY, role);
-
-      // ✅ Redirect theo role
-      nav(role === "COMPANY" ? "/company" : "/home", { replace: true });
+      // ✅ xong: chuyển qua login và tự điền username
+      nav("/login", { replace: true, state: { prefillUser: uname } });
+      return;
     } finally {
       setLoading(false);
     }
@@ -97,12 +78,12 @@ export default function Register() {
         {error ? <div className="error">{error}</div> : null}
 
         <form onSubmit={onSubmit} className="form">
-          <label className="label">Full name</label>
+          <label className="label">User name</label>
           <input
             className="input"
-            placeholder="Your name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Your username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
 
           <label className="label">Email Address</label>
@@ -132,33 +113,6 @@ export default function Register() {
             onChange={(e) => setConfirm(e.target.value)}
           />
 
-          {/* ✅ Role */}
-          <div className="group">
-            <div className="label" style={{ margin: 0 }}>Role</div>
-            <div className="role-row">
-              <label className="radio">
-                <input
-                  type="radio"
-                  name="role"
-                  checked={role === "STUDENT"}
-                  onChange={() => setRole("STUDENT")}
-                />
-                <span>Student</span>
-              </label>
-
-              <label className="radio">
-                <input
-                  type="radio"
-                  name="role"
-                  checked={role === "COMPANY"}
-                  onChange={() => setRole("COMPANY")}
-                />
-                <span>Company</span>
-              </label>
-            </div>
-          </div>
-
-          {/* ✅ Terms */}
           <label className="check">
             <input
               type="checkbox"
@@ -168,8 +122,7 @@ export default function Register() {
             <span>I agree to Terms &amp; Privacy</span>
           </label>
 
-          {/* ✅ Nút submit đúng chuẩn: KHÔNG bọc Link */}
-          <button className="btn" type="submit" disabled={loading}>
+          <button className="register-btn" type="submit" disabled={loading}>
             {loading ? "Creating..." : "Create account"}
           </button>
         </form>

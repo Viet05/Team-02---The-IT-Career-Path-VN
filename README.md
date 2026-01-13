@@ -176,6 +176,9 @@ Nếu gặp vấn đề:
 
 
 cd frontend
-
 npm install
 npm start
+
+cd Team-02---The-IT-Career-Path-VN
+git checkout main
+git pull origin main
