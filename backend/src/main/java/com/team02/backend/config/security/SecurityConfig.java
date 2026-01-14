@@ -50,13 +50,14 @@ public class SecurityConfig {
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/roadmap/register").permitAll()
-            .requestMatchers("/roadmap/login").permitAll()
-                .requestMatchers("/roadmap/admin/users").permitAll()
-                .requestMatchers("/roadmap/admin/users/{id}").permitAll()
-                .requestMatchers("/roadmap/admin/users/{id}/status").permitAll()
-                .requestMatchers("/roadmap/reset-password/request").permitAll()
-                .requestMatchers("/roadmap/reset-password/confirm").permitAll()
+            .requestMatchers("/api/it-path/auth/register").permitAll()
+            .requestMatchers("/api/it-path/auth/login").permitAll()
+                .requestMatchers("/api/it-path/auth/verify-email").permitAll()
+                .requestMatchers("/api/it-path/admin/users").permitAll()
+                .requestMatchers("/api/it-path/admin/users/{id}").permitAll()
+                .requestMatchers("/api/it-path/admin/users/{id}/status").permitAll()
+                .requestMatchers("/api/it-path/auth/reset-password/request").permitAll()
+                .requestMatchers("/api/it-path/auth/reset-password/confirm").permitAll()
             .anyRequest().authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
