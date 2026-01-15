@@ -5,6 +5,6 @@ export default function ProtectedRoute({ children }) {
   const token = getToken(); // đọc access_token
   const role = getRole();   // đọc role
 
-  if (!token || role !== "Admin") return <Navigate to="/login" replace />;
+  if (!token || role !== "ADMIN") return <Navigate to="/login" replace />;
   return children;
 }

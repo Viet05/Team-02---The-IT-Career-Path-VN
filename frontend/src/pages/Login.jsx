@@ -41,13 +41,13 @@ export default function Login() {
 
     if (!username.trim()) return setError("Vui lòng nhập username.");
     if (!pass) return setError("Vui lòng nhập mật khẩu.");
-    if (pass.length < 6) return setError("Mật khẩu tối thiểu 6 ký tự.");
+    if (pass.length < 5) return setError("Mật khẩu tối thiểu 5 ký tự.");
 
     try {
       setLoading(true);
 
       // ✅ Check for hardcoded admin
-      if (username.trim() === "admin" && pass === "admin123") {
+      if (username.trim() === "admin" && pass === "admin") {
         const role = "ADMIN";
         const token = makeFakeJwt({
           sub: "admin",
