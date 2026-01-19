@@ -21,7 +21,7 @@ const saveUsers = (users) => {
 export default function ForgotPassword() {
   const nav = useNavigate();
 
-  const [step, setStep] = useState(1); // 1: nhập email, 2: đặt mật khẩu mới
+  const [step, setStep] = useState(1); 
   const [email, setEmail] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirm, setConfirm] = useState("");

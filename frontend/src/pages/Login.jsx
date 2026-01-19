@@ -41,11 +41,35 @@ export default function Login() {
 
     if (!username.trim()) return setError("Vui lòng nhập username.");
     if (!pass) return setError("Vui lòng nhập mật khẩu.");
+<<<<<<< HEAD
     if (pass.length < 6) return setError("Mật khẩu tối thiểu 6 ký tự.");
+=======
+    if (pass.length < 5) return setError("Mật khẩu tối thiểu 5 ký tự.");
+>>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
 
     try {
       setLoading(true);
 
+<<<<<<< HEAD
+=======
+      // ✅ Check for hardcoded admin
+      if (username.trim() === "admin" && pass === "admin") {
+        const role = "ADMIN";
+        const token = makeFakeJwt({
+          sub: "admin",
+          username: "admin",
+          role,
+          exp: Date.now() + 60 * 60 * 1000,
+        });
+
+        localStorage.setItem(TOKEN_KEY, token);
+        localStorage.setItem(ROLE_KEY, role);
+
+        nav("/admin", { replace: true });
+        return;
+      }
+
+>>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
       const usersObj = loadUsers();
       const users = Object.values(usersObj);
 
@@ -105,7 +129,11 @@ export default function Login() {
           />
 
           <div className="reset">
+<<<<<<< HEAD
             <Link to="/forgotPassword">Reset your password?</Link>
+=======
+            <Link to="/forgotPassword">Forgot password?</Link>
+>>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
           </div>
 
           <button className="login-btn" type="submit" disabled={loading}>
