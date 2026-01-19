@@ -1,203 +1,435 @@
-*,
-*::before,
-*::after { box-sizing: border-box; }
+/* ============================================
+   HOME PAGE
+   ============================================ */
 
-
-
-
-.home73{
+.home73 {
   min-height: 100vh;
-  background: #fff;
-  color: #111;
-  padding: 28px 16px 70px;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--color-bg);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  font-family: var(--font-family);
 }
 
-.home73-head{
-  max-width: 1200px;
-  margin: 0 auto 18px;
-}
-
-.home73-title{
-  margin: 0;
-  font-size: 22px;
-  font-weight: 900;
-}
-
-.home73-subtitle{
-  margin: 6px 0 0;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-/* 7:3 layout */
-.home73-grid{
-  max-width: 1200px;
+.home73-grid {
+  max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 7fr 3fr;
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-2xl);
   align-items: start;
 }
 
-/* box chung */
-.box{
-  border: 2px solid #111;
-  border-radius: 14px;
-  background: #fff;
-  padding: 16px;
+/* ============================================
+   CARDS / BOXES
+   ============================================ */
+
+.box {
+  background: var(--color-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
 }
 
-.left, .right{
-  display: grid;
-  gap: 16px;
+.box:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
 
-.box-title{
-  font-size: 12px;
-  font-weight: 900;
-  margin-bottom: 12px;
+.box-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
 }
 
-/* roles */
-.role-grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+.box-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
 }
 
-.role-btn{
-  height: 44px;
-  border: 2px solid #111;
-  border-radius: 12px;
-  background: #fff;
-  font-weight: 800;
-  font-size: 12px;
-  cursor: pointer;
-  text-align: left;
-  padding: 0 12px;
-}
-
-.role-btn:hover{
-  background: #111;
-  color: #fff;
-}
-
-/* chips */
-.chip-row{
+.left,
+.right {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  gap: var(--spacing-lg);
 }
 
-.chip{
-  height: 28px;
-  padding: 0 14px;
-  border: 2px solid #111;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 800;
-  display: inline-flex;
-  align-items: center;
-}
+/* ============================================
+   ROADMAP CARDS
+   ============================================ */
 
-/* jobs */
-.job-list{
+.roadmaps-grid {
   display: grid;
-  gap: 12px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
 }
 
-.job-card{
-  border: 2px solid #111;
-  border-radius: 14px;
-  padding: 12px;
-  background: #fff;
+.roadmap-card {
+  background: var(--color-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.2s ease;
 }
 
-.job-top{
+.roadmap-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+  border-color: var(--color-primary);
+}
+
+.roadmap-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-md);
 }
 
-.job-time{
-  font-size: 11px;
-  opacity: 0.7;
+.roadmap-
+-header h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text);
 }
 
-.job-badge{
-  font-size: 10px;
-  font-weight: 900;
-  border: 2px solid #111;
-  border-radius: 8px;
-  padding: 3px 8px;
+.roadmap-steps-count {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
 }
 
-.job-badge.super{
-  /* vẫn trắng đen, chỉ làm nổi hơn */
-  background: #111;
-  color: #fff;
+.roadmap-card-desc {
+  margin: 0 0 var(--spacing-lg);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: 1.5;
 }
 
-.job-title{
-  font-size: 14px;
-  font-weight: 900;
-  line-height: 1.3;
-  margin-bottom: 10px;
+.roadmap-progress-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-bg);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xs);
 }
 
-.job-row{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  margin-top: 6px;
+.roadmap-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+  border-radius: 999px;
 }
 
-.job-muted{
-  opacity: 0.8;
+.roadmap-progress-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
 }
 
-.job-dot{
-  width: 18px;
-  height: 18px;
-  border: 2px solid #111;
-  border-radius: 4px;
+.view-all-link {
+  display: block;
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  transition: all 0.2s ease;
 }
 
-.job-ico{
-  width: 18px;
-  display: inline-flex;
-  justify-content: center;
+.view-all-link:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
 }
 
-.job-sep{
-  opacity: 0.6;
+/* ============================================
+   ROLE BUTTONS
+   ============================================ */
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
 }
 
-/* tags */
-.job-tags{
+.role-btn {
+  height: 52px;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background: var(--color-card);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  text-align: center;
+  padding: 0 var(--spacing-md);
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+  color: var(--color-text);
+}
+
+.role-btn:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+/* ============================================
+   SKILL CHIPS
+   ============================================ */
+
+.chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
+  gap: var(--spacing-md);
 }
 
-.job-tag{
-  border: 2px solid #111;
+.chip {
+  height: 40px;
+  padding: 0 var(--spacing-lg);
+  border: var(--border-width) solid var(--color-border);
   border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 11px;
-  font-weight: 800;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  display: inline-flex;
+  align-items: center;
+  background: var(--color-card);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* responsive */
-@media (max-width: 900px){
-  .home73-grid{
+/* ============================================
+   JOB CARDS
+   ============================================ */
+
+.job-list {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.job-card {
+  background: var(--color-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.2s ease;
+}
+
+.job-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+  border-color: var(--color-primary);
+}
+
+.job-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.job-time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.job-badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-error-bg);
+  color: var(--color-error);
+  border: var(--border-width) solid var(--color-error);
+}
+
+.job-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.3;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.job-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+.job-muted {
+  color: var(--color-text-muted);
+}
+
+.job-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+}
+
+.job-ico {
+  width: 16px;
+  display: inline-flex;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+}
+
+.job-sep {
+  opacity: 0.5;
+}
+
+.job-company {
+  font-weight: var(--font-weight-semibold);
+}
+
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.job-tag {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 999px;
+  padding: 4px var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-state-box {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+}
+
+.empty-state-box h4 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.empty-state-box p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1280px) {
+  .home73-grid {
+    gap: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 920px) {
+  .home73-grid {
     grid-template-columns: 1fr;
   }
-  .role-grid{
+  
+  .role-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .home73 {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .home73-grid {
+    gap: var(--spacing-lg);
+  }
+
+  .box {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .box-title {
+    font-size: var(--font-size-base);
+  }
+
+  .role-grid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .role-btn {
+    height: 48px;
+    font-size: var(--font-size-sm);
+  }
+
+  .chip-row {
+    gap: var(--spacing-sm);
+  }
+
+  .chip {
+    height: 36px;
+    padding: 0 var(--spacing-md);
+    font-size: var(--font-size-xs);
+  }
+
+  .roadmaps-grid {
+    gap: var(--spacing-md);
+  }
+
+  .job-list {
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .home73 {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .box {
+    padding: var(--spacing-md);
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chip-row {
+    gap: var(--spacing-xs);
+  }
+
+  .chip {
+    height: 32px;
+    padding: 0 var(--spacing-md);
   }
 }

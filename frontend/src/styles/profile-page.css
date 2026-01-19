@@ -1,0 +1,136 @@
+.profile-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+}
+
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl);
+  gap: var(--spacing-lg);
+}
+
+.profile-header h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-black);
+  margin-bottom: var(--spacing-sm);
+}
+
+.profile-header p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+}
+
+.profile-card {
+  padding: var(--spacing-2xl);
+}
+
+.profile-avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.avatar-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: var(--font-weight-extrabold);
+}
+
+.profile-card h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  text-align: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+.profile-email {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xl);
+}
+
+.profile-info-section {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.info-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.roadmap-info {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.roadmap-icon {
+  font-size: 48px;
+  flex-shrink: 0;
+}
+
+.roadmap-info h4 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-xs);
+}
+
+.roadmap-info p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.progress-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header {
+    flex-direction: column;
+  }
+}
