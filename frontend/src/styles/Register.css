@@ -1,116 +1,162 @@
-/* quan trọng để không bị lệch kích thước */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* ============================================
+   REGISTER PAGE
+   ============================================ */
 
 .page {
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 60px 16px;
-  background: #fff; /* ✅ thay cho background-image: white */
+  align-items: center;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background: var(--color-bg);
 }
 
 .card {
-  width: 420px;
-  max-width: 100%;
-  border: 2px solid #111;
-  border-radius: 14px;
-  padding: 26px 22px;
-  background: #fff;
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
 }
 
-/* title/subtitle gọn đều */
 .card-title {
   text-align: center;
-  font-weight: 700;
-  margin: 0 0 6px;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  margin: 0 0 var(--spacing-sm);
+  color: var(--color-text);
 }
 
 .card-subtitle {
   text-align: center;
-  font-size: 13px;
-  margin: 0 0 18px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--spacing-xl);
+  font-weight: var(--font-weight-normal);
 }
 
-/* label/input đều nhau */
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
 .label {
   display: block;
-  font-size: 12px;
-  font-weight: 600;
-  margin: 10px 0 6px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
 }
 
 .input {
   width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border: 2px solid #111;
-  border-radius: 10px;
+  height: var(--input-height);
+  padding: 0 var(--spacing-md);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background: var(--color-card);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  color: var(--color-text);
+  transition: all 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:hover {
+  border-color: #CBD5E1;
+}
+
+.input:focus {
   outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* form spacing */
-.form {
-  display: block;
-}
+/* ============================================
+   RADIO BUTTONS
+   ============================================ */
 
-/* ============ REGISTER EXTRA ============ */
-
-/* Role group */
 .group {
-  margin: 10px 0 6px;
+  margin: var(--spacing-md) 0 var(--spacing-sm);
 }
 
 .role-row {
   display: flex;
   align-items: center;
-  gap: 26px;
-  margin-top: 6px;
+  gap: var(--spacing-xl);
+  margin-top: var(--spacing-sm);
 }
 
 .radio {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  cursor: pointer;
 }
 
-.radio input {
-  width: 14px;
-  height: 14px;
+.radio input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
 }
 
-/* checkbox */
+/* ============================================
+   CHECKBOX
+   ============================================ */
+
 .check {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  margin: 10px 0 16px;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  margin: var(--spacing-sm) 0;
 }
 
-.check input {
-  width: 14px;
-  height: 14px;
+.check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
 }
 
-/* Nút register giống nút login */
+/* ============================================
+   BUTTONS
+   ============================================ */
+
 .register-btn {
   width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border: 2px solid #111;
-  border-radius: 12px;
-  background: #fff;
-  font-weight: 700;
+  height: var(--button-height);
+  padding: 0 var(--spacing-lg);
+  border: none;
+  border-radius: var(--border-radius-md);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family);
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.2s ease;
+  margin-top: var(--spacing-sm);
+}
+
+.register-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.register-btn:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .register-btn:disabled {
@@ -118,46 +164,103 @@
   cursor: not-allowed;
 }
 
-/* footer */
+/* ============================================
+   LINKS
+   ============================================ */
+
 .footer {
-  margin-top: 16px;
+  margin-top: var(--spacing-xl);
   text-align: center;
-  font-size: 12px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
 }
 
 .footer a {
-  color: #111;
-  font-weight: 700;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .footer a:hover {
+  color: var(--color-primary-hover);
   text-decoration: underline;
 }
 
-/* error */
-.error {
-  border: 2px solid #ff3b3b;
-  color: #b00000;
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
+/* ============================================
+   ERROR MESSAGES
+   ============================================ */
 
+.error {
+  padding: var(--spacing-md);
+  border: var(--border-width) solid var(--color-error);
+  border-radius: var(--border-radius-md);
+  background: var(--color-error-bg);
+  color: #DC2626;
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+}
 .error p {
   margin: 0;
 }
-.btn{
-width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border: 2px solid #111;
-  border-radius: 12px;
-  background: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+
+.input.error {
+  border-color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+.input.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .page {
+    min-height: calc(100vh - 64px);
+    padding: var(--spacing-xl) var(--spacing-md);
+    align-items: flex-start;
+    padding-top: var(--spacing-2xl);
+  }
+
+  .card {
+    max-width: 100%;
+    padding: var(--spacing-xl);
+  }
+
+  .card-title {
+    font-size: var(--font-size-xl);
+  }
+
+  .form {
+    gap: var(--spacing-md);
+  }
+
+  .label {
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--spacing-lg) var(--spacing-sm);
+    padding-top: var(--spacing-xl);
+  }
+
+  .card {
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+  }
+
+  .card-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .card-subtitle {
+    font-size: var(--font-size-xs);
+    margin-bottom: var(--spacing-lg);
+  }
 }

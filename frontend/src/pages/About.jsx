@@ -4,9 +4,9 @@ import "../styles/about.css";
 
 const team = [
   {
-    name: "Nguyễn Văn A",
+    name: "Nguyen Van A",
     role: "Lead Developer",
-    bio: "Mình là A, đam mê Web Performance, phụ trách kiến trúc dự án & code frontend chính.",
+    bio: "I'm A. I'm passionate about web performance and responsible for the project architecture and core frontend development.",
     avatar: "/team/a.jpg",
     links: {
       github: "https://github.com/your-github-a",
@@ -15,9 +15,9 @@ const team = [
     },
   },
   {
-    name: "Trần Thị B",
+    name: "Tran Thi B",
     role: "UI/UX Designer",
-    bio: "Mình là B, thích thiết kế tối giản, phụ trách UI kit, flow và trải nghiệm người dùng.",
+    bio: "I'm B. I love minimal design and I take care of the UI kit, user flows, and overall user experience.",
     avatar: "/team/b.jpg",
     links: {
       github: "https://github.com/your-github-b",
@@ -26,9 +26,9 @@ const team = [
     },
   },
   {
-    name: "Lê Văn C",
+    name: "Le Van C",
     role: "Content Researcher",
-    bio: "Mình là C, quan tâm lộ trình học tập, phụ trách chọn lọc tài liệu và viết nội dung roadmap.",
+    bio: "I'm C. I'm interested in learning paths and responsible for curating resources and writing roadmap content.",
     avatar: "/team/c.jpg",
     links: {
       github: "https://github.com/your-github-c",
@@ -37,9 +37,9 @@ const team = [
     },
   },
   {
-    name: "Phạm Thị D",
+    name: "Pham Thi D",
     role: "Backend Developer",
-    bio: "Mình là D, thích hệ thống và API, phụ trách backend, database và triển khai.",
+    bio: "I'm D. I enjoy building systems and APIs, and I'm responsible for the backend, database, and deployment.",
     avatar: "/team/d.jpg",
     links: {
       github: "https://github.com/your-github-d",
@@ -50,17 +50,33 @@ const team = [
 ];
 
 const values = [
-  { title: "Cập nhật", desc: "Nội dung bám sát nhu cầu ngành và xu hướng thực tế." },
-  { title: "Cộng đồng", desc: "Chia sẻ kiến thức, hỗ trợ nhau học tập và làm project." },
-  { title: "Dễ hiểu", desc: "Trực quan, ít “hàn lâm”, ưu tiên ví dụ và thực hành." },
-  { title: "Chất lượng", desc: "Chọn lọc tài liệu tốt, tránh rác thông tin." },
+  { title: "Up-to-date", desc: "Content aligned with real industry needs and trends." },
+  { title: "Community", desc: "Share knowledge, support each other, and build projects together." },
+  { title: "Easy to follow", desc: "Visual, practical, and focused on examples instead of theory." },
+  { title: "Quality", desc: "Carefully curated resources to avoid information noise." },
 ];
 
 const journey = [
-  { time: "MM/YYYY", title: "Ý tưởng ra đời", desc: "Nhóm nhận ra nhiều bạn bị “ngợp” khi tự học IT và cần một roadmap tinh gọn." },
-  { time: "MM/YYYY", title: "Prototype", desc: "Xây khung roadmap, trang tài liệu, và định hình trải nghiệm người dùng." },
-  { time: "MM/YYYY", title: "Vượt khó", desc: "Đồng bộ lịch, thống nhất UI, chuẩn hóa nội dung và hệ thống hóa tài liệu." },
-  { time: "Hiện tại", title: "Beta / v1.0", desc: "Hoàn thiện roadmap, mở góp ý và cập nhật đều đặn theo phản hồi cộng đồng." },
+  {
+    time: "MM/YYYY",
+    title: "The idea was born",
+    desc: "We realized many students feel overwhelmed when self-learning IT and need a clear, compact roadmap.",
+  },
+  {
+    time: "MM/YYYY",
+    title: "Prototype",
+    desc: "We built the initial roadmap structure, resource pages, and shaped the user experience.",
+  },
+  {
+    time: "MM/YYYY",
+    title: "Challenges",
+    desc: "We synchronized schedules, unified the UI, standardized content, and organized learning materials.",
+  },
+  {
+    time: "Now",
+    title: "Beta / v1.0",
+    desc: "We’re polishing the roadmaps, opening for feedback, and continuously updating based on the community.",
+  },
 ];
 
 function SocialLinks({ links }) {
@@ -89,16 +105,22 @@ export default function AboutPage() {
         <section className="about-hero">
           <div className="about-badge">About • Our Mission • Our Team</div>
 
-          <h1 className="about-title">Từ sinh viên IT, dành cho sinh viên IT.</h1>
+          <h1 className="about-title" style={{ color: "white" }}>
+            Built by IT students, for IT students.
+          </h1>
 
           <p className="about-desc">
-            Sinh viên IT thường bị “ngợp” giữa quá nhiều công nghệ và lộ trình. Tụi mình xây web này để giúp bạn học đúng
-            thứ cần học, theo roadmap rõ ràng và nguồn tài liệu chất lượng.
+            IT students often feel overwhelmed by endless technologies and learning paths. We built this website to help
+            you learn the right things, follow a clear roadmap, and use high-quality curated resources.
           </p>
 
           <div className="about-actions">
-            <Link to="/roadmap" className="btn btn-primary">Xem Roadmap</Link>
-            <Link to="/jobs" className="btn btn-outline">Tham gia cộng đồng</Link>
+            <Link to="/roadmaps" className="btn btn-primary">
+              Explore Roadmaps
+            </Link>
+            <Link to="/jobs" className="btn btn-outline">
+              Browse Jobs
+            </Link>
           </div>
         </section>
 
@@ -106,30 +128,31 @@ export default function AboutPage() {
         <section className="about-section">
           <div className="about-head">
             <div>
-              <h2>Mục tiêu & Sứ mệnh</h2>
+              <h2>Mission & Goals</h2>
               <p className="sub">Our Mission</p>
             </div>
           </div>
 
           <div className="grid grid-3">
             <div className="card">
-              <h3>Vấn đề</h3>
+              <h3>The Problem</h3>
               <p>
-                Sinh viên IT dễ lạc lối giữa hàng tá roadmap, khóa học, framework, tutorial… Học nhiều nhưng thiếu hệ
-                thống, khó biết “bắt đầu từ đâu” và “học tới đâu là đủ”.
+                IT students can easily get lost among countless roadmaps, courses, frameworks, and tutorials. Many learn a
+                lot but lack structure, and struggle to know “where to start” or “what is enough.”
               </p>
             </div>
             <div className="card">
-              <h3>Giải pháp</h3>
+              <h3>The Solution</h3>
               <p>
-                Cung cấp roadmap tinh gọn theo mục tiêu (Web/Backend/Mobile/AI…), kèm tài liệu chọn lọc, ví dụ thực hành và
-                gợi ý dự án để bạn học nhanh – đúng – áp dụng được.
+                Provide compact roadmaps by goal (Web/Backend/Mobile/AI…), along with curated resources, practical
+                examples, and project suggestions so you can learn fast — learn right — and apply it.
               </p>
             </div>
             <div className="card">
-              <h3>Thông điệp</h3>
+              <h3>Our Message</h3>
               <p>
-                <b>Từ sinh viên IT, dành cho sinh viên IT.</b> Làm đơn giản, thực tế và luôn lắng nghe cộng đồng để cải thiện.
+                <b>Built by IT students, for IT students.</b> Keep it simple, practical, and always improve by listening
+                to the community.
               </p>
             </div>
           </div>
@@ -139,7 +162,7 @@ export default function AboutPage() {
         <section className="about-section">
           <div className="about-head">
             <div>
-              <h2>Giá trị cốt lõi</h2>
+              <h2>Core Values</h2>
               <p className="sub">Core Values</p>
             </div>
           </div>
@@ -158,7 +181,7 @@ export default function AboutPage() {
         <section className="about-section">
           <div className="about-head">
             <div>
-              <h2>Đội ngũ phát triển</h2>
+              <h2>Our Team</h2>
               <p className="sub">Meet the Team</p>
             </div>
           </div>
@@ -167,7 +190,7 @@ export default function AboutPage() {
             {team.map((m) => (
               <div key={m.name} className="card team-card">
                 <div className="team-top">
-                  {/* alt để trống để tránh trường hợp ảnh lỗi hiện chữ tên "đè" lên */}
+                  {/* empty alt to avoid showing fallback text over UI if image fails */}
                   <img
                     className="team-avatar"
                     src={m.avatar}
@@ -193,7 +216,7 @@ export default function AboutPage() {
         <section className="about-section">
           <div className="about-head">
             <div>
-              <h2>Quá trình phát triển</h2>
+              <h2>Our Journey</h2>
               <p className="sub">Our Journey</p>
             </div>
           </div>
@@ -205,7 +228,9 @@ export default function AboutPage() {
                 <div className="timeline-card">
                   <div className="timeline-top">
                     <span className="pill">{j.time}</span>
-                    <h3>{idx + 1}. {j.title}</h3>
+                    <h3>
+                      {idx + 1}. {j.title}
+                    </h3>
                   </div>
                   <p>{j.desc}</p>
                 </div>
@@ -217,13 +242,17 @@ export default function AboutPage() {
         {/* CTA */}
         <section className="about-cta">
           <div>
-            <h2>Sẵn sàng bắt đầu?</h2>
-            <p>Chọn một roadmap phù hợp và học theo từng bước — tụi mình đã lọc sẵn phần quan trọng nhất.</p>
+            <h2>Ready to get started?</h2>
+            <p>Pick a roadmap and follow step by step — we’ve already curated the most important parts for you.</p>
           </div>
 
           <div className="about-actions">
-            <Link to="/roadmap" className="btn btn-light">Bắt đầu với Roadmap</Link>
-            <Link to="/" className="btn btn-ghost">Liên hệ / Góp ý</Link>
+            <Link to="/roadmap" className="btn btn-light">
+              Start with a Roadmap
+            </Link>
+            <Link to="/" className="btn btn-ghost">
+              Contact / Feedback
+            </Link>
           </div>
         </section>
       </div>

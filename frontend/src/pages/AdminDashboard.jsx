@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../services/auth";
+import { useUserState } from "../store/useLocalStorage";
 import "../styles/AdminDashboard.css";
 
 function MiniBarChart({ title, data }) {
@@ -25,6 +25,7 @@ function MiniBarChart({ title, data }) {
 
 export default function AdminDashboard() {
   const nav = useNavigate();
+  const { logout } = useUserState();
 
   const stats = [
     { title: "Users", main: "1,240", sub: "Students 1,050 • Companies 180" },
@@ -70,20 +71,20 @@ export default function AdminDashboard() {
               <button className="admin-navbtn active" onClick={() => nav("/admin")}>
                 Admin Dashboard
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Approve Jobs")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/jobs")}>
                 Approve Jobs
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Manage Users")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/users")}>
                 Manage Users
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Manage Roadmaps")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/roadmaps")}>
                 Manage Roadmaps
               </button>
               <button
                 className="admin-navbtn"
                 onClick={() => {
                   logout();
-                  nav("/login", { replace: true });
+                  nav("/auth/login", { replace: true });
                 }}
               >
                 Logout
@@ -102,7 +103,7 @@ export default function AdminDashboard() {
               <p>Overview of system health • approvals • users • content</p>
             </div>
 
-            <button className="admin-primary" onClick={comingSoon("Go to Approvals")}>
+            <button className="admin-primary" onClick={() => nav("/admin/jobs")}>
               Go to Approvals
             </button>
           </div>

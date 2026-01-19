@@ -176,6 +176,14 @@ Nếu gặp vấn đề:
 
 
 cd frontend
-
 npm install
 npm start
+<<<<<<< Updated upstream
+
+cd Team-02---The-IT-Career-Path-VN
+git checkout main
+git pull origin main
+=======
+http://localhost:5173/
+http://localhost:5173/
+>>>>>>> Stashed changes

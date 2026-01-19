@@ -42,6 +42,10 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers())
+            .requestMatchers("/team/**").permitAll()
+            .anyRequest().authenticated())
+        .httpBasic(Customizer.withDefaults());
+
+    return http.build();
   }
 }

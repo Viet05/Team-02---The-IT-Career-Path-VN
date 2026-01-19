@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/job.css";
 
 const MOCK_JOBS = [
@@ -317,9 +318,11 @@ export default function JobsPage() {
                       </div>
                     </div>
 
-                    <button className="btn btn-outline job-view" type="button">
-                      View
-                    </button>
+                    <Link to={`/jobs/${j.id}`}>
+                      <button className="btn btn-outline job-view" type="button">
+                        View
+                      </button>
+                    </Link>
                   </div>
 
                   <div className="job-tags">

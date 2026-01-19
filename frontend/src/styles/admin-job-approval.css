@@ -1,0 +1,272 @@
+.admin-job-approval {
+  min-height: 100vh;
+  background: var(--color-bg);
+  font-family: var(--font-family);
+}
+
+.admin-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.admin-topbar {
+  background: var(--color-primary);
+  color: #fff;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-primary-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.admin-logo {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-navbtn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 2px solid transparent;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.admin-navbtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.admin-navbtn.active {
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.admin-chip {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.admin-main {
+  flex: 1;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.admin-pagehead {
+  margin-bottom: 24px;
+}
+
+.admin-pagehead h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--color-text);
+}
+
+.admin-pagehead p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-card {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-card);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-stat-title {
+  font-size: 12px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: var(--color-text-muted);
+}
+
+.admin-stat-main {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+.filters-section {
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  min-width: 200px;
+  color: var(--color-text);
+  background: var(--color-card);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.jobs-table-wrapper {
+  overflow-x: auto;
+}
+
+.jobs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.jobs-table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid var(--color-border);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+}
+
+.jobs-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  border: 1px solid;
+}
+
+.status-approved {
+  background: #f0fdf4;
+  border-color: #22c55e;
+  color: #16a34a;
+}
+
+.status-pending {
+  background: #fffbeb;
+  border-color: #f59e0b;
+  color: #d97706;
+}
+
+.status-rejected {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #dc2626;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn-success {
+  background: #22c55e;
+  color: #fff;
+  border-color: #22c55e;
+}
+
+.btn-success:hover {
+  background: #16a34a;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.table-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--color-text-muted);
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .jobs-table {
+    font-size: 12px;
+  }
+
+  .jobs-table th,
+  .jobs-table td {
+    padding: 8px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

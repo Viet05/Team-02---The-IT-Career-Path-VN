@@ -37,7 +37,7 @@ export async function registerMock({ email, password, role, fullName }) {
 
   return { ok: true };
 }
-  
+
 export async function loginMock({ email, password }) {
   await new Promise((r) => setTimeout(r, 250));
 
