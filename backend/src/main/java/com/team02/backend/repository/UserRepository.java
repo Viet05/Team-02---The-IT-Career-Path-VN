@@ -4,13 +4,17 @@ import com.team02.backend.entity.Users;
 import com.team02.backend.enums.UserRole;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<Users, Long>,
+        JpaSpecificationExecutor<Users> {
 
   Users findByUsername(String username);
   boolean existsByUsername(String username);

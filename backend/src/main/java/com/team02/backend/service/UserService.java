@@ -3,12 +3,15 @@ package com.team02.backend.service;
 import com.team02.backend.dto.request.UserUpdateRequest;
 import com.team02.backend.dto.response.UserAdminResponse;
 import com.team02.backend.entity.Users;
+import com.team02.backend.enums.UserRole;
 import com.team02.backend.enums.UserStatus;
+import com.team02.backend.mapper.UserMapper;
 import com.team02.backend.repository.UserRepository;
+import com.team02.backend.specification.UserSpecification;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.apache.coyote.BadRequestException;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +23,7 @@ import java.util.List;
 public class UserService {
 
     UserRepository userRepository;
+    UserMapper userMapper;
 
     public List<UserAdminResponse> getUsers() {
         return userRepository.findAll()
@@ -36,7 +40,7 @@ public class UserService {
                 .toList();
     }
 
-    public UserAdminResponse updateUser(Long id,UserUpdateRequest request) {
+    public UserAdminResponse updateUser(Long id, UserUpdateRequest request) {
         Users user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
@@ -83,5 +87,21 @@ public class UserService {
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );
+    }
+
+    public List<UserAdminResponse> searchAndFilterUsers(
+            String keyword,
+            UserStatus status,
+            UserRole role
+    ){
+        Specification<Users> spec =
+                UserSpecification.searchAndFilter(
+                        keyword,
+                        status,
+                        role);
+
+        List<Users> users = userRepository.findAll(spec);
+
+        return userMapper.toUserAdminResponses(users);
     }
 }
