@@ -7,6 +7,7 @@ import com.team02.backend.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/it-path/admin/users")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
 
     UserService userService;

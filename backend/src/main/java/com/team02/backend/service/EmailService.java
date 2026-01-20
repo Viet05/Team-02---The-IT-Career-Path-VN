@@ -28,4 +28,17 @@ public class EmailService {
     mailSender.send(message);
     log.info("Verification email sent to: {}", toEmail);
   }
+
+  public void sendResetPasswordEmail(String toEmail, String token) {
+    String verificationUrl =
+        "http://localhost:3000/reset-password?token=" + token;
+    SimpleMailMessage message = new SimpleMailMessage();
+    message.setTo(toEmail);
+    message.setSubject("Reset Password");
+    message.setText("Click the link to reset your password:\n"
+        + verificationUrl);
+
+    mailSender.send(message);
+    log.info("SEND MAIL TO = [{}]", toEmail);
+  }
 }
