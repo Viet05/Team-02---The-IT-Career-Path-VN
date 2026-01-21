@@ -6,11 +6,14 @@ import com.team02.backend.dto.request.ResetPasswordRequest;
 import com.team02.backend.dto.response.ApiResponse;
 import com.team02.backend.dto.response.AuthenticationResponse;
 import com.team02.backend.service.AuthenticationService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/it-path/auth")
@@ -30,14 +33,23 @@ public class AuthenticationController {
         .build();
   }
 
-  @GetMapping("/verify-email")
-  public ApiResponse<String> verifyEmail(@RequestParam("token") String token) {
-    return ApiResponse.<String>builder()
-        .code(200)
-        .message("Verify Email Successfully")
-        .data(authenticationService.emailVerification(token))
-        .build();
-  }
+//  @GetMapping("/verify-email")
+//  public ApiResponse<String> verifyEmail(@RequestParam("token") String token) {
+//    return ApiResponse.<String>builder()
+//        .code(200)
+//        .message("Verify Email Successfully")
+//        .data(authenticationService.emailVerification(token))
+//        .build();
+//  }
+
+    @GetMapping("/verify-email")
+    public void verifyEmail(@RequestParam("token") String token,
+                            HttpServletResponse response
+    ) throws IOException {
+        authenticationService.emailVerification(token);
+
+        response.sendRedirect("http://localhost:3000/login?verified=true");
+    }
 
   @PostMapping("/login")
   public ApiResponse<AuthenticationResponse> login(@RequestBody @Valid LoginRequest request) {

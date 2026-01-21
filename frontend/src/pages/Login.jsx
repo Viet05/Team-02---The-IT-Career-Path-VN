@@ -12,33 +12,41 @@ const routeByRole = (role) => {
 };
 
 export default function Login() {
-  const nav = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+//   const nav = useNavigate();
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState("");
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+    const [searchParams] = useSearchParams();
 
-    try {
-      setLoading(true);
+      useEffect(() => {
+        if (searchParams.get("verified") === "true") {
+          alert("Xác thực email thành công! Vui lòng đăng nhập.");
+        }
+      }, []);
 
-      // ✅ chưa gọi backend: dùng mock
-      const { token, role } = await loginMock({ email, password });
-
-      // ✅ lưu token + role
-      saveSession({ token, role });
-
-      // ✅ redirect theo role
-      nav(routeByRole(role), { replace: true });
-    } catch (err) {
-      setError(err?.message || "Đăng nhập thất bại.");
-    } finally {
-      setLoading(false);
-    }
-  };
+//   const onSubmit = async (e) => {
+//     e.preventDefault();
+//     setError("");
+//
+//     try {
+//       setLoading(true);
+//
+//       // ✅ chưa gọi backend: dùng mock
+//       const { token, role } = await loginMock({ email, password });
+//
+//       // ✅ lưu token + role
+//       saveSession({ token, role });
+//
+//       // ✅ redirect theo role
+//       nav(routeByRole(role), { replace: true });
+//     } catch (err) {
+//       setError(err?.message || "Đăng nhập thất bại.");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 
   return (
     <div className="page">
