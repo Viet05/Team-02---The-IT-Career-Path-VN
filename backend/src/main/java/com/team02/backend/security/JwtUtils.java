@@ -20,14 +20,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class JwtUtils {
 
-  @Value("${jwt.secret}")
-  private String SECRET_KEY;
-
+//  @Value("${jwt.secret}")
+//  private String SECRET_KEY;
+    private String SECRET_KEY = "ThisIsAVeryStrongJwtSecretKeyForHS256Algorithm123!";
   private static final String ISSUES = "The It Career Path VN Web backend";
 
   public String generateToken(Users user) {
 
-    JWSHeader header = new JWSHeader(JWSAlgorithm.ES512);
+    JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
 
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
         .subject(user.getUsername())

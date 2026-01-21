@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác thực Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 30px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .content h2 {
+            color: #0d6efd;
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #0d6efd;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .btn:hover {
+            background-color: #0b5ed7;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        .link-text {
+            color: #6c757d;
+            word-break: break-all;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The IT Career Path VN</h1>
+        </div>
+        <div class="content">
+            <h2>Xin chào, <span th:text="${name}">Người dùng</span>!</h2>
+            <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>The IT Career Path VN</strong>. Để bắt đầu hành trình của mình, vui lòng xác thực địa chỉ email này.</p>
+            <div style="text-align: center;">
+                <a th:href="${verificationUrl}" class="btn">Xác thực Email</a>
+            </div>
+            <p>Nếu nút bên trên không hoạt động, hãy copy và dán đường link sau vào trình duyệt của bạn:</p>
+            <p class="link-text" th:text="${verificationUrl}"></p>
+            <p>Liên kết này sẽ hết hạn sau 24 giờ.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 The IT Career Path VN. All rights reserved.</p>
+            <p>Đây là email tự động, vui lòng không trả lời email này.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-﻿node_modules/
-**/node_modules/
-.env
-*.log
-.DS_Store
-=======
 
 node_modules/
 frontend/node_modules/
 
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
