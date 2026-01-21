@@ -1,22 +1,12 @@
-<<<<<<< HEAD
 /* ============================================
    AUTH PAGES - LOGIN / FORGOT PASSWORD
    ============================================ */
-=======
-/* Reset box-sizing để không bị lệch kích thước */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
 
 /* Container trang */
 .page {
   min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
-<<<<<<< HEAD
   align-items: center;
   padding: var(--spacing-2xl) var(--spacing-lg);
   background: var(--color-bg);
@@ -38,55 +28,10 @@
   font-weight: var(--font-weight-extrabold);
   margin: 0 0 var(--spacing-sm);
   color: var(--color-text);
-=======
-  align-items: flex-start;
-  padding: 60px 16px;
-  background:#F7F3E9;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Thêm pattern nhẹ để tạo chiều sâu */
-.page::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-/* Card login */
-.card {
-  width: 420px;
-  max-width: 100%;
-  border: 2px solid #111;
-  border-radius: 16px;
-  padding: 32px 28px;
-  background: #fff;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  position: relative;
-  z-index: 1;
-}
-
-/* Title và subtitle */
-.card-title {
-  text-align: center;
-  font-weight: 800;
-  font-size: 28px;
-  margin: 0 0 8px;
-  color: #111;
-  letter-spacing: -0.5px;
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
 }
 
 .card-subtitle {
   text-align: center;
-<<<<<<< HEAD
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
   margin: 0 0 var(--spacing-xl);
@@ -203,187 +148,11 @@
 .footer a {
   color: var(--color-primary);
   font-weight: var(--font-weight-semibold);
-=======
-  font-size: 14px;
-  margin: 0 0 24px;
-  color: #64748b;
-}
-
-/* Nút social (GitHub, Google...) */
-.social-btn {
-  width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border: 2px solid #111;
-  border-radius: 10px;
-  background: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.social-btn:hover {
-  background: #f8f9ff;
-  border-color: #6366f1;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
-}
-
-.social-btn:active {
-  transform: translateY(0);
-}
-
-/* Khoảng cách giữa các nút social */
-.social-btn + .social-btn {
-  margin-top: 10px;
-}
-
-/* Divider "OR" */
-.or {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.line {
-  height: 2px;
-  background: #ddd;
-  flex: 1;
-  border-radius: 2px;
-}
-
-.or-text {
-  font-size: 12px;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Label cho input */
-.label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  margin: 12px 0 6px;
-  color: #111;
-}
-
-/* Input field */
-.input {
-  width: 100%;
-  height: 44px;
-  padding: 0 12px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  outline: none;
-  font-size: 14px;
-  transition: all 0.2s ease;
-  background: #fff;
-}
-
-.input::placeholder {
-  color: #999;
-}
-
-.input:hover {
-  border-color: #bbb;
-}
-
-.input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-}
-
-/* Link reset password */
-.reset {
-  margin: 10px 0 20px;
-  font-size: 13px;
-  text-align: right;
-}
-
-.reset a {
-  color: #6366f1;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.reset a:hover {
-  color: #4f46e5;
-  text-decoration: underline;
-}
-
-/* Nút Login chính */
-.login-btn {
-  width: 100%;
-  height: 48px;
-  padding: 0 16px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
-  color: #fff;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-  position: relative;
-  overflow: hidden;
-}
-
-.login-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.login-btn:hover::before {
-  left: 100%;
-}
-
-.login-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
-}
-
-.login-btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-/* Footer với link Sign up */
-.footer {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #64748b;
-}
-
-.footer a {
-  color: #6366f1;
-  font-weight: 700;
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .footer a:hover {
-<<<<<<< HEAD
   color: var(--color-primary-hover);
   text-decoration: underline;
 }
@@ -486,14 +255,6 @@
     margin-bottom: var(--spacing-lg);
   }
 }
-=======
-  color: #4f46e5;
-  text-decoration: underline;
-}
-
-/* Thông báo lỗi */
-.error {
-  border: 2px solid #ef4444;
   color: #991b1b;
   padding: 12px 14px;
   border-radius: 10px;
@@ -724,4 +485,3 @@ button.nav-login-btn:active {
     justify-self: end;
   }
 }
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3

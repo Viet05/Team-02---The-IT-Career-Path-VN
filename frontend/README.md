@@ -13,7 +13,6 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 ## Expanding the ESLint configuration
 
-<<<<<<< HEAD
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
@@ -71,6 +70,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 cd frontend
 npm install
 npm start
-=======
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3

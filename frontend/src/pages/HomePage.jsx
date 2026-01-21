@@ -37,6 +37,23 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
+      {/* Admin Login Banner */}
+      <section style={{ 
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
+        color: 'white', 
+        padding: '24px',
+        textAlign: 'center',
+        marginBottom: '20px'
+      }}>
+        <h2 style={{ margin: '0 0 10px 0', fontSize: '20px', fontWeight: 'bold' }}>🔐 Admin Dashboard</h2>
+        <p style={{ margin: '0 0 15px 0', fontSize: '14px', opacity: 0.9 }}>
+          Test with Email: <strong>admin@gmail.com</strong> | Password: <strong>admin</strong>
+        </p>
+        <Button variant="primary" size="sm" onClick={() => navigate("/auth/login")} style={{ background: 'white', color: '#667eea', fontWeight: 'bold' }}>
+          Go to Login
+        </Button>
+      </section>
+
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">

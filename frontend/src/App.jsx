@@ -1,4 +1,3 @@
-<<<<<<< HEAD:frontend/src/App.js
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
@@ -29,30 +28,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminJobApproval from "./pages/AdminJobApproval";
 import AdminUserList from "./pages/AdminUserList";
 import AdminRoadmapList from "./pages/AdminRoadmapList";
-=======
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import ForgotPassword from "./pages/ForgotPassword";
-import AboutPage from "./pages/About";
-import JobsPage from "./pages/Job";
-import AdminDashboard from "./pages/AdminDashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
-
-function Placeholder({ title }) {
-  return <div style={{ padding: 24 }}>{title}</div>;
-}
-
-export default function App() {
-  const location = useLocation();
-  const isAdminPath = location.pathname.startsWith("/admin");
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3:frontend/src/App.jsx
 
 function App() {
   return (
-<<<<<<< HEAD:frontend/src/App.js
     <Routes>
       {/* Public routes with main layout */}
       <Route path="/" element={<MainLayout />}>
@@ -70,10 +48,6 @@ function App() {
         <Route path="profile/edit" element={<ProfileEditPage />} />
         <Route path="skills" element={<SkillsPage />} />
       </Route>
-=======
-    <>
-      {!isAdminPath && <Navbar />}
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3:frontend/src/App.jsx
 
       {/* Auth routes with auth layout */}
       <Route path="/auth" element={<AuthLayout />}>

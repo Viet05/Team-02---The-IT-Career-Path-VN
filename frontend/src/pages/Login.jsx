@@ -39,24 +39,17 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
-    if (!username.trim()) return setError("Vui lòng nhập username.");
+    if (!username.trim()) return setError("Vui lòng nhập username hoặc email.");
     if (!pass) return setError("Vui lòng nhập mật khẩu.");
-<<<<<<< HEAD
-    if (pass.length < 6) return setError("Mật khẩu tối thiểu 6 ký tự.");
-=======
-    if (pass.length < 5) return setError("Mật khẩu tối thiểu 5 ký tự.");
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
 
     try {
       setLoading(true);
 
-<<<<<<< HEAD
-=======
-      // ✅ Check for hardcoded admin
-      if (username.trim() === "admin" && pass === "admin") {
+      // ✅ Check for hardcoded admin (admin@gmail.com)
+      if ((username.trim() === "admin@gmail.com" || username.trim() === "admin") && pass === "admin") {
         const role = "ADMIN";
         const token = makeFakeJwt({
-          sub: "admin",
+          sub: "admin@gmail.com",
           username: "admin",
           role,
           exp: Date.now() + 60 * 60 * 1000,
@@ -64,18 +57,23 @@ export default function Login() {
 
         localStorage.setItem(TOKEN_KEY, token);
         localStorage.setItem(ROLE_KEY, role);
+        localStorage.setItem("user_email", "admin@gmail.com");
+        localStorage.setItem("user_name", "Admin");
 
         nav("/admin", { replace: true });
         return;
       }
 
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
       const usersObj = loadUsers();
       const users = Object.values(usersObj);
 
-      // ✅ login bằng username
-      const user = users.find((u) => u.username === username.trim());
-      if (!user) return setError("Username không tồn tại.");
+      // ✅ login bằng username hoặc email
+      let user = users.find((u) => u.username === username.trim());
+      if (!user) {
+        user = users.find((u) => u.email === username.trim());
+      }
+      
+      if (!user) return setError("Username hoặc email không tồn tại.");
       if (user.password !== pass) return setError("Sai mật khẩu.");
 
       // ✅ lưu token + role
@@ -89,8 +87,10 @@ export default function Login() {
 
       localStorage.setItem(TOKEN_KEY, token);
       localStorage.setItem(ROLE_KEY, role);
+      localStorage.setItem("user_email", user.email);
+      localStorage.setItem("user_name", user.username);
 
-      // ✅ Redirect theo role (bạn đổi route theo dự án)
+      // ✅ Redirect theo role
       if (role === "ADMIN") nav("/admin", { replace: true });
       else if (role === "COMPANY") nav("/company", { replace: true });
       else nav("/home", { replace: true });
@@ -108,10 +108,10 @@ export default function Login() {
         {error ? <div className="error">{error}</div> : null}
 
         <form onSubmit={onSubmit} className="form">
-          <label className="label">User name</label>
+          <label className="label">Username or Email</label>
           <input
             className="input"
-            placeholder="Your username"
+            placeholder="username or email@example.com"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -129,11 +129,7 @@ export default function Login() {
           />
 
           <div className="reset">
-<<<<<<< HEAD
             <Link to="/forgotPassword">Reset your password?</Link>
-=======
-            <Link to="/forgotPassword">Forgot password?</Link>
->>>>>>> 5b1536d7ac1c656321ca57b17db09cba31bd30e3
           </div>
 
           <button className="login-btn" type="submit" disabled={loading}>
