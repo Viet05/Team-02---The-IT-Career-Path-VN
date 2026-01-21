@@ -22,6 +22,7 @@ public class AdminInitializer implements CommandLineRunner {
     if (userRepository.findByRole(UserRole.ADMIN).isEmpty()) {
       Users admin = Users.builder()
           .username("admin")
+          .email("admin@admin.com")
           .password(passwordEncoder.encode("admin"))
           .role(UserRole.ADMIN)
           .emailVerified(true)

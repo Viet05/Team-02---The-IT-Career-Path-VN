@@ -70,7 +70,8 @@ public class SecurityConfig {
 
     corsConfiguration.setAllowedOrigins(List.of(
         "http://localhost:3000",
-        "http://localhost:5173"));
+        "http://localhost:5173",
+        "http://26.140.12.81:5173"));
 
     corsConfiguration.setAllowedMethods(List.of(
         "GET", "POST", "PUT", "DELETE"));

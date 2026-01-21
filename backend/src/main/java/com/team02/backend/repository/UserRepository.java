@@ -23,6 +23,10 @@ public interface UserRepository extends JpaRepository<Users, Long>,
   Users findByEmail(String email);
   List<Users> findByRole(UserRole role);
   Long countByRole(UserRole role);
-  @Query(value = "SELECT DATE(created_at) as date, COUNT(*) as count FROM users WHERE created_at >= :startDate GROUP BY DATE(created_at)", nativeQuery = true)
+  @Query(value = "SELECT DATE(created_at) as date, "
+      + "COUNT(*) as count "
+      + "FROM users "
+      + "WHERE created_at >= :startDate "
+      + "GROUP BY DATE(created_at)", nativeQuery = true)
   List<Object[]> countUsersByCreatedDate(@Param("startDate") LocalDateTime startDate);
 }

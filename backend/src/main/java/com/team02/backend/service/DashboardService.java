@@ -2,6 +2,7 @@ package com.team02.backend.service;
 
 import com.team02.backend.dto.response.ChartDataResponse;
 import com.team02.backend.dto.response.DashboardStatsResponse;
+import com.team02.backend.entity.JobPosting;
 import com.team02.backend.enums.UserRole;
 import com.team02.backend.repository.JobPostingRepository;
 import com.team02.backend.repository.UserRepository;
@@ -47,20 +48,17 @@ public class DashboardService {
   public ChartDataResponse getChartData() {
 
     LocalDateTime sevenDaysAgo = LocalDateTime.now().minusDays(7);
-    List<Object[]>  usersStat = userRepository.countUsersByCreatedDate(sevenDaysAgo);
+    List<Object[]> usersStat = userRepository.countUsersByCreatedDate(sevenDaysAgo);
     List<Object[]> jobsStat = postingRepository.countJobsByDate(sevenDaysAgo);
 
     Map<String, Long> userMap = usersStat.stream().collect(Collectors.toMap(
         row -> row[0].toString(),
-        row -> ((Number) row[1]).longValue()
-    ));
+        row -> ((Number) row[1]).longValue()));
 
     Map<String, Long> jobMap = jobsStat.stream().collect(
         Collectors.toMap(
             row -> row[0].toString(),
-            row -> ((Number) row[1]).longValue()
-        )
-    );
+            row -> ((Number) row[1]).longValue()));
 
     List<String> labels = new ArrayList<>();
     List<Long> usersData = new ArrayList<>();
@@ -70,7 +68,7 @@ public class DashboardService {
     LocalDateTime today = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    while (!current.isBefore(today)) {
+    while (!current.isAfter(today)) {
       String dateStr = current.format(formatter);
       labels.add(current.getDayOfWeek().name().substring(0, 3));
 
@@ -85,5 +83,8 @@ public class DashboardService {
         .jobsCreated(jobsData)
         .build();
   }
-}
 
+  public List<JobPosting> getRecentPostings() {
+    return postingRepository.findTop10ByOrderByPostedAtDesc();
+  }
+}

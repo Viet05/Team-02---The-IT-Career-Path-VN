@@ -41,4 +41,13 @@ public class DashboardController {
         .data(dashboardService.getChartData())
         .build();
   }
+
+  @GetMapping("/get-recent")
+  public ApiResponse<Object> getRecent() {
+    return ApiResponse.<Object>builder()
+        .code(200)
+        .message("Get recent data successfully")
+        .data(dashboardService.getRecentPostings())
+        .build();
+  }
 }
