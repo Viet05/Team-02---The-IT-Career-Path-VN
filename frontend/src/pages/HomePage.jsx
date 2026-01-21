@@ -27,34 +27,15 @@ export default function HomePage() {
   }, [onboarding]);
 
   if (showOnboarding) {
-    return <Onboarding />;
+    return <Onboarding onClose={() => setShowOnboarding(false)} />;
   }
-
   const roles = ["Frontend", "Backend", "Full Stack", "DevOps", "Data Science", "Mobile", "AI Engineer", "Android", "iOS", "Software Architect", "Technical Writer", "MLOps"];
   const skills = ["HTML/CSS", "JavaScript", "React", "Java", "Spring", "MySQL", "Docker", "Linux", "REST API", "GraphQL", "Python", "Node.js"];
   
   const recommendedJobs = mockJobs.slice(0, 3);
 
   return (
-    <div className="home-page">
-      {/* Admin Login Banner */}
-      <section style={{ 
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
-        color: 'white', 
-        padding: '24px',
-        textAlign: 'center',
-        marginBottom: '20px'
-      }}>
-        <h2 style={{ margin: '0 0 10px 0', fontSize: '20px', fontWeight: 'bold' }}>🔐 Admin Dashboard</h2>
-        <p style={{ margin: '0 0 15px 0', fontSize: '14px', opacity: 0.9 }}>
-          Test with Email: <strong>admin@gmail.com</strong> | Password: <strong>admin</strong>
-        </p>
-        <Button variant="primary" size="sm" onClick={() => navigate("/auth/login")} style={{ background: 'white', color: '#667eea', fontWeight: 'bold' }}>
-          Go to Login
-        </Button>
-      </section>
-
-      {/* Hero Section */}
+    <div className="home-page"> {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
           <h1>Your IT Career Journey Starts Here</h1>
@@ -151,4 +132,4 @@ export default function HomePage() {
       </div>
     </div>
   );
-}
+  }
