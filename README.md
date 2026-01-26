@@ -182,3 +182,9 @@ npm start
 cd Team-02---The-IT-Career-Path-VN
 git checkout main
 git pull origin main
+
+ ket noi backend frontend 
+ npm install --save-dev concurrently 
+ cd d:\CDIO\Team-02-Hien\frontend ; npm install --save-dev concurrently
+ cd d:\CDIO\Team-02-Hien\frontend ; npm install --save-dev concurrently 2>&1
+ npm run all

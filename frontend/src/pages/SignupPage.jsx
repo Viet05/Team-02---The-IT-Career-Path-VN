@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserState } from "../store/useLocalStorage";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import { toast } from "../components/Toast";
 import "../styles/login.css";
-
+import { authService } from "../services/auth";
 export default function SignupPage() {
   const navigate = useNavigate();
-  const { login } = useUserState();
+
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -18,26 +17,28 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
+  if (formData.password !== formData.confirmPassword) {
+    toast.error("Passwords do not match");
+    return;
+  }
 
-    setLoading(true);
-
-    // Mock signup - in real app, call API
-    setTimeout(() => {
-      login({
-        name: formData.name,
-        email: formData.email,
-      });
-      toast.success("Account created successfully!");
-      navigate("/hub");
-      setLoading(false);
-    }, 500);
-  };
+  setLoading(true);
+  try {
+    await authService.register({
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+    });
+    toast.success("Account created successfully! Please sign in.");
+    navigate("/auth/login");
+  } catch (err) {
+    toast.error(err?.response?.data?.message || "Signup failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <Card className="auth-card">
@@ -45,14 +46,15 @@ export default function SignupPage() {
       <div className="card-subtitle">Start your learning journey today</div>
 
       <form onSubmit={handleSubmit} className="form">
-        <label className="label">Name</label>
+        <label className="label">Username</label>
         <input
           className="input"
           type="text"
-          placeholder="Your name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          placeholder="Your username (min 8 characters)"
+          value={formData.username}
+          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           required
+          minLength={8}
         />
 
         <label className="label">Email</label>
@@ -73,7 +75,7 @@ export default function SignupPage() {
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           required
-          minLength={6}
+          minLength={8}
         />
 
         <label className="label">Confirm Password</label>

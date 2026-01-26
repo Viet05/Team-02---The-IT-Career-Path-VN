@@ -2,5 +2,8 @@
   "dependencies": {
     "npm": "^11.7.0",
     "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }

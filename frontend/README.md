@@ -179,3 +179,4 @@ cd frontend
 
 npm install
 npm start
+Set-Location d:\CDIO\Team-02-Hien\backend ; & ".\mvnw.cmd" spring-boot:run 

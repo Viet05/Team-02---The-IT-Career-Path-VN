@@ -6,42 +6,47 @@ import Button from "../components/Button";
 import { toast } from "../components/Toast";
 import "../styles/login.css";
 
+import { authService } from "../services/auth";
+import { saveSession } from "../services/session";
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const { login } = useUserState();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+
+  const [formData, setFormData] = useState({ email: "admin@test.com", password: "admin" });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // Mock login - in real app, call API
-    setTimeout(() => {
-      // Check if admin login
-      if (formData.email === "admin@gmail.com" && formData.password === "admin") {
-        login({
-          name: "Admin",
-          email: "admin@gmail.com",
-          role: "admin",
-        });
-        toast.success("Logged in as admin!");
-        navigate("/admin-dashboard");
-      } else {
-        // Regular user login
-        login({
-          name: formData.email.split("@")[0],
-          email: formData.email,
-          role: "user",
-        });
-        toast.success("Logged in successfully!");
-        navigate("/hub");
-      }
+    try {
+      const data = await authService.login(formData.email, formData.password);
+
+      // data = { accessToken, tokenType, userId, userName, role }
+      const token = data.accessToken;
+      const roleRaw = data.role;
+      const role = (roleRaw || "user").toString().toLowerCase();
+
+      if (token) saveSession({ token, role });
+
+      // Update store UI with user info from login response
+      login({
+        name: data.userName || formData.email.split("@")[0],
+        email: formData.email,
+        role,
+        userId: data.userId,
+      });
+
+      toast.success("Logged in successfully!");
+
+      if (role === "admin") navigate("/admin-dashboard");
+      else navigate("/hub");
+    } catch (err) {
+      toast.error(err?.response?.data?.message || "Login failed");
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   };
 
   return (

@@ -1,0 +1,40 @@
+spring:
+  config:
+    import: optional:application-env.yml
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:cdio_project}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    redis:
+      host: redis-server
+      port: 6379
+      password: 123456@
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+  jackson:
+    time-zone: Asia/Ho_Chi_Minh
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: minhquanzzq@gmail.com
+    password: 
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  secret: ${JWT_SECRET:KJ5V7oXO1ddz_utM0Y1ATqa9klyETrc6z9SRjrOB87k}

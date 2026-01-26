@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class AuthenticationService {
-
   JwtUtils utils;
   UserRepository userRepository;
   PasswordEncoder passwordEncoder;
@@ -128,7 +127,7 @@ public class AuthenticationService {
         .build();
 
     passwordResetTokenRepository.save(resetToken);
-    emailService.sendResetPasswordEmail(user.getEmail(), token);
+    // emailService.sendResetPasswordEmail(user.getEmail(), token);
     return "Reset password email sent";
   }
 

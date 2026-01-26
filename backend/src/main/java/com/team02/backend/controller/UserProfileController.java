@@ -1,6 +1,4 @@
 package com.team02.backend.controller;
-
-
 import com.team02.backend.dto.request.UserProfileUpdateRequest;
 import com.team02.backend.dto.response.ApiResponse;
 import com.team02.backend.service.UserProfileService;
