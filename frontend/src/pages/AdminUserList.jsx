@@ -1,6 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
+import { authService } from "../services/auth";
+import { http } from "../services/http";
 import Modal from "../components/Modal";
 import { toast } from "../components/Toast";
 import "../styles/admin-user-list.css";
@@ -58,6 +60,31 @@ export default function AdminUserList() {
     status: "ACTIVE",
   });
 
+  // Fetch users từ API khi component load
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        const data = await authService.getUserInfo();
+        console.log("📊 Fetched users:", data);
+        
+        // Nếu data là array, dùng trực tiếp; nếu không, dùng MOCK_USERS
+        if (Array.isArray(data)) {
+          setUsers(data);
+          toast.success(`Loaded ${data.length} users from API`);
+        } else {
+          console.warn("API did not return an array, using mock data");
+          toast.info("Using mock data");
+        }
+      } catch (error) {
+        console.error("❌ Failed to load users:", error);
+        toast.error("Failed to load users from API");
+        // Giữ MOCK_USERS nếu API fail
+      }
+    };
+    
+    loadUsers();
+  }, []);
+
   const filteredUsers = useMemo(() => {
     return users.filter((user) => {
       const matchesRole = !filterRole || user.role === filterRole;
@@ -81,20 +108,41 @@ export default function AdminUserList() {
     setShowEditModal(true);
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = async () => {
     if (!editForm.username.trim() || !editForm.email.trim()) {
       toast.error("Please fill in all required fields");
       return;
     }
 
-    setUsers(
-      users.map((u) =>
-        u.id === editingUser.id ? { ...u, ...editForm } : u
-      )
-    );
-    toast.success("User updated successfully!");
-    setShowEditModal(false);
-    setEditingUser(null);
+    try {
+      // Xác định ID property
+      const userId = editingUser.id || editingUser.users_id || editingUser.userId;
+      
+      if (!userId) {
+        console.error("❌ User ID undefined:", editingUser);  
+        toast.error("User ID not found");
+        return;
+      }
+      
+      console.log("📝 Updating user:", userId, editForm);
+      
+      // Gọi API update user
+      const res = await http.post(`/api/it-path/admin/users/${userId}`, editForm);
+      console.log("✅ Update response:", res.data);
+      
+      // Update state local
+      setUsers(
+        users.map((u) =>
+          (u.id || u.users_id || u.userId) === userId ? { ...u, ...editForm } : u
+        )
+      );
+      toast.success("User updated successfully!");
+      setShowEditModal(false);
+      setEditingUser(null);
+    } catch (error) {
+      console.error("❌ Update error:", error);
+      toast.error("Failed to update user");
+    }
   };
 
   const handleDelete = (user) => {
@@ -102,17 +150,79 @@ export default function AdminUserList() {
     setShowDeleteModal(true);
   };
 
-  const confirmDelete = () => {
-    setUsers(users.filter((u) => u.id !== userToDelete.id));
-    toast.success("User deleted successfully!");
-    setShowDeleteModal(false);
-    setUserToDelete(null);
+  const confirmDelete = async () => {
+    try {
+      // Xác định ID property - có thể là 'id', 'users_id', 'userId'
+      const userId = userToDelete.id || userToDelete.users_id || userToDelete.userId;
+      
+      if (!userId) {
+        console.error("❌ User ID undefined:", userToDelete);
+        toast.error("User ID not found");
+        return;
+      }
+      
+      console.log("🗑️ Deleting user:", userId, userToDelete);
+      
+      // Gọi API delete user
+      const res = await http.delete(`/api/it-path/admin/users/${userId}`);
+      console.log("✅ Delete response:", res.data);
+      
+      // Update state local
+      setUsers(users.filter((u) => (u.id || u.users_id || u.userId) !== userId));
+      toast.success("User deleted successfully!");
+      setShowDeleteModal(false);
+      setUserToDelete(null);
+    } catch (error) {
+      console.error("❌ Delete error:", error);
+      toast.error("Failed to delete user");
+    }
   };
 
   const resetFilters = () => {
     setFilterRole("");
     setFilterStatus("");
     setSearchTerm("");
+  };
+
+  // Hàm thay đổi status user (block/unblock)
+  const handleToggleStatus = async (user) => {
+    try {
+      // Debug: log toàn bộ user object
+      console.log("📋 Full user object:", user);
+      
+      // User từ API có property userId, không phải id
+      const userId = user.userId || user.id || user.users_id;
+      const newStatus = user.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
+      
+      if (!userId) {
+        console.error("❌ User ID undefined:", user);
+        toast.error("User ID not found");
+        return;
+      }
+      
+      console.log("🔄 Toggling user status:", userId, "->", newStatus);
+      
+      // Gọi API block/unblock user
+      const res = await http.post(`/api/it-path/admin/users/${userId}/status`);
+      console.log("✅ Status toggle response:", res.data);
+      
+      // Update state local
+      setUsers(
+        users.map((u) => {
+          const uId = u.userId || u.id || u.users_id;
+          if (uId === userId) {
+            console.log("✅ Updated user:", u.username, "status:", newStatus);
+            return { ...u, status: newStatus };
+          }
+          return u;
+        })
+      );
+      toast.success(`User ${newStatus === "ACTIVE" ? "activated" : "blocked"} successfully!`);
+    } catch (error) {
+      console.error("❌ Status toggle error:", error);
+      console.error("Error response:", error.response?.data);
+      toast.error("Failed: " + (error.response?.data?.message || error.message));
+    }
   };
 
   return (
@@ -236,13 +346,23 @@ export default function AdminUserList() {
                               className="btn-icon"
                               onClick={() => handleEdit(user)}
                               aria-label="Edit"
+                              title="Edit user"
                             >
                               ✏️
+                            </button>
+                            <button
+                              className={`btn-icon ${user.status === "ACTIVE" ? "btn-block" : "btn-activate"}`}
+                              onClick={() => handleToggleStatus(user)}
+                              aria-label={user.status === "ACTIVE" ? "Block" : "Activate"}
+                              title={user.status === "ACTIVE" ? "Block user" : "Activate user"}
+                            >
+                              {user.status === "ACTIVE" ? "🚫" : "✅"}
                             </button>
                             <button
                               className="btn-icon"
                               onClick={() => handleDelete(user)}
                               aria-label="Delete"
+                              title="Delete user"
                             >
                               🗑️
                             </button>

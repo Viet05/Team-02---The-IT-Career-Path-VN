@@ -76,7 +76,7 @@ export default function AdminRoadmapList() {
     toast.success("Roadmap archived!");
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = () => {
     toast.info("Edit feature coming soon");
   };
 

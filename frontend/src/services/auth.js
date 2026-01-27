@@ -47,16 +47,11 @@ export const authService = {
         username: data.username, 
         email: data.email, 
         password: "***" 
-      });
-      
+      });      
       // Gửi request POST tới backend với thông tin đăng ký
       const res = await http.post("/api/it-path/auth/register", data);
       console.log("✅ Register response:", res.data);
-      
-      // Backend trả về: { code, message, data: { ... } } hoặc {...}
-      // Lấy dữ liệu bên trong nếu có
       const responseData = res.data.data || res.data;
-      
       return responseData;
     } catch (error) {
       console.error("❌ Register error:", {
@@ -72,11 +67,9 @@ export const authService = {
   async verifyEmail(token) {
     try {
       console.log("✉️ Verifying email with token:", token);
-      
       // Gửi request GET tới backend với token xác nhận
       const res = await http.get(`/api/it-path/auth/verify-email?token=${token}`);
-      console.log("✅ Email verification response:", res.data);
-      
+      console.log("✅ Email verification response:", res.data); 
       return res.data.data;
     } catch (error) {
       console.error("❌ Email verification error:", {
@@ -87,4 +80,53 @@ export const authService = {
       throw error;
     }
   },
+  // Hàm xem user 
+  async getUserInfo() {
+    try {
+      console.log("👤 Fetching user info")  
+      const res = await http.get("/api/it-path/admin/users");
+      console.log("✅ User info response:", res.data);
+      return res.data.data;
+    } catch (error) {
+      console.error("❌ User <info> error:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
+      });
+      throw error;
+    }
+  },
+  // Hàm xóa user
+  async deleteUser(id) {
+    try {
+      console.log("👤 Deleting user with id:", id);  
+      const res = await http.delete(`/api/it-path/admin/users/{id}`);
+      console.log("✅ User delete response:", res.data);
+      return res.data.data;
+    } catch (error) {
+      console.error("❌ User delete error:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
+      throw error;
+    }
+  },
+  // Hàm chỉnh sửa 
+  async editUser(id, data) {
+    try {
+      console.log("👤 Editing user with id:", id);  
+      const res = await http.put(`/api/it-path/admin/users/${id}`, data);
+      console.log("✅ User edit response:", res.data);
+      return res.data.data;
+    } catch (error) {
+      console.error("❌ User edit error:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
+      throw error;
+    }
+  } 
+ 
 };
