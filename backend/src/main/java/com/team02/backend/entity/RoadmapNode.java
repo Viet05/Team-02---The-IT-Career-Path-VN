@@ -29,7 +29,7 @@ public class RoadmapNode implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "roadmap_node_id")
-  private int roadmapNodeId;
+  private Long roadmapNodeId;
 
   @Column(name = "title")
   private String title;

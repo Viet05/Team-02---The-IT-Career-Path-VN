@@ -21,7 +21,8 @@ public class EmailService {
   String fromEmail;
 
   public void sendEmail(String toEmail, String token) {
-      String verificationUrl = "http://localhost:3000/verify-email?token=" + token;
+    String verificationUrl =
+        "http://localhost:8080/api/it-path/auth/verify-email?token=" + token;
 
       SimpleMailMessage message = new SimpleMailMessage();
       message.setTo(toEmail);
