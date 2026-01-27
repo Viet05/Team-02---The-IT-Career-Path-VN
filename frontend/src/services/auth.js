@@ -1,25 +1,35 @@
 import { http } from "./http";
 import { saveSession } from "./session";
 
+// ============================================
+// SERVICE ĐĂNG NHẬP / ĐĂNG KÝ
+// ============================================
+
 export const authService = {
+  // Hàm đăng nhập
   async login(email, password) {
     try {
       console.log(" Logging in with:", { email, password: "***" });
+      
+      // Gửi request POST tới backend
       const res = await http.post("/api/it-path/auth/login", { email, password });
       console.log("✅ Login response:", res.data);
       
-      // Backend returns: { code, message, data: { accessToken, tokenType, userId, userName, role } }
+      // Backend trả về: { code, message, data: { accessToken, tokenType, userId, userName, role } }
       const authData = res.data.data;
       const token = authData.accessToken;
       const role = authData.role;
       
+      // Nếu có token thì lưu vào localStorage
       if (token) {
         saveSession({ token, role });
         console.log("✅ Session saved");
       } else {
         console.warn("⚠️ No token in response");
       }
-      return authData; // Return the inner data object
+      
+      // Trả về dữ liệu user (không có token để bảo mật)
+      return authData;
     } catch (error) {
       console.error("❌ Login error:", {
         status: error.response?.status,
@@ -30,8 +40,31 @@ export const authService = {
     }
   },
 
+  // Hàm đăng ký
   async register(data) {
-    const res = await http.post("/api/it-path/auth/register", data);
-    return res.data;
+    try {
+      console.log("📝 Registering with:", { 
+        username: data.username, 
+        email: data.email, 
+        password: "***" 
+      });
+      
+      // Gửi request POST tới backend với thông tin đăng ký
+      const res = await http.post("/api/it-path/auth/register", data);
+      console.log("✅ Register response:", res.data);
+      
+      // Backend trả về: { code, message, data: { ... } } hoặc {...}
+      // Lấy dữ liệu bên trong nếu có
+      const responseData = res.data.data || res.data;
+      
+      return responseData;
+    } catch (error) {
+      console.error("❌ Register error:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
+      });
+      throw error;
+    }
   },
 };

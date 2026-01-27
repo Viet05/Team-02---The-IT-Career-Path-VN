@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { getToken, getRole } from "../services/auth";
+import { getToken, getRole } from "../services/session";
 
 export default function ProtectedRoute({ children, requiredRole }) {
   const token = getToken(); // đọc access_token
