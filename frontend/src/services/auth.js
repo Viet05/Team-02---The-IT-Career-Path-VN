@@ -67,4 +67,24 @@ export const authService = {
       throw error;
     }
   },
+
+  // Hàm xác nhận email
+  async verifyEmail(token) {
+    try {
+      console.log("✉️ Verifying email with token:", token);
+      
+      // Gửi request GET tới backend với token xác nhận
+      const res = await http.get(`/api/it-path/auth/verify-email?token=${token}`);
+      console.log("✅ Email verification response:", res.data);
+      
+      return res.data.data;
+    } catch (error) {
+      console.error("❌ Email verification error:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message
+      });
+      throw error;
+    }
+  },
 };

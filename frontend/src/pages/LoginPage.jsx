@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
 import Card from "../components/Card";
@@ -23,6 +23,27 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false); // Khi true = đang gửi API, disable button
   const [errors, setErrors] = useState({ email: null, password: null }); // Lỗi validation
 
+  // Check email verification status from URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const verified = params.get("verified");
+    const token = params.get("token");
+
+    if (verified === "1" && token) {
+      // Gửi request xác nhận email đến backend
+      authService.verifyEmail(token)
+        .then(() => {
+          toast.success("Xác minh email thành công! Hãy đăng nhập.");
+          // Xóa URL parameters
+          window.history.replaceState({}, document.title, "/auth/login");
+        })
+        .catch((error) => {
+          const errorMessage = error?.response?.data?.message || "Email verification failed";
+          toast.error(errorMessage);
+        });
+    }
+  }, []);
+
   // Khi user nhập liệu vào input
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,12 +65,14 @@ export default function LoginPage() {
       setErrors(validationErrors);
       return;
     }
+  
 
     // ========== BƯỚC 2: GỬI API ==========
     setLoading(true);
     setErrors({ email: null, password: null });
 
     try {
+      
       // Gọi API đăng nhập
       const data = await authService.login(formData.email, formData.password);
 

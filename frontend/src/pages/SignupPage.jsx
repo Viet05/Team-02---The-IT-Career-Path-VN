@@ -19,8 +19,24 @@ export default function SignupPage() {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
+  // Validate
+  if (!formData.username || formData.username.length < 8) {
+    toast.error("Username phải có ít nhất 8 ký tự");
+    return;
+  }
+
+  if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    toast.error("Email không hợp lệ");
+    return;
+  }
+
+  if (!formData.password || formData.password.length < 8 || formData.password.length > 20) {
+    toast.error("Password phải từ 8-20 ký tự");
+    return;
+  }
+
   if (formData.password !== formData.confirmPassword) {
-    toast.error("Passwords do not match");
+    toast.error("Mật khẩu không khớp");
     return;
   }
 
@@ -31,10 +47,11 @@ export default function SignupPage() {
       email: formData.email,
       password: formData.password,
     });
-    toast.success("Account created successfully! Please sign in.");
+    toast.success("Đăng ký thành công! Vui lòng kiểm tra email để xác minh.");
     navigate("/auth/login");
   } catch (err) {
-    toast.error(err?.response?.data?.message || "Signup failed");
+    console.error("Register error:", err.response?.data);
+    toast.error(err?.response?.data?.message || "Đăng ký thất bại");
   } finally {
     setLoading(false);
   }

@@ -29,7 +29,7 @@ public class EmailService {
 
   public void sendEmail(String toEmail, String token) {
     try {
-      String verificationUrl = "http://localhost:3000/verify-email?token=" + token;
+      String verificationUrl = "http://localhost:5173/auth/login?verified=1&token=" + token;
 
       Context context = new Context();
       context.setVariable("name", toEmail); // Can replace with actual name if available
@@ -55,7 +55,7 @@ public class EmailService {
 
   public void sendResetPasswordEmail(String toEmail, String token) {
     try {
-      String resetPasswordUrl = "http://localhost:3000/reset-password?token=" + token;
+      String resetPasswordUrl = "http://localhost:5173/reset-password?token=" + token;
 
       Context context = new Context();
       context.setVariable("name", toEmail);
