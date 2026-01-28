@@ -3,9 +3,9 @@ spring:
     import: optional:application-env.yml
 
   datasource:
-    url: jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:cdio_project}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:root}
+    url: jdbc:mysql://127.0.0.1:3307/cdio
+    username: root
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
