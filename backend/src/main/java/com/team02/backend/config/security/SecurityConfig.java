@@ -47,9 +47,11 @@ public class SecurityConfig {
     http
         .csrf(Customizer.withDefaults())
         .csrf(csrf -> csrf.disable())
+        .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/h2-console/**").permitAll()
             .requestMatchers("/api/it-path/auth/register").permitAll()
             .requestMatchers("/api/it-path/auth/login").permitAll()
             .requestMatchers("/api/it-path/auth/verify-email").permitAll()
@@ -71,6 +73,8 @@ public class SecurityConfig {
     corsConfiguration.setAllowedOrigins(List.of(
         "http://localhost:3000",
         "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
         "http://26.140.12.81:5173"));
 
     corsConfiguration.setAllowedMethods(List.of(

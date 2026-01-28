@@ -128,7 +128,6 @@ public class AuthenticationService {
         .build();
 
     passwordResetTokenRepository.save(resetToken);
-    emailService.sendResetPasswordEmail(user.getEmail(), token);
     return "Reset password email sent";
   }
 

@@ -11,7 +11,6 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -33,23 +32,14 @@ public class AuthenticationController {
         .build();
   }
 
-//  @GetMapping("/verify-email")
-//  public ApiResponse<String> verifyEmail(@RequestParam("token") String token) {
-//    return ApiResponse.<String>builder()
-//        .code(200)
-//        .message("Verify Email Successfully")
-//        .data(authenticationService.emailVerification(token))
-//        .build();
-//  }
-
-    @GetMapping("/verify-email")
-    public void verifyEmail(@RequestParam("token") String token,
-                            HttpServletResponse response
-    ) throws IOException {
-        authenticationService.emailVerification(token);
-
-        response.sendRedirect("http://localhost:3000/login?verified=true");
-    }
+  @GetMapping("/verify-email")
+  public ApiResponse<String> verifyEmail(@RequestParam("token") String token) {
+    return ApiResponse.<String>builder()
+        .code(200)
+        .message("Verify Email Successfully")
+        .data(authenticationService.emailVerification(token))
+        .build();
+  }
 
   @PostMapping("/login")
   public ApiResponse<AuthenticationResponse> login(@RequestBody @Valid LoginRequest request) {
@@ -78,4 +68,11 @@ public class AuthenticationController {
               .data(authenticationService.resetPassword(request.getToken(), request.getNewPassword()))
               .build();
   }
+
+  @GetMapping("/verify-email/redirect")
+  public void verifyEmailRedirect(@RequestParam("token") String token,
+ HttpServletResponse response) throws IOException {
+  authenticationService.emailVerification(token);
+  response.sendRedirect("http://localhost:5173/auth/login?verified=1");
+}
 }

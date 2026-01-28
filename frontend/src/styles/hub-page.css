@@ -1,0 +1,206 @@
+.hub-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+}
+
+.hub-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hub-header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.hub-header h1 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-black);
+  margin-bottom: var(--spacing-sm);
+}
+
+.hub-header p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+}
+
+.hub-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.hub-section h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-lg);
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-lg);
+  gap: var(--spacing-lg);
+}
+
+.section-header-row h2 {
+  margin: 0;
+}
+
+.section-header-row p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+.continue-card {
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  border-color: var(--color-primary);
+  padding: var(--spacing-2xl);
+}
+
+.continue-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.continue-badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+}
+
+.continue-content h3 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.continue-content p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+.next-lesson {
+  display: flex;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.continue-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-width: 200px;
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.saved-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.saved-item-card {
+  padding: var(--spacing-lg);
+}
+
+.saved-item-card h3 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-xs);
+}
+
+.saved-item-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.saved-item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.saved-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.saved-lesson-item {
+  padding: var(--spacing-md);
+}
+
+.saved-lesson-link {
+  display: flex;
+  gap: var(--spacing-md);
+  text-decoration: none;
+  color: inherit;
+  align-items: center;
+}
+
+.saved-lesson-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.saved-lesson-content h4 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-xs);
+}
+
+.recommended-jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.job-card-small {
+  padding: var(--spacing-lg);
+}
+
+.job-card-small h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-xs);
+}
+
+@media (max-width: 1024px) {
+  .hub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .continue-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .continue-actions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .saved-items-grid,
+  .recommended-jobs-grid {
+    grid-template-columns: 1fr;
+  }
+}

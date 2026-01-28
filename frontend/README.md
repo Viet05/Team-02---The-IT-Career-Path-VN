@@ -1,70 +1,182 @@
-# Getting Started with Create React App
+# IT Career Path - Hướng dẫn Cài đặt và Chạy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Dự án gồm 2 phần: **Frontend (React)** và **Backend (Spring Boot)**
 
-## Available Scripts
+## 📋 Yêu cầu
 
-In the project directory, you can run:
+Trước khi bắt đầu, hãy cài đặt:
 
-### `npm start`
+- **Node.js** v14+ (bao gồm npm) - [Tải tại đây](https://nodejs.org/)
+- **Java JDK** 11+ - [Tải tại đây](https://www.oracle.com/java/technologies/downloads/)
+- **Git** - [Tải tại đây](https://git-scm.com/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Cài đặt và Chạy Frontend
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Bước 1: Mở Terminal/PowerShell
 
-### `npm test`
+Nếu dùng **PowerShell**, chạy lệnh này trước (chỉ cần 1 lần):
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Bước 2: Điều hướng đến thư mục frontend
 
-### `npm run build`
+```bash
+cd frontend
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Bước 3: Cài đặt dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Bước 4: Chạy ứng dụng
 
-### `npm run eject`
+```bash
+npm start
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Ứng dụng sẽ tự động mở trên `http://localhost:3000`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Nếu port 3000 đã được sử dụng**, chạy với port khác:
+```bash
+$env:PORT=3002; npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🔧 Cài đặt và Chạy Backend
 
-## Learn More
+### Bước 1: Mở Terminal mới
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Bước 2: Điều hướng đến thư mục backend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+cd backend
+```
 
-### Code Splitting
+### Bước 3: Chạy Spring Boot application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Trên Windows:**
+```bash
+mvnw.cmd spring-boot:run
+```
 
-### Analyzing the Bundle Size
+**Trên Mac/Linux:**
+```bash
+./mvnw spring-boot:run
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Backend sẽ chạy trên `http://localhost:8080`
 
-### Making a Progressive Web App
+## 📱 Kiểm tra ứng dụng
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Khi cả Frontend và Backend đang chạy:
 
-### Advanced Configuration
+1. Mở browser truy cập: `http://localhost:3000` (hoặc port khác nếu bạn dùng port khác)
+2. Bạn sẽ thấy:
+   - Navigation bar với menu: Home, About, Roadmaps, Jobs
+   - Nút Login ở góc phải
+   - Trang mặc định hiển thị "Home"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🐛 Khắc phục sự cố
 
-### Deployment
+### Vấn đề: "npm: command not found"
+- Đảm bảo đã cài Node.js
+- Restart terminal sau khi cài
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Vấn đề: "Something is already running on port 3000"
+- Port đã được sử dụng, chạy trên port khác:
+  ```bash
+  $env:PORT=3002; npm start
+  ```
 
-### `npm run build` fails to minify
+### Vấn đề: "mvnw command not found"
+- Đảm bảo ở thư mục `backend`
+- Trên Windows dùng `mvnw.cmd`, Mac/Linux dùng `./mvnw`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Vấn đề: "execution policies" trên PowerShell
+- Chạy: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
+- Nhập `Y` khi được hỏi
+
+## 📁 Cấu trúc Project
+
+```
+Team-02---The-IT-Career-Path-VN-main/
+├── frontend/                    # React application
+│   ├── src/
+│   │   ├── components/         # React components
+│   │   ├── pages/              # Page components
+│   │   ├── styles/             # CSS files
+│   │   ├── App.js              # Main app component
+│   │   └── index.js            # Entry point
+│   ├── package.json            # Dependencies
+│   └── public/                 # Static files
+│
+└── backend/                    # Spring Boot application
+    ├── src/
+    │   ├── main/java/          # Java source code
+    │   └── resources/          # Config files
+    ├── pom.xml                 # Maven dependencies
+    └── mvnw / mvnw.cmd         # Maven wrapper
+```
+
+## 🔗 Các tuyến đường chính
+
+| Đường dẫn | Mô tả |
+|-----------|------|
+| `/` | Trang chủ |
+| `/about` | Trang giới thiệu |
+| `/roadmaps` | Trang lộ trình học tập |
+| `/jobs` | Trang việc làm |
+| `/login` | Trang đăng nhập |
+| `/dashboard` | Dashboard (tạm) |
+| `/signup` | Trang đăng ký (tạm) |
+| `/reset-password` | Đặt lại mật khẩu (tạm) |
+
+## 💾 Git Commands (Tùy chọn)
+
+Nếu dùng Git:
+```bash
+# Clone repository
+git clone <repository-url>
+
+# Cập nhật code
+git pull
+
+# Tạo branch mới
+git checkout -b feature-name
+
+# Commit changes
+git add .
+git commit -m "description"
+
+# Push to remote
+git push origin feature-name
+```
+
+## 📝 Ghi chú
+
+- Frontend chạy trên port **3000** (mặc định) hoặc **3002, 3004, ...**
+- Backend chạy trên port **8080** (mặc định)
+- Frontend được cấu hình proxy tới Backend tại `http://localhost:8080`
+- Tất cả các route chưa implement sẽ hiển thị placeholder
+
+## ❓ Cần giúp?
+
+Nếu gặp vấn đề:
+1. Kiểm tra console/terminal xem lỗi gì
+2. Đảm bảo ports không bị chiếm dụng
+3. Xóa `node_modules` và chạy `npm install` lại
+4. Restart terminal và thử lại
+
+---
+
+**Chúc bạn code vui vẻ!** 🎉
+
+
+cd frontend
+
+npm install
+npm start
+Set-Location d:\CDIO\Team-02-Hien\backend ; & ".\mvnw.cmd" spring-boot:run 

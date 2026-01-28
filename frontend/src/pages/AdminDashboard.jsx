@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../services/auth";
+import { useUserState } from "../store/useLocalStorage";
+import { authService } from "../services/auth";
+import { toast } from "../components/Toast";
 import "../styles/AdminDashboard.css";
 
 function MiniBarChart({ title, data }) {
@@ -25,9 +27,48 @@ function MiniBarChart({ title, data }) {
 
 export default function AdminDashboard() {
   const nav = useNavigate();
+  const { logout } = useUserState();
+  const [userStats, setUserStats] = useState({
+    total: "1,240",
+    students: "1,050",
+    companies: "180"
+  });
+
+  // Fetch user stats từ API
+  useEffect(() => {
+    const loadUserStats = async () => {
+      try {
+        const users = await authService.getUserInfo();
+        console.log("📊 Users data:", users);
+        
+        if (Array.isArray(users)) {
+          const total = users.length;
+          const students = users.filter(u => u.role === "STUDENT").length;
+          const companies = users.filter(u => u.role === "COMPANY").length;
+          
+          setUserStats({
+            total: total.toString(),
+            students: students.toString(),
+            companies: companies.toString()
+          });
+          
+          console.log(`✅ Updated stats: ${total} users (${students} students, ${companies} companies)`);
+        }
+      } catch (error) {
+        console.error("❌ Failed to load user stats:", error);
+        toast.error("Failed to load user statistics");
+      }
+    };
+    
+    loadUserStats();
+  }, []);
 
   const stats = [
-    { title: "Users", main: "1,240", sub: "Students 1,050 • Companies 180" },
+    { 
+      title: "Users", 
+      main: userStats.total, 
+      sub: `Students ${userStats.students} • Companies ${userStats.companies}` 
+    },
     { title: "Jobs", main: "420", sub: "Pending 8 • Approved 305" },
     { title: "Roadmaps", main: "24", sub: "Steps 1,380" },
     { title: "Notifications", main: "86", sub: "Sent today 12" },
@@ -70,20 +111,20 @@ export default function AdminDashboard() {
               <button className="admin-navbtn active" onClick={() => nav("/admin")}>
                 Admin Dashboard
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Approve Jobs")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/jobs")}>
                 Approve Jobs
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Manage Users")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/users")}>
                 Manage Users
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Manage Roadmaps")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/roadmaps")}>
                 Manage Roadmaps
               </button>
               <button
                 className="admin-navbtn"
                 onClick={() => {
                   logout();
-                  nav("/login", { replace: true });
+                  nav("/auth/login", { replace: true });
                 }}
               >
                 Logout
@@ -102,7 +143,7 @@ export default function AdminDashboard() {
               <p>Overview of system health • approvals • users • content</p>
             </div>
 
-            <button className="admin-primary" onClick={comingSoon("Go to Approvals")}>
+            <button className="admin-primary" onClick={() => nav("/admin/jobs")}>
               Go to Approvals
             </button>
           </div>

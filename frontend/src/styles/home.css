@@ -1,260 +1,435 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* ============================================
+   HOME PAGE
+   ============================================ */
 
 .home73 {
   min-height: 100vh;
-  background-color: var(--bg-color);
-  /* Optional: Subtle mesh or blob for depth behind glass */
-  background-image:
-    radial-gradient(at 0% 0%, hsla(203, 89%, 96%, 1) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(199, 89%, 94%, 1) 0px, transparent 50%);
-  color: var(--text-main);
-  padding: 28px 16px 70px;
+  background: var(--color-bg);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  font-family: var(--font-family);
 }
 
-.home73-head {
-  max-width: 1200px;
-  margin: 0 auto 24px;
-}
-
-.home73-title {
-  margin: 0;
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--primary-dark);
-  letter-spacing: -0.5px;
-}
-
-.home73-subtitle {
-  margin: 8px 0 0;
-  font-size: 15px;
-  color: var(--text-light);
-}
-
-/* 7:3 layout */
 .home73-grid {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 7fr 3fr;
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-2xl);
   align-items: start;
 }
 
-@media (max-width: 900px) {
-  .home73-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* ============================================
+   CARDS / BOXES
+   ============================================ */
 
-/* Glass Box Common Styles */
 .box {
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-top: 1px solid rgba(255, 255, 255, 0.9);
-  border-left: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--backdrop-blur);
-  -webkit-backdrop-filter: var(--backdrop-blur);
-  padding: 24px;
-  box-shadow: var(--glass-shadow);
-  transition: var(--transition);
+  background: var(--color-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
 }
 
 .box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px 0 rgba(7, 89, 133, 0.15);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+.box-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
+}
+
+.box-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .left,
 .right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* ============================================
+   ROADMAP CARDS
+   ============================================ */
+
+.roadmaps-grid {
   display: grid;
-  gap: 24px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
 }
 
-.box-title {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--text-light);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.roadmap-card {
+  background: var(--color-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.2s ease;
 }
 
-.box-text {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--text-main);
+.roadmap-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+  border-color: var(--color-primary);
+}
+
+.roadmap-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+.roadmap-
+-header h3 {
   margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text);
 }
 
-/* Roles */
+.roadmap-steps-count {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.roadmap-card-desc {
+  margin: 0 0 var(--spacing-lg);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.roadmap-progress-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-bg);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xs);
+}
+
+.roadmap-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+  border-radius: 999px;
+}
+
+.roadmap-progress-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.view-all-link {
+  display: block;
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  transition: all 0.2s ease;
+}
+
+.view-all-link:hover {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+}
+
+/* ============================================
+   ROLE BUTTONS
+   ============================================ */
+
 .role-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: var(--spacing-lg);
 }
 
 .role-btn {
-  height: 56px;
-  border: none;
-  border-radius: 16px;
-  background: var(--white);
-  color: var(--text-main);
-  font-weight: 700;
-  font-size: 14px;
+  height: 52px;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background: var(--color-card);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
   cursor: pointer;
-  text-align: left;
-  padding: 0 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
+  text-align: center;
+  padding: 0 var(--spacing-md);
+  transition: all 0.2s ease;
+  font-family: var(--font-family);
+  color: var(--color-text);
 }
 
 .role-btn:hover {
-  background: var(--primary-color);
-  color: var(--white);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(56, 189, 248, 0.25);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
 }
 
-@media (max-width: 600px) {
-  .role-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* ============================================
+   SKILL CHIPS
+   ============================================ */
 
-/* Chips */
 .chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--spacing-md);
 }
 
 .chip {
-  height: 32px;
-  padding: 0 16px;
-  border: 1px solid rgba(186, 230, 253, 0.5);
-  /* Sky 200 */
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.5);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--primary-dark);
+  height: 40px;
+  padding: 0 var(--spacing-lg);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 999px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   display: inline-flex;
   align-items: center;
-  transition: var(--transition);
+  background: var(--color-card);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.chip:hover {
-  background: var(--primary-color);
-  color: var(--white);
-  border-color: var(--primary-color);
-}
+/* ============================================
+   JOB CARDS
+   ============================================ */
 
-/* Jobs List */
 .job-list {
   display: grid;
-  gap: 16px;
+  gap: var(--spacing-lg);
 }
 
 .job-card {
-  border: var(--glass-border);
-  border-radius: 16px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  transition: var(--transition);
-  cursor: pointer;
+  background: var(--color-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.2s ease;
 }
 
 .job-card:hover {
-  background: var(--white);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+  border-color: var(--color-primary);
 }
 
 .job-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-sm);
 }
 
 .job-time {
-  font-size: 12px;
-  color: var(--text-light);
-  font-weight: 500;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
 }
 
 .job-badge {
-  font-size: 11px;
-  font-weight: 700;
-  background: #e0f2fe;
-  /* Sky 100 */
-  color: var(--primary-dark);
-  border-radius: 8px;
-  padding: 4px 10px;
-  border: none;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-error-bg);
+  color: var(--color-error);
+  border: var(--border-width) solid var(--color-error);
 }
 
 .job-title {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.4;
-  margin-bottom: 12px;
-  color: var(--text-main);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.3;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text);
 }
 
 .job-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  margin-top: 8px;
-  color: var(--text-light);
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+  color: var(--color-text);
+}
+
+.job-muted {
+  color: var(--color-text-muted);
 }
 
 .job-dot {
-  width: 20px;
-  height: 20px;
-  background: var(--primary-color);
-  border-radius: 6px;
-  opacity: 0.2;
-  /* Placeholder styling */
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
 }
 
 .job-ico {
-  width: 20px;
+  width: 16px;
   display: inline-flex;
   justify-content: center;
-  color: var(--primary-color);
+  font-size: var(--font-size-sm);
 }
 
 .job-sep {
-  color: #cbd5e1;
+  opacity: 0.5;
 }
 
-/* Job Tags */
+.job-company {
+  font-weight: var(--font-weight-semibold);
+}
+
 .job-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
 }
 
 .job-tag {
-  background: #f1f5f9;
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-light);
-  border: none;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 999px;
+  padding: 4px var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-state-box {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+}
+
+.empty-state-box h4 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.empty-state-box p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1280px) {
+  .home73-grid {
+    gap: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 920px) {
+  .home73-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .role-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .home73 {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .home73-grid {
+    gap: var(--spacing-lg);
+  }
+
+  .box {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .box-title {
+    font-size: var(--font-size-base);
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .role-btn {
+    height: 48px;
+    font-size: var(--font-size-sm);
+  }
+
+  .chip-row {
+    gap: var(--spacing-sm);
+  }
+
+  .chip {
+    height: 36px;
+    padding: 0 var(--spacing-md);
+    font-size: var(--font-size-xs);
+  }
+
+  .roadmaps-grid {
+    gap: var(--spacing-md);
+  }
+
+  .job-list {
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .home73 {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .box {
+    padding: var(--spacing-md);
+  }
+
+  .role-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chip-row {
+    gap: var(--spacing-xs);
+  }
+
+  .chip {
+    height: 32px;
+    padding: 0 var(--spacing-md);
+  }
 }

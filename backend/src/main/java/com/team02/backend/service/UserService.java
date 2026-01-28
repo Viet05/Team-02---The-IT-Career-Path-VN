@@ -71,11 +71,13 @@ public class UserService {
         Users user = userRepository.findById(id).
                 orElseThrow(() -> new IllegalArgumentException("User not found"));
 
+        // Toggle status: ACTIVE -> INACTIVE, INACTIVE -> ACTIVE
         if (user.getStatus() == UserStatus.INACTIVE) {
-            throw new IllegalArgumentException("User already blocked");
+            user.setStatus(UserStatus.ACTIVE);
+        } else {
+            user.setStatus(UserStatus.INACTIVE);
         }
-
-        user.setStatus(UserStatus.INACTIVE);
+        
         userRepository.save(user);
 
         return new UserAdminResponse(
