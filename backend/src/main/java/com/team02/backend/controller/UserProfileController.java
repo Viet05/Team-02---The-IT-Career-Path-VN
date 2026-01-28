@@ -10,29 +10,34 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/it-path/users/user_profile")
+@RequestMapping("/api/it-path/users/user_profile")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserProfileController {
 
     UserProfileService userProfileService;
 
-    @GetMapping("/{id}")
-    public ApiResponse<Object> getUserProfile(@PathVariable Long id) {
+    @GetMapping("/me")
+    public ApiResponse<Object> getUserProfile(Authentication authentication) {
+        
+        CustomUserDetail userDetail = (CustomUserDetail) authentication.getPrincipal();
+        Long userId = userDetail.getUserId();
         return ApiResponse.builder()
                 .code(200)
                 .message("Get User Profile successfully")
-                .data(userProfileService.getUserProfile(id))
+                .data(userProfileService.getUserProfile(userId))
                 .build();
     }
 
-    @PostMapping("/{id}")
-    public ApiResponse<Object> updateUserProfile(@PathVariable Long id
-            , @RequestBody UserProfileUpdateRequest userProfileUpdateRequest) {
+    @PostMapping("/me")
+    public ApiResponse<Object> updateUserProfile(Authentication authentication,
+            @RequestBody UserProfileUpdateRequest userProfileUpdateRequest) {
+        CustomUserDetail userDetail =(CustomUserDetail) authentication.getPrincipal();
+        Long userId = userDetail.getUserId();
         return ApiResponse.builder()
                 .code(200)
                 .message("Update User Profile successfully")
-                .data(userProfileService.updateUserProfile(id, userProfileUpdateRequest))
+                .data(userProfileService.updateUserProfile(userId, userProfileUpdateRequest))
                 .build();
     }
 }
