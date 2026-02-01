@@ -3,16 +3,16 @@ spring:
     import: optional:application-env.yml
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3307/cdio
+    url: jdbc:mysql://root:ttOybEoUZUSlqdbOejxvyDpANTtfZBIx@yamanote.proxy.rlwy.net:20387/railway
     username: root
-    password: 1234
+    password: ttOybEoUZUSlqdbOejxvyDpANTtfZBIx
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  data:
-    redis:
-      host: redis-server
-      port: 6379
-      password: 123456@
+  # data:
+  #   redis:
+  #     host: redis-server
+  #     port: 6379
+  #     password: 123456@
 
   jpa:
     hibernate:
