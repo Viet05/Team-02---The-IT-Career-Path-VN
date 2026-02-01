@@ -8,7 +8,7 @@ import com.team02.backend.service.UserProfileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,7 +23,7 @@ public class UserProfileController {
     public ApiResponse<Object> getUserProfile(Authentication authentication) {
         
         CustomUserDetail userDetail = (CustomUserDetail) authentication.getPrincipal();
-        Long userId = userDetail.getUserId();
+        Long userId = userDetail.getId();
         return ApiResponse.builder()
                 .code(200)
                 .message("Get User Profile successfully")
@@ -35,7 +35,7 @@ public class UserProfileController {
     public ApiResponse<Object> updateUserProfile(Authentication authentication,
             @RequestBody UserProfileUpdateRequest userProfileUpdateRequest) {
         CustomUserDetail userDetail =(CustomUserDetail) authentication.getPrincipal();
-        Long userId = userDetail.getUserId();
+        Long userId = userDetail.getId();
         return ApiResponse.builder()
                 .code(200)
                 .message("Update User Profile successfully")
