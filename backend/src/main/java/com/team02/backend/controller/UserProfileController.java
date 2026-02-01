@@ -31,7 +31,7 @@ public class UserProfileController {
                 .build();
     }
 
-    @PostMapping("/me")
+    @PutMapping("/me")
     public ApiResponse<Object> updateUserProfile(Authentication authentication,
             @RequestBody UserProfileUpdateRequest userProfileUpdateRequest) {
         CustomUserDetail userDetail =(CustomUserDetail) authentication.getPrincipal();
