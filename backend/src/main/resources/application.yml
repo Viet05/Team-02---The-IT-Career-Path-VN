@@ -3,30 +3,32 @@ spring:
     import: optional:application-env.yml
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3006/itpath
+    url: jdbc:mysql://root:ttOybEoUZUSlqdbOejxvyDpANTtfZBIx@yamanote.proxy.rlwy.net:20387/railway
     username: root
-    password: 123456
+    password: ttOybEoUZUSlqdbOejxvyDpANTtfZBIx
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  data:
-    redis:
-      host: redis-server
-      port: 6379
-      password: 123456@
+  # data:
+  #   redis:
+  #     host: redis-server
+  #     port: 6379
+  #     password: 123456@
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
 
   jackson:
     time-zone: Asia/Ho_Chi_Minh
+
   mail:
-    host: sandbox.smtp.mailtrap.io
-    port: 2525
-    username: fc718a3262b759
-    password: 4514719c205a70
+    host: smtp.gmail.com
+    port: 587
+    username: minhquanzzq@gmail.com
+    password: mach uzsq yitx nfnv 
     properties:
       mail:
         smtp:
@@ -34,3 +36,5 @@ spring:
           starttls:
             enable: true
 
+jwt:
+  secret: ${JWT_SECRET:KJ5V7oXO1ddz_utM0Y1ATqa9klyETrc6z9SRjrOB87k}

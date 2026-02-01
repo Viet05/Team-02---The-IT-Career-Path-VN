@@ -127,6 +127,22 @@ export const authService = {
       });
       throw error;
     }
-  } 
- 
+  },
+  // getUserProfile
+  async getUserProfile() {
+    try {
+      console.log("👤 Fetching user profile")  
+      const res = await http.get("/api/it-path/user/profile");
+      console.log("✅ User profile response:", res.data);
+      return res.data.data;
+    } catch (error) {
+      console.error("❌ User <profile> errorr",{
+        status : error.response?.status,
+        data : error.response?.data,
+        message : error.message,
+      });
+      throw error;
+      }
+    }
+      
 };

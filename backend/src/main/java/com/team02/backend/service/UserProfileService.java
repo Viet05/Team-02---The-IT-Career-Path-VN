@@ -49,7 +49,13 @@ public class UserProfileService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         UserProfile userProfile = userProfileRepository.findByUsers(user)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+                .orElseGet(() -> {
+                    // Nếu chưa có profile, tạo mới
+                    return UserProfile.builder()
+                            .users(user)
+                            .createdAt(LocalDateTime.now())
+                            .build();
+                });
 
         userProfile.setFullName(request.getFullName());
         userProfile.setDateOfBirth(request.getDateOfBirth());

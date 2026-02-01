@@ -34,9 +34,14 @@ export function useUserState() {
   const [role, setRole] = useLocalStorage("devroadmap_role", "user");
 
   const login = (userData) => {
-    setUser(userData);
-    if (userData.role) {
-      setRole(userData.role);
+    // Đảm bảo userData có id property
+    const userWithId = {
+      ...userData,
+      id: userData.id || userData.userId || userData.users_id,
+    };
+    setUser(userWithId);
+    if (userWithId.role) {
+      setRole(userWithId.role);
     }
   };
 
@@ -113,7 +118,15 @@ export function useUserState() {
   };
 
   const updateUser = (userData) => {
-    setUser((prev) => ({ ...prev, ...userData }));
+    setUser((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        ...userData,
+        // Đảm bảo id không bị mất
+        id: prev.id || userData.id || userData.userId || userData.users_id,
+      };
+    });
   };
 
   const setSelectedRoadmapId = (roadmapId) => {
