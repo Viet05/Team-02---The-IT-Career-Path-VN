@@ -3,9 +3,9 @@ spring:
     import: optional:application-env.yml
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3006/itpath
+    url: jdbc:mysql://root:ttOybEoUZUSlqdbOejxvyDpANTtfZBIx@yamanote.proxy.rlwy.net:20387/railway
     username: root
-    password: 123456
+    password: ttOybEoUZUSlqdbOejxvyDpANTtfZBIx
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:

@@ -2,6 +2,7 @@ package com.team02.backend.controller;
 
 import com.team02.backend.dto.response.ApiResponse;
 import com.team02.backend.service.JobPostingService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.*;

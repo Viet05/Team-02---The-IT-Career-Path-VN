@@ -1,5 +1,6 @@
 package com.team02.backend.repository;
 
+import com.team02.backend.entity.Skill;
 import com.team02.backend.entity.UserProfile;
 import com.team02.backend.entity.UserProfileSkill;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,5 @@ import java.util.List;
 @Repository
 public interface UserProfileSkillRepository extends JpaRepository<UserProfileSkill, Long> {
     boolean existsByUserProfileAndSkill(UserProfile userProfile, Skill skill);
+    List<UserProfileSkill> findByUserProfile_UserProfileId(Long userProfileId);
 }
