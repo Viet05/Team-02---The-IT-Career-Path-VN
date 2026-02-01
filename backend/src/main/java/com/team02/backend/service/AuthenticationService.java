@@ -4,11 +4,13 @@ import com.team02.backend.dto.request.LoginRequest;
 import com.team02.backend.dto.request.RegisterRequest;
 import com.team02.backend.dto.response.AuthenticationResponse;
 import com.team02.backend.entity.PasswordResetToken;
+import com.team02.backend.entity.UserProfile;
 import com.team02.backend.entity.Users;
 import com.team02.backend.enums.UserRole;
 import com.team02.backend.enums.UserStatus;
 import com.team02.backend.mapper.UserMapper;
 import com.team02.backend.repository.PasswordResetTokenRepository;
+import com.team02.backend.repository.UserProfileRepository;
 import com.team02.backend.repository.UserRepository;
 import com.team02.backend.security.JwtUtils;
 
@@ -35,6 +37,7 @@ public class AuthenticationService {
   UserMapper userMapper;
   EmailService emailService;
   PasswordResetTokenRepository passwordResetTokenRepository;
+  UserProfileRepository userProfileRepository;
 
   @Transactional
   public String register(RegisterRequest request) {
@@ -58,6 +61,9 @@ public class AuthenticationService {
 
     userRepository.save(users);
 
+    UserProfile userProfile = new UserProfile();
+    userProfile.setUsers(users);
+    userProfileRepository.save(userProfile);
     emailService.sendEmail(users.getEmail(), verificationToken);
 
     return users.getEmail();
