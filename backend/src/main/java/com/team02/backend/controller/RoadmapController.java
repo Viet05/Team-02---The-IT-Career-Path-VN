@@ -1,7 +1,9 @@
 package com.team02.backend.controller;
 
+import com.team02.backend.dto.request.ExcelFileDto;
 import com.team02.backend.dto.request.RoadmapCreateRequest;
 import com.team02.backend.dto.request.RoadmapDetailsRequest;
+import com.team02.backend.dto.request.RoadmapNodeCreateRequest;
 import com.team02.backend.dto.response.ApiResponse;
 import com.team02.backend.dto.response.RoadmapDetailsDTO;
 import com.team02.backend.dto.response.RoadmapResponse;
@@ -50,6 +52,26 @@ public class RoadmapController {
         .code(200)
         .message("Successfully")
         .data(service.createRoadmap(request))
+        .build();
+  }
+
+  @PostMapping("/node")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ApiResponse<RoadmapResponse> createRoadmapNode(@RequestBody RoadmapNodeCreateRequest request) {
+    return ApiResponse.<RoadmapResponse>builder()
+        .code(200)
+        .message("Successfully")
+        .data(service.createRoadmapNode(request))
+        .build();
+  }
+
+  @PostMapping("/excel")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ApiResponse<String> importRoadmapExcel(@RequestBody ExcelFileDto request) {
+    return ApiResponse.<String>builder()
+        .code(200)
+        .message("Successfully")
+        .data(service.importExcel(request))
         .build();
   }
 }

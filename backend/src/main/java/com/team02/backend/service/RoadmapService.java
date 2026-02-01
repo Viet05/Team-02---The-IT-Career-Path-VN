@@ -1,5 +1,6 @@
 package com.team02.backend.service;
 
+import com.team02.backend.dto.request.ExcelFileDto;
 import com.team02.backend.dto.request.RoadmapCreateRequest;
 import com.team02.backend.dto.request.RoadmapDetailsRequest;
 import com.team02.backend.dto.request.RoadmapNodeCreateRequest;
@@ -18,7 +19,9 @@ import com.team02.backend.repository.RoadmapRepository;
 import jakarta.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -169,5 +172,49 @@ public class RoadmapService {
     }
 
     return rows;
+  }
+
+  @Transactional
+  public String importExcel(ExcelFileDto request) {
+
+    List<RoadmapNodeImport> rows = parse(request.getFile());
+
+    Roadmap roadmap = roadmapRepo.findById(request.getRoadmapId()).orElseThrow(
+        () -> new IllegalArgumentException("Roadmap not found")
+    );
+
+    Map<Integer, RoadmapNode> levelNode = new HashMap<>();
+
+    for (RoadmapNodeImport row : rows) {
+
+      RoadmapNode parentNode = null;
+
+      if (row.getLevel() > 0) {
+        parentNode = levelNode.get(row.getLevel()-1);
+        if (parentNode == null) {
+          throw new RuntimeException("Parent node not found");
+        }
+
+      }
+      RoadmapNode roadmapNode = RoadmapNode.builder()
+          .title(row.getTitle())
+          .description(row.getDescription())
+          .nodeType(row.getNodeType())
+          .orderIndex(row.getOrderIndex())
+          .roadmap(roadmap)
+          .parentNode(parentNode)
+          .build();
+
+      roadmapNodeRepo.save(roadmapNode);
+      levelNode.put(row.getLevel(), roadmapNode);
+    }
+
+    return "Import successfully";
+  }
+
+  public String deleteRoadmap(Long roadmapId) {
+
+    roadmapRepo.deleteById(roadmapId);
+    return "Roadmap deleted";
   }
 }

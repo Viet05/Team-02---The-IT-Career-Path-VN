@@ -3,10 +3,12 @@ package com.team02.backend.controller;
 
 import com.team02.backend.dto.request.UserProfileUpdateRequest;
 import com.team02.backend.dto.response.ApiResponse;
+import com.team02.backend.security.CustomUserDetail;
 import com.team02.backend.service.UserProfileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
