@@ -34,7 +34,7 @@ public class UserController {
 //                .build();
 //    }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ApiResponse<Object> updateUser(@RequestBody UserUpdateRequest request,
                                           @PathVariable long id){
         UserAdminResponse userAdminResponse = userService.updateUser(id, request);
@@ -54,7 +54,7 @@ public class UserController {
                 .build();
     }
 
-    @PostMapping("/{id}/status")
+    @PutMapping("/{id}/status")
     public ApiResponse<Object> blockUser(@PathVariable long id){
         return ApiResponse.builder()
                 .code(200)
