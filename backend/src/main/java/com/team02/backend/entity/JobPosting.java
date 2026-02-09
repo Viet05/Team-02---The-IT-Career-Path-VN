@@ -39,10 +39,10 @@ public class JobPosting implements Serializable {
   private String location;
 
   @Column(name = "salary_min")
-  private double  salaryMin;
+  private Double  salaryMin;
 
   @Column(name = "salary_max")
-  private double  salaryMax;
+  private Double  salaryMax;
 
   @Column(name = "description")
   private String description;
