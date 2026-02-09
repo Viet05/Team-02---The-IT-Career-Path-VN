@@ -11,18 +11,20 @@ import com.team02.backend.dto.response.RoadmapResponse;
 import com.team02.backend.entity.CareerRole;
 import com.team02.backend.entity.Roadmap;
 import com.team02.backend.entity.RoadmapNode;
+import com.team02.backend.exception.DuplicateResourceException;
+import com.team02.backend.exception.FileProcessingException;
+import com.team02.backend.exception.ResourceNotFoundException;
+import com.team02.backend.exception.ValidationException;
 import com.team02.backend.mapper.RoadmapMapper;
 import com.team02.backend.repository.CareerRoleRepository;
 import com.team02.backend.repository.RoadmapNodeProjection;
 import com.team02.backend.repository.RoadmapNodeRepository;
 import com.team02.backend.repository.RoadmapRepository;
 import jakarta.transaction.Transactional;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -48,9 +50,6 @@ public class RoadmapService {
   public List<RoadmapResponse> getRoadmap() {
 
     List<Roadmap> roadmap = roadmapRepo.findAll();
-    if (roadmap.isEmpty()) {
-      throw new RuntimeException("No roadmap found");
-    }
     return roadmap.stream().map(
         roadmap1 -> new RoadmapResponse(
             roadmap1.getRoadmapId(),
@@ -61,8 +60,8 @@ public class RoadmapService {
   @Transactional
   public RoadmapDetailsDTO getRoadmapDetails(RoadmapDetailsRequest request) {
 
-    Roadmap roadmaps = roadmapRepo.findByRoadmapId(request.getRoadmapId()).orElseThrow(
-        () -> new IllegalArgumentException("Roadmap not found"));
+    Roadmap roadmaps = roadmapRepo.findById(request.getRoadmapId()).orElseThrow(
+        () -> new ResourceNotFoundException("Roadmap", request.getRoadmapId()));
 
     List<RoadmapNodeProjection> roadmapNode = roadmapNodeRepo.findNodeWithProgress(
         request.getRoadmapId(), request.getUserId());
@@ -93,7 +92,7 @@ public class RoadmapService {
   public RoadmapResponse createRoadmap(RoadmapCreateRequest request) {
 
     if (roadmapRepo.findByTitle(request.getTitle()).isPresent()) {
-      throw new RuntimeException("Roadmap already exists");
+      throw new DuplicateResourceException("Roadmap", "title", request.getTitle());
     }
 
     CareerRole careerRole = careerRoleRepo
@@ -112,20 +111,21 @@ public class RoadmapService {
     return new RoadmapResponse(roadmap.getRoadmapId(), roadmap.getTitle());
   }
 
+  @Transactional
   public RoadmapResponse createRoadmapNode(RoadmapNodeCreateRequest request) {
 
-    Roadmap roadmaps =  roadmapRepo.findByRoadmapId(request.getRoadmapId()).orElseThrow(
-        () -> new IllegalArgumentException("Roadmap not found")
-    );
+    Roadmap roadmaps = roadmapRepo.findById(request.getRoadmapId()).orElseThrow(
+        () -> new ResourceNotFoundException("Roadmap", request.getRoadmapId()));
 
     RoadmapNode parentNode = null;
     if (request.getParentNodeId() != null) {
       parentNode = roadmapNodeRepo.findById(request.getParentNodeId()).orElseThrow(
-          () -> new IllegalArgumentException("Parent node not found")
-      );
-    }
-    if (!parentNode.getRoadmap().getRoadmapId().equals(request.getParentNodeId())) {
-      throw new IllegalArgumentException("Parent node id mismatch");
+          () -> new ResourceNotFoundException("Roadmap node", request.getParentNodeId()));
+
+      // Validate that parent node belongs to the same roadmap
+      if (!parentNode.getRoadmap().getRoadmapId().equals(request.getRoadmapId())) {
+        throw new ValidationException("Parent node must belong to the same roadmap as the child node");
+      }
     }
 
     RoadmapNode node = RoadmapNode.builder()
@@ -137,6 +137,8 @@ public class RoadmapService {
         .parentNode(parentNode)
         .build();
 
+    roadmapNodeRepo.save(node);
+
     return new RoadmapResponse(roadmaps.getRoadmapId(), roadmaps.getTitle());
   }
 
@@ -144,23 +146,24 @@ public class RoadmapService {
 
     List<RoadmapNodeImport> rows = new ArrayList<>();
 
-    try(Workbook workbook = WorkbookFactory.create(file.getInputStream())) {
+    try (Workbook workbook = WorkbookFactory.create(file.getInputStream())) {
 
       Sheet sheet = workbook.getSheetAt(0);
 
       for (Row row : sheet) {
 
-        if (row.getRowNum() == 0) continue;
+        if (row.getRowNum() == 0)
+          continue;
 
-        if (row.getCell(0) == null) continue;
+        if (row.getCell(0) == null)
+          continue;
 
         RoadmapNodeImport dto = new RoadmapNodeImport();
 
         dto.setLevel((int) row.getCell(0).getNumericCellValue());
         dto.setTitle(row.getCell(1).getStringCellValue().trim());
         dto.setDescription(
-            row.getCell(2) != null ? row.getCell(2).getStringCellValue().trim() : null
-        );
+            row.getCell(2) != null ? row.getCell(2).getStringCellValue().trim() : null);
         dto.setNodeType(row.getCell(3).getStringCellValue().trim());
         dto.setOrderIndex((int) row.getCell(4).getNumericCellValue());
 
@@ -168,7 +171,7 @@ public class RoadmapService {
       }
 
     } catch (Exception e) {
-      throw new RuntimeException("Failed to parse file",e);
+      throw new FileProcessingException("Failed to parse Excel file. Please check the file format", e);
     }
 
     return rows;
@@ -180,8 +183,7 @@ public class RoadmapService {
     List<RoadmapNodeImport> rows = parse(request.getFile());
 
     Roadmap roadmap = roadmapRepo.findById(request.getRoadmapId()).orElseThrow(
-        () -> new IllegalArgumentException("Roadmap not found")
-    );
+        () -> new ResourceNotFoundException("Roadmap", request.getRoadmapId()));
 
     Map<Integer, RoadmapNode> levelNode = new HashMap<>();
 
@@ -190,9 +192,10 @@ public class RoadmapService {
       RoadmapNode parentNode = null;
 
       if (row.getLevel() > 0) {
-        parentNode = levelNode.get(row.getLevel()-1);
+        parentNode = levelNode.get(row.getLevel() - 1);
         if (parentNode == null) {
-          throw new RuntimeException("Parent node not found");
+          throw new ValidationException(
+              "Parent node not found for level " + row.getLevel() + ". Please ensure nodes are properly ordered");
         }
 
       }

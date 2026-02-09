@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoadmapRepository extends JpaRepository<Roadmap, Long> {
 
-  Optional<Roadmap> findByRoadmapId(Long id);
   Optional<Roadmap> findByTitle(String title);
 }

@@ -11,6 +11,7 @@ import com.team02.backend.service.RoadmapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -45,20 +47,25 @@ public class RoadmapController {
 
   @GetMapping("/details")
   @Operation(summary = "Lấy chi tiết roadmap", description = "Lấy thông tin chi tiết của một roadmap bao gồm các node và quan hệ")
-  public ApiResponse<RoadmapDetailsDTO> getRoadmapDetails(@RequestBody RoadmapDetailsRequest request) {
+  public ApiResponse<RoadmapDetailsDTO> getRoadmapDetails(
+      @RequestParam Long roadmapId,
+      @RequestParam Long userId) {
+    RoadmapDetailsRequest request = RoadmapDetailsRequest.builder()
+        .roadmapId(roadmapId)
+        .userId(userId)
+        .build();
     return ApiResponse.<RoadmapDetailsDTO>builder()
         .code(200)
         .message("Successfully")
         .data(service.getRoadmapDetails(request))
         .build();
-
   }
 
   @PostMapping
   @PreAuthorize("hasRole('ADMIN')")
   @Operation(summary = "Tạo roadmap mới", description = "Tạo một lộ trình học tập mới (Chỉ Admin)")
   @SecurityRequirement(name = "bearerAuth")
-  public ApiResponse<RoadmapResponse> createRoadmap(@RequestBody RoadmapCreateRequest request) {
+  public ApiResponse<RoadmapResponse> createRoadmap(@Valid @RequestBody RoadmapCreateRequest request) {
     return ApiResponse.<RoadmapResponse>builder()
         .code(200)
         .message("Successfully")
@@ -70,7 +77,7 @@ public class RoadmapController {
   @PreAuthorize("hasRole('ADMIN')")
   @Operation(summary = "Tạo node roadmap", description = "Thêm một node (bước học) vào roadmap hiện có (Chỉ Admin)")
   @SecurityRequirement(name = "bearerAuth")
-  public ApiResponse<RoadmapResponse> createRoadmapNode(@RequestBody RoadmapNodeCreateRequest request) {
+  public ApiResponse<RoadmapResponse> createRoadmapNode(@Valid @RequestBody RoadmapNodeCreateRequest request) {
     return ApiResponse.<RoadmapResponse>builder()
         .code(200)
         .message("Successfully")

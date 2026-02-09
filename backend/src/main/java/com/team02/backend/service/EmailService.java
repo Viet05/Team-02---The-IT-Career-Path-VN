@@ -1,5 +1,6 @@
 package com.team02.backend.service;
 
+import com.team02.backend.exception.EmailServiceException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AccessLevel;
@@ -48,8 +49,8 @@ public class EmailService {
       mailSender.send(mimeMessage);
       log.info("Verification HTML email sent to: {}", toEmail);
     } catch (MessagingException e) {
-      log.error("Failed to send verification email", e);
-      throw new RuntimeException("Failed to send email");
+      log.error("Failed to send verification email to: {}", toEmail, e);
+      throw new EmailServiceException("Failed to send verification email", e);
     }
   }
 
@@ -74,8 +75,8 @@ public class EmailService {
       mailSender.send(mimeMessage);
       log.info("Reset password HTML email sent to: {}", toEmail);
     } catch (MessagingException e) {
-      log.error("Failed to send reset password email", e);
-      throw new RuntimeException("Failed to send email");
+      log.error("Failed to send reset password email to: {}", toEmail, e);
+      throw new EmailServiceException("Failed to send password reset email", e);
     }
   }
 }

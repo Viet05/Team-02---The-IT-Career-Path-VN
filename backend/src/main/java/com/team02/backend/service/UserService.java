@@ -5,6 +5,7 @@ import com.team02.backend.dto.response.UserAdminResponse;
 import com.team02.backend.entity.Users;
 import com.team02.backend.enums.UserRole;
 import com.team02.backend.enums.UserStatus;
+import com.team02.backend.exception.ResourceNotFoundException;
 import com.team02.backend.mapper.UserMapper;
 import com.team02.backend.repository.UserRepository;
 import com.team02.backend.specification.UserSpecification;
@@ -35,14 +36,13 @@ public class UserService {
                         user.getRole(),
                         user.getStatus(),
                         user.getCreatedAt(),
-                        user.getUpdatedAt()
-                ))
+                        user.getUpdatedAt()))
                 .toList();
     }
 
     public UserAdminResponse updateUser(Long id, UserUpdateRequest request) {
         Users user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User", id));
 
         user.setUsername(request.getUsername());
         user.setRole(request.getRole());
@@ -56,20 +56,18 @@ public class UserService {
                 user.getRole(),
                 user.getStatus(),
                 user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+                user.getUpdatedAt());
     }
 
-    public void deleteUserById(Long id){
-        if(!userRepository.existsById(id)){
-            throw new IllegalArgumentException("User not found");
+    public void deleteUserById(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("User", id);
         }
         userRepository.deleteById(id);
     }
 
-    public UserAdminResponse blockUser(Long id){
-        Users user = userRepository.findById(id).
-                orElseThrow(() -> new IllegalArgumentException("User not found"));
+    public UserAdminResponse blockUser(Long id) {
+        Users user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", id));
 
         // Toggle status: ACTIVE -> INACTIVE, INACTIVE -> ACTIVE
         if (user.getStatus() == UserStatus.INACTIVE) {
@@ -77,7 +75,7 @@ public class UserService {
         } else {
             user.setStatus(UserStatus.INACTIVE);
         }
-        
+
         userRepository.save(user);
 
         return new UserAdminResponse(
@@ -87,20 +85,17 @@ public class UserService {
                 user.getRole(),
                 user.getStatus(),
                 user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+                user.getUpdatedAt());
     }
 
     public List<UserAdminResponse> searchAndFilterUsers(
             String keyword,
             UserStatus status,
-            UserRole role
-    ){
-        Specification<Users> spec =
-                UserSpecification.searchAndFilter(
-                        keyword,
-                        status,
-                        role);
+            UserRole role) {
+        Specification<Users> spec = UserSpecification.searchAndFilter(
+                keyword,
+                status,
+                role);
 
         List<Users> users = userRepository.findAll(spec);
 

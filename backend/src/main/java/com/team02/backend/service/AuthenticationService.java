@@ -3,6 +3,10 @@ package com.team02.backend.service;
 import com.team02.backend.dto.request.LoginRequest;
 import com.team02.backend.dto.request.RegisterRequest;
 import com.team02.backend.dto.response.AuthenticationResponse;
+import com.team02.backend.exception.DuplicateResourceException;
+import com.team02.backend.exception.ResourceNotFoundException;
+import com.team02.backend.exception.UnauthorizedException;
+import com.team02.backend.exception.ValidationException;
 import com.team02.backend.entity.PasswordResetToken;
 import com.team02.backend.entity.UserProfile;
 import com.team02.backend.entity.Users;
@@ -43,10 +47,10 @@ public class AuthenticationService {
   public String register(RegisterRequest request) {
 
     if (userRepository.existsByUsername(request.getUsername())) {
-      throw new IllegalArgumentException("Username already exists");
+      throw new DuplicateResourceException("User", "username", request.getUsername());
     }
     if (userRepository.existsByEmail(request.getEmail())) {
-      throw new IllegalArgumentException("Email already exists");
+      throw new DuplicateResourceException("User", "email", request.getEmail());
     }
 
     Users users = userMapper.registerMapper(request);
@@ -74,11 +78,11 @@ public class AuthenticationService {
     Users user = userRepository.findByVerificationToken(verificationToken);
 
     if (user == null) {
-      throw new IllegalArgumentException("Invalid verification token");
+      throw new UnauthorizedException("Invalid verification token");
     }
 
     if (user.getVerificationTokenExpiry().isBefore(LocalDateTime.now())) {
-      throw new IllegalArgumentException("Expired verification token");
+      throw new UnauthorizedException("Verification token has expired. Please request a new verification email");
     }
 
     user.setStatus(UserStatus.ACTIVE);
@@ -92,19 +96,18 @@ public class AuthenticationService {
 
   public AuthenticationResponse login(LoginRequest request) {
 
-
     Users users = userRepository.findByEmail(request.getEmail());
     if (users == null) {
-      throw  new IllegalArgumentException("Invalid email");
+      throw new ValidationException("Invalid email or password");
     }
     boolean matches = passwordEncoder.matches(request.getPassword(), users.getPassword());
 
     if (!matches) {
-      throw  new IllegalArgumentException("Invalid username or password");
+      throw new ValidationException("Invalid email or password");
     }
 
     if (!users.getStatus().equals(UserStatus.ACTIVE)) {
-      throw  new IllegalArgumentException("Verify email before login");
+      throw new UnauthorizedException("Please verify your email before logging in");
     }
 
     String token = utils.generateToken(users);
@@ -117,12 +120,12 @@ public class AuthenticationService {
         users.getRole().toString());
   }
 
-  public String requestResetPassword(String email){
+  public String requestResetPassword(String email) {
 
     Users user = userRepository.findByEmail(email);
 
-    if(user == null){
-      throw new IllegalArgumentException("Invalid email");
+    if (user == null) {
+      throw new ResourceNotFoundException("User", "email", email);
     }
 
     String token = UUID.randomUUID().toString();
@@ -141,10 +144,10 @@ public class AuthenticationService {
   public String resetPassword(String token, String newPassword) {
 
     PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid token"));
+        .orElseThrow(() -> new UnauthorizedException("Invalid password reset token"));
 
-    if(resetToken.getExpiresAt().isBefore(LocalDateTime.now())) {
-      throw new IllegalArgumentException("Expired token");
+    if (resetToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+      throw new UnauthorizedException("Password reset token has expired. Please request a new one");
     }
 
     Users user = resetToken.getUser();
