@@ -1,6 +1,8 @@
 package com.team02.backend.controller;
 
+import com.team02.backend.dto.request.JobImportDTO;
 import com.team02.backend.dto.response.ApiResponse;
+import com.team02.backend.entity.JobPosting;
 import com.team02.backend.entity.Skill;
 import com.team02.backend.enums.JobLevel;
 import com.team02.backend.enums.JobType;
@@ -10,7 +12,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/it-path/jobs")
@@ -49,4 +54,20 @@ public class JobPostingController {
                 ))
                 .build();
     }
+
+    @PostMapping("/import")
+    public ApiResponse<Object> importJobPostings(@RequestBody List<JobImportDTO> jobs) {
+        jobPostingService.importFromApi(jobs);
+        return ApiResponse.builder()
+                .code(200)
+                .message("Import job postings successfully!")
+                .build();
+    }
+//@PostMapping("/import")
+//public ResponseEntity<?> importJobs(@RequestBody String rawBody) {
+//    System.out.println("RAW BODY:");
+//    System.out.println(rawBody);
+//    return ResponseEntity.ok().build();
+//}
+
 }

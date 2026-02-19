@@ -11,7 +11,10 @@ import lombok.Data;
 public class JobPostingResponse {
     private Long jobPostingId;
     private String title;
+    private String description;
     private String companyName;
+    private Double salaryMin;
+    private Double salaryMax;
     private String salaryText; // canh tranh hoac 10-15 trieu VND
     private String location;
     private LocalDateTime postedAt;
