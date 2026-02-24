@@ -65,6 +65,9 @@ public class UserProfile implements Serializable {
   @Column(name = "avatar_url")
   private String avatarUrl;
 
+  @Column(name = "city")
+  private String city;
+
   @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<UserProfileSkill> userProfileSkills;
 

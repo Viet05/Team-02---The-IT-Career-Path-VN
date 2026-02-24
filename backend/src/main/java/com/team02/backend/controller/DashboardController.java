@@ -27,7 +27,7 @@ public class DashboardController {
 
   DashboardService dashboardService;
 
-  @GetMapping("/get-stats")
+  @GetMapping("/stats")
   @Operation(
     summary = "Lấy thống kê dashboard",
     description = "Lấy các số liệu thống kê tổng quan cho dashboard admin"
@@ -41,7 +41,7 @@ public class DashboardController {
         .build();
   }
 
-  @GetMapping("/get-chart")
+  @GetMapping("/chart")
   @Operation(
     summary = "Lấy dữ liệu biểu đồ",
     description = "Lấy dữ liệu để hiển thị các biểu đồ thống kê"
@@ -55,7 +55,7 @@ public class DashboardController {
         .build();
   }
 
-  @GetMapping("/get-recent")
+  @GetMapping("/recent")
   @Operation(
     summary = "Lấy bài đăng gần đây",
     description = "Lấy danh sách các tin tuyển dụng được đăng gần đây"

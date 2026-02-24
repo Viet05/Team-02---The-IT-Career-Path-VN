@@ -1,6 +1,5 @@
 package com.team02.backend.dto.response;
 
-
 import com.team02.backend.entity.UserProfileSkill;
 import com.team02.backend.entity.Users;
 import jakarta.persistence.*;
@@ -30,6 +29,7 @@ public class UserProfileResponse {
     private String careerGoal;
     private String bio;
     private String avatarUrl;
+    private String city;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

@@ -5,6 +5,7 @@ import com.team02.backend.dto.request.RoadmapCreateRequest;
 import com.team02.backend.dto.request.RoadmapDetailsRequest;
 import com.team02.backend.dto.request.RoadmapNodeCreateRequest;
 import com.team02.backend.dto.request.RoadmapNodeImport;
+import com.team02.backend.dto.request.RoadmapUpdateRequest;
 import com.team02.backend.dto.response.RoadmapDetailsDTO;
 import com.team02.backend.dto.response.RoadmapNodeResponse;
 import com.team02.backend.dto.response.RoadmapResponse;
@@ -215,9 +216,40 @@ public class RoadmapService {
     return "Import successfully";
   }
 
+  @Transactional
+  public RoadmapResponse updateRoadmap(Long roadmapId, RoadmapUpdateRequest request) {
+
+    Roadmap roadmap = roadmapRepo.findById(roadmapId).orElseThrow(
+        () -> new ResourceNotFoundException("Roadmap", roadmapId));
+
+    if (request.getTitle() != null && !request.getTitle().isBlank()) {
+      // Check duplicate title only if title is changing
+      if (!roadmap.getTitle().equals(request.getTitle())
+          && roadmapRepo.findByTitle(request.getTitle()).isPresent()) {
+        throw new DuplicateResourceException("Roadmap", "title", request.getTitle());
+      }
+      roadmap.setTitle(request.getTitle());
+    }
+
+    if (request.getDescription() != null) {
+      roadmap.setDescription(request.getDescription());
+    }
+
+    if (request.getLevel() != null) {
+      roadmap.setLevel(request.getLevel());
+    }
+
+    roadmapRepo.save(roadmap);
+    return new RoadmapResponse(roadmap.getRoadmapId(), roadmap.getTitle());
+  }
+
+  @Transactional
   public String deleteRoadmap(Long roadmapId) {
 
+    if (!roadmapRepo.existsById(roadmapId)) {
+      throw new ResourceNotFoundException("Roadmap", roadmapId);
+    }
     roadmapRepo.deleteById(roadmapId);
-    return "Roadmap deleted";
+    return "Roadmap deleted successfully";
   }
 }

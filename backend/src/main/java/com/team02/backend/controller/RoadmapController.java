@@ -4,6 +4,7 @@ import com.team02.backend.dto.request.ExcelFileDto;
 import com.team02.backend.dto.request.RoadmapCreateRequest;
 import com.team02.backend.dto.request.RoadmapDetailsRequest;
 import com.team02.backend.dto.request.RoadmapNodeCreateRequest;
+import com.team02.backend.dto.request.RoadmapUpdateRequest;
 import com.team02.backend.dto.response.ApiResponse;
 import com.team02.backend.dto.response.RoadmapDetailsDTO;
 import com.team02.backend.dto.response.RoadmapResponse;
@@ -18,9 +19,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,6 +98,32 @@ public class RoadmapController {
         .code(200)
         .message("Successfully")
         .data(service.importExcel(request))
+        .build();
+  }
+
+  @PutMapping("/{roadmapId}")
+  @PreAuthorize("hasRole('ADMIN')")
+  @Operation(summary = "Cập nhật roadmap", description = "Chỉnh sửa tiêu đề, mô tả và cấp độ của roadmap (Chỉ Admin)")
+  @SecurityRequirement(name = "bearerAuth")
+  public ApiResponse<RoadmapResponse> updateRoadmap(
+      @PathVariable Long roadmapId,
+      @Valid @RequestBody RoadmapUpdateRequest request) {
+    return ApiResponse.<RoadmapResponse>builder()
+        .code(200)
+        .message("Roadmap updated successfully")
+        .data(service.updateRoadmap(roadmapId, request))
+        .build();
+  }
+
+  @DeleteMapping("/{roadmapId}")
+  @PreAuthorize("hasRole('ADMIN')")
+  @Operation(summary = "Xóa roadmap", description = "Xóa một roadmap và toàn bộ nodes liên quan (Chỉ Admin)")
+  @SecurityRequirement(name = "bearerAuth")
+  public ApiResponse<String> deleteRoadmap(@PathVariable Long roadmapId) {
+    return ApiResponse.<String>builder()
+        .code(200)
+        .message("Successfully")
+        .data(service.deleteRoadmap(roadmapId))
         .build();
   }
 }

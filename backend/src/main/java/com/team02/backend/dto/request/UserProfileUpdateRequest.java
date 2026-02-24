@@ -21,5 +21,6 @@ public class UserProfileUpdateRequest {
     private String careerGoal;
     private String bio;
     private String avatarUrl;
+    private String city;
     private LocalDateTime updatedAt;
 }

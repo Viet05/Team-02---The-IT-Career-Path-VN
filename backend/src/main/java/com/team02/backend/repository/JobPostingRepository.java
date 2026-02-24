@@ -24,4 +24,6 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long>,
       + "WHERE posted_at >= :startDate "
       + "GROUP BY DATE(posted_at)", nativeQuery = true)
   List<Object[]> countJobsByDate(@Param("startDate") LocalDateTime startDate);
+
+  List<JobPosting> findAllWithSkills();
 }
