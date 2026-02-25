@@ -35,7 +35,7 @@ export const getAllUsers = async () => {
 
 export const updateUser = async (id, userData) => {
     const response = await fetch(`${BASE_URL}/${id}`, {
-        method: "POST",
+        method: "PUT",
         headers: getHeaders(),
         body: JSON.stringify(userData),
     });
@@ -57,7 +57,7 @@ export const deleteUser = async (id) => {
 
 export const blockUser = async (id) => {
     const response = await fetch(`${BASE_URL}/${id}/status`, {
-        method: "POST",
+        method: "PUT",
         headers: getHeaders(),
     });
     return handleResponse(response);

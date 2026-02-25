@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
-import { authService } from "../services/auth";
+import { getDashboardStats, getChartData, getRecentPostings } from "../services/dashboardService";
 import { toast } from "../components/Toast";
-import "../styles/AdminDashboard.css";
+import "../styles/admin-dashboard.css";
 
 function MiniBarChart({ title, data }) {
   const max = Math.max(...data, 1);
@@ -16,8 +16,8 @@ function MiniBarChart({ title, data }) {
           <div
             key={idx}
             className="chart-bar"
-            style={{ height: `${Math.round((v / max) * 100)}%` }}
-            title={`${v}`}
+            style={{ height: `${Math.round((v / max) * 100)}% ` }}
+            title={`${v} `}
           />
         ))}
       </div>
@@ -28,60 +28,59 @@ function MiniBarChart({ title, data }) {
 export default function AdminDashboard() {
   const nav = useNavigate();
   const { logout } = useUserState();
-  const [userStats, setUserStats] = useState({
-    total: "1,240",
-    students: "1,050",
-    companies: "180"
-  });
+  const [dashboardStats, setDashboardStats] = useState(null);
+  const [recentPostings, setRecentPostings] = useState([]);
 
-  // Fetch user stats từ API
+  // Fetch dashboard stats từ API
   useEffect(() => {
-    const loadUserStats = async () => {
+    const loadStats = async () => {
       try {
-        const users = await authService.getUserInfo();
-        console.log("📊 Users data:", users);
-        
-        if (Array.isArray(users)) {
-          const total = users.length;
-          const students = users.filter(u => u.role === "STUDENT").length;
-          const companies = users.filter(u => u.role === "COMPANY").length;
-          
-          setUserStats({
-            total: total.toString(),
-            students: students.toString(),
-            companies: companies.toString()
-          });
-          
-          console.log(`✅ Updated stats: ${total} users (${students} students, ${companies} companies)`);
+        const [statsResult, recentResult] = await Promise.allSettled([
+          getDashboardStats(),
+          getRecentPostings(),
+        ]);
+
+        if (statsResult.status === "fulfilled") {
+          setDashboardStats(statsResult.value);
+          console.log("📊 Dashboard stats:", statsResult.value);
+        }
+        if (recentResult.status === "fulfilled" && Array.isArray(recentResult.value)) {
+          setRecentPostings(recentResult.value);
         }
       } catch (error) {
-        console.error("❌ Failed to load user stats:", error);
-        toast.error("Failed to load user statistics");
+        console.error("❌ Failed to load dashboard:", error);
       }
     };
-    
-    loadUserStats();
+
+    loadStats();
   }, []);
 
   const stats = [
-    { 
-      title: "Users", 
-      main: userStats.total, 
-      sub: `Students ${userStats.students} • Companies ${userStats.companies}` 
+    {
+      title: "Users",
+      main: dashboardStats?.totalUser ?? "—",
+      sub: `Students ${dashboardStats?.totalStudent ?? "—"} • Companies ${dashboardStats?.totalCompanies ?? "—"}`
     },
-    { title: "Jobs", main: "420", sub: "Pending 8 • Approved 305" },
-    { title: "Roadmaps", main: "24", sub: "Steps 1,380" },
-    { title: "Notifications", main: "86", sub: "Sent today 12" },
+    { title: "Jobs", main: dashboardStats?.totalJobs ?? "—", sub: `Posted today: ${dashboardStats?.jobsToday ?? "—"}` },
+    { title: "Roadmaps", main: "—", sub: "Learning paths" },
+    { title: "Jobs Today", main: dashboardStats?.jobsToday ?? "—", sub: "New postings today" },
   ];
+
 
   const jobsCreated = [2, 5, 8, 3, 6, 9, 7];
   const activeUsers = [4, 6, 7, 5, 8, 10, 6];
 
-  const recentActivity = [
-    { time: "09:12", event: "Approved job: Backend Dev (Java)", actor: "admin01" },
-    { time: "09:05", event: "Rejected job: DevOps Engineer", actor: "admin02" },
-    { time: "08:50", event: "Company registered: NamiTechsystem", actor: "system" },
-  ];
+  const recentActivity = recentPostings.length > 0
+    ? recentPostings.slice(0, 5).map((job) => ({
+      time: new Date(job.postedDate || job.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      event: `New job: ${job.jobTitle || job.title} at ${job.companyName || job.company}`,
+      actor: "company",
+    }))
+    : [
+      { time: "09:12", event: "Approved job: Backend Dev (Java)", actor: "admin01" },
+      { time: "09:05", event: "Rejected job: DevOps Engineer", actor: "admin02" },
+      { time: "08:50", event: "Company registered: NamiTechsystem", actor: "system" },
+    ];
 
   const systemAlerts = [
     { title: "Pending approvals high", desc: "8 jobs waiting > 24h" },

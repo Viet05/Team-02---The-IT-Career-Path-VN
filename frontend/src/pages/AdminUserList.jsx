@@ -45,7 +45,7 @@ const MOCK_USERS = [
 export default function AdminUserList() {
   const nav = useNavigate();
   const { logout } = useUserState();
-  const [users, setUsers] = useState(MOCK_USERS);
+  const [users, setUsers] = useState([]);
   const [filterRole, setFilterRole] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -66,22 +66,26 @@ export default function AdminUserList() {
       try {
         const data = await authService.getUserInfo();
         console.log("📊 Fetched users:", data);
-        
+
         // Nếu data là array, dùng trực tiếp; nếu không, dùng MOCK_USERS
         if (Array.isArray(data)) {
           setUsers(data);
-          toast.success(`Loaded ${data.length} users from API`);
-        } else {
-          console.warn("API did not return an array, using mock data");
-          toast.info("Using mock data");
+          console.log(`✅ Loaded ${data.length} users from API`);
+        } else if (data && typeof data === 'object') {
+          // Handle paginated or wrapped response
+          const userList = data.content || data.data || data.users || [];
+          if (Array.isArray(userList)) {
+            setUsers(userList);
+            console.log(`✅ Loaded ${userList.length} users from API`);
+          }
         }
       } catch (error) {
         console.error("❌ Failed to load users:", error);
         toast.error("Failed to load users from API");
-     
+
       }
     };
-    
+
     loadUsers();
   }, []);
 
@@ -117,19 +121,19 @@ export default function AdminUserList() {
     try {
       // Xác định ID property
       const userId = editingUser.id || editingUser.users_id || editingUser.userId;
-      
+
       if (!userId) {
-        console.error("❌ User ID undefined:", editingUser);  
+        console.error("❌ User ID undefined:", editingUser);
         toast.error("User ID not found");
         return;
       }
-      
+
       console.log("📝 Updating user:", userId, editForm);
-      
-      // Gọi API update user
-      const res = await http.post(`/api/it-path/admin/users/${userId}`, editForm);
+
+      // Gọi API update user (PUT thay vì POST)
+      const res = await http.put(`/api/it-path/admin/users/${userId}`, editForm);
       console.log("✅ Update response:", res.data);
-      
+
       // Update state local
       setUsers(
         users.map((u) =>
@@ -154,19 +158,19 @@ export default function AdminUserList() {
     try {
       // Xác định ID property - có thể là 'id', 'users_id', 'userId'
       const userId = userToDelete.id || userToDelete.users_id || userToDelete.userId;
-      
+
       if (!userId) {
         console.error("❌ User ID undefined:", userToDelete);
         toast.error("User ID not found");
         return;
       }
-      
+
       console.log("🗑️ Deleting user:", userId, userToDelete);
-      
+
       // Gọi API delete user
       const res = await http.delete(`/api/it-path/admin/users/${userId}`);
       console.log("✅ Delete response:", res.data);
-      
+
       // Update state local
       setUsers(users.filter((u) => (u.id || u.users_id || u.userId) !== userId));
       toast.success("User deleted successfully!");
@@ -189,23 +193,23 @@ export default function AdminUserList() {
     try {
       // Debug: log toàn bộ user object
       console.log("📋 Full user object:", user);
-      
+
       // User từ API có property userId, không phải id
       const userId = user.userId || user.id || user.users_id;
       const newStatus = user.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
-      
+
       if (!userId) {
         console.error("❌ User ID undefined:", user);
         toast.error("User ID not found");
         return;
       }
-      
+
       console.log("🔄 Toggling user status:", userId, "->", newStatus);
-      
-      // Gọi API block/unblock user
-      const res = await http.post(`/api/it-path/admin/users/${userId}/status`);
+
+      // Gọi API block/unblock user (PUT thay vì POST)
+      const res = await http.put(`/api/it-path/admin/users/${userId}/status`);
       console.log("✅ Status toggle response:", res.data);
-      
+
       // Update state local
       setUsers(
         users.map((u) => {

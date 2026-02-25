@@ -1,54 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
+import { getUserProfile } from "../services/userProfileService";
 import Card from "../components/Card";
 import Button from "../components/Button";
-import ProgressBar from "../components/ProgressBar";
-import { getRoadmapById } from "../data/mockRoadmaps";
-import axios from "axios";
+import Pill from "../components/Pill";
 import "../styles/profile-page.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
-
 export default function ProfilePage() {
-  const { user, selectedRoadmap, getProgressPercentage } = useUserState();
+  const navigate = useNavigate();
+  const { user } = useUserState();
   const [profile, setProfile] = useState(null);
-    const [loading, setLoading] = useState(false);
-  const roadmap = selectedRoadmap ? getRoadmapById(selectedRoadmap) : null;
-  const progress = roadmap ? getProgressPercentage(selectedRoadmap, roadmap.totalSteps) : 0;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!user) {
+      navigate("/auth/login");
+      return;
+    }
+
     const fetchProfile = async () => {
-      if (!user?.id) return;
-      setLoading(true);
       try {
-        const res = await axios.get(
-          `${API_BASE}/api/it-path/users/user_profile/${user.id}`
-        );
-        setProfile(res.data?.data ?? null);
+        setLoading(true);
+        setError(null);
+        const data = await getUserProfile();
+        setProfile(data);
       } catch (err) {
-        console.error("Fetch profile error:", err);
-        setProfile(null);
+        console.error("Failed to fetch profile:", err);
+        setError("Không thể tải thông tin hồ sơ.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProfile();
-  }, [user?.id]);
+  }, [user]);
 
-  if (!user) {
+  if (loading) {
     return (
       <div className="profile-page">
-        <Card>
-          <p>Please log in to view your profile</p>
-          <Button variant="primary" onClick={() => (window.location.href = "/auth/login")}>
-            Login
-          </Button>
-        </Card>
+        <div style={{ padding: "40px", textAlign: "center" }}>Đang tải hồ sơ...</div>
       </div>
     );
   }
+
+  // Kết hợp dữ liệu từ auth store và profile API
+  const displayData = {
+    name: profile?.fullName || user?.name || user?.userName || "Unknown User",
+    email: user?.email || "",
+    dateOfBirth: profile?.dateOfBirth || "",
+    university: profile?.university || "",
+    major: profile?.major || "",
+    currentLevel: profile?.currentLevel || "",
+    careerGoal: profile?.careerGoal || "",
+    bio: profile?.bio || "",
+    avatarUrl: profile?.avatarUrl || user?.avatarUrl || "",
+    city: profile?.city || "",
+    skills: profile?.skills || [],
+  };
 
   return (
     <div className="profile-page">
@@ -56,90 +66,116 @@ export default function ProfilePage() {
         <div className="profile-header">
           <div>
             <h1>My Profile</h1>
-            <p>Manage your account and learning preferences</p>
+            <p>Your personal information and career goals</p>
           </div>
-          <Link to="/profile/edit">
-            <Button variant="outline">Edit Profile</Button>
-          </Link>
+          <Button variant="primary" onClick={() => navigate("/profile/edit")}>
+            Edit Profile
+          </Button>
         </div>
 
-        <div className="profile-grid">
-          {loading && (
-            <Card className="profile-card">
-              <p>Loading profile...</p>
-            </Card>
-          )}
-          {!loading && (
-          <Card className="profile-card">
-            <div className="profile-avatar">
-              <div className="avatar-circle">
-                {(user.name || "U").charAt(0).toUpperCase()}
-              </div>
-            </div>
-            <h2>{user.name || "User"}</h2>
-            <p className="profile-email">{user.email || "No email"}</p>
-
-            <div className="profile-info-section">
-              <div className="info-row">
-                <span className="info-label">Full Name:</span>
-                <span className="info-value">{profile?.fullName || user.fullName || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">Date of Birth:</span>
-                <span className="info-value">{profile?.dateOfBirth || user.dateOfBirth || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">University:</span>
-                <span className="info-value">{profile?.university || user.university || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">Major:</span>
-                <span className="info-value">{profile?.major || user.major || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">Current Level:</span>
-                <span className="info-value">{profile?.currentLevel || user.currentLevel || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">Career Goal:</span>
-                <span className="info-value">{profile?.careerGoal || user.careerGoal || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">Bio:</span>
-                <span className="info-value">{profile?.bio || user.bio || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">Goal Role:</span>
-                <span className="info-value">{user.goalRole || "Not set"}</span>
-              </div>
-              <div className="info-row">
-                <span className="info-label">Hours per Week:</span>
-                <span className="info-value">{user.hoursPerWeek || "Not set"}</span>
-              </div>
-            </div>
+        {error && (
+          <Card style={{ marginBottom: "16px", background: "var(--color-error-subtle, #fef2f2)" }}>
+            <p style={{ color: "var(--color-error, #ef4444)" }}>⚠️ {error}</p>
           </Card>
-          )}
+        )}
 
-          {roadmap && (
-            <Card className="profile-card">
-              <h3>Current Roadmap</h3>
-              <div className="roadmap-info">
-                <div className="roadmap-icon">{roadmap.icon}</div>
-                <div>
-                  <h4>{roadmap.title}</h4>
-                  <p>{roadmap.description}</p>
+        <div className="profile-content">
+          {/* Profile Info Card */}
+          <Card className="profile-info-card">
+            <div className="profile-avatar-section">
+              {displayData.avatarUrl ? (
+                <img
+                  src={displayData.avatarUrl}
+                  alt="Avatar"
+                  className="profile-avatar"
+                />
+              ) : (
+                <div className="profile-avatar-placeholder">
+                  {displayData.name.charAt(0).toUpperCase()}
+                </div>
+              )}
+              <div>
+                <h2>{displayData.name}</h2>
+                <p className="profile-email">{displayData.email}</p>
+                {displayData.currentLevel && (
+                  <Pill variant="primary">{displayData.currentLevel}</Pill>
+                )}
+              </div>
+            </div>
+
+            {displayData.bio && (
+              <div className="profile-section">
+                <h3>About</h3>
+                <p>{displayData.bio}</p>
+              </div>
+            )}
+
+            <div className="profile-section">
+              <h3>Details</h3>
+              <div className="profile-details">
+                {displayData.university && (
+                  <div className="detail-row">
+                    <span className="detail-label">🏫 University</span>
+                    <span>{displayData.university}</span>
+                  </div>
+                )}
+                {displayData.major && (
+                  <div className="detail-row">
+                    <span className="detail-label">📚 Major</span>
+                    <span>{displayData.major}</span>
+                  </div>
+                )}
+                {displayData.careerGoal && (
+                  <div className="detail-row">
+                    <span className="detail-label">🎯 Career Goal</span>
+                    <span>{displayData.careerGoal}</span>
+                  </div>
+                )}
+                {displayData.city && (
+                  <div className="detail-row">
+                    <span className="detail-label">📍 City</span>
+                    <span>{displayData.city}</span>
+                  </div>
+                )}
+                {displayData.dateOfBirth && (
+                  <div className="detail-row">
+                    <span className="detail-label">🎂 Date of Birth</span>
+                    <span>{new Date(displayData.dateOfBirth).toLocaleDateString()}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {displayData.skills && displayData.skills.length > 0 && (
+              <div className="profile-section">
+                <h3>Skills</h3>
+                <div className="skills-grid">
+                  {displayData.skills.map((skill, idx) => (
+                    <Pill key={idx} variant="default">
+                      {skill.skillName || skill.name || skill}
+                      {skill.level && ` (${skill.level})`}
+                    </Pill>
+                  ))}
                 </div>
               </div>
-              <div className="progress-section">
-                <ProgressBar value={progress} max={100} showLabel={true} size="lg" />
-              </div>
-              <Link to={`/roadmaps/${roadmap.id}`}>
-                <Button variant="primary" fullWidth>
-                  Continue Learning
-                </Button>
+            )}
+          </Card>
+
+          {/* Quick Links */}
+          <Card className="profile-quick-links">
+            <h3>Quick Links</h3>
+            <div className="quick-links-list">
+              <Link to="/skills" className="quick-link-item">
+                🎯 Manage Skills
               </Link>
-            </Card>
-          )}
+              <Link to="/roadmaps" className="quick-link-item">
+                🗺️ Learning Roadmaps
+              </Link>
+              <Link to="/hub" className="quick-link-item">
+                🏠 My Learning Hub
+              </Link>
+            </div>
+          </Card>
         </div>
       </div>
     </div>

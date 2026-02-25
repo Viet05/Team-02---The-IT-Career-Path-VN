@@ -1,90 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
+import { getAllRoadmaps, deleteRoadmap } from "../services/roadmapService";
 import { toast } from "../components/Toast";
 import "../styles/admin-roadmap-list.css";
-
-const MOCK_ROADMAPS = [
-  {
-    id: 1,
-    title: "Frontend Developer",
-    description: "Learn to build modern web applications with React",
-    steps: 12,
-    difficulty: "Intermediate",
-    status: "active",
-    createdAt: "2024-01-10",
-    updatedAt: "2024-01-18",
-  },
-  {
-    id: 2,
-    title: "Backend Developer",
-    description: "Master server-side development with Node.js and databases",
-    steps: 15,
-    difficulty: "Intermediate",
-    status: "active",
-    createdAt: "2024-01-12",
-    updatedAt: "2024-01-19",
-  },
-  {
-    id: 3,
-    title: "Full Stack Developer",
-    description: "Complete guide to full-stack web development",
-    steps: 20,
-    difficulty: "Advanced",
-    status: "active",
-    createdAt: "2024-01-15",
-    updatedAt: "2024-01-20",
-  },
-  {
-    id: 4,
-    title: "DevOps Engineer",
-    description: "Infrastructure and deployment automation",
-    steps: 10,
-    difficulty: "Advanced",
-    status: "draft",
-    createdAt: "2024-01-18",
-    updatedAt: "2024-01-20",
-  },
-];
 
 export default function AdminRoadmapList() {
   const nav = useNavigate();
   const { logout } = useUserState();
-  const [roadmaps, setRoadmaps] = useState(MOCK_ROADMAPS);
+  const [roadmaps, setRoadmaps] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState("");
+
+  // Fetch roadmaps từ API
+  useEffect(() => {
+    const fetchRoadmaps = async () => {
+      try {
+        setLoading(true);
+        const data = await getAllRoadmaps();
+        setRoadmaps(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Failed to fetch roadmaps:", err);
+        toast.error("Không thể tải danh sách roadmap");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRoadmaps();
+  }, []);
 
   const filteredRoadmaps = roadmaps.filter((r) => {
-    const matchesSearch =
-      r.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      r.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = !filterStatus || r.status === filterStatus;
-    return matchesSearch && matchesStatus;
+    if (!searchTerm) return true;
+    const term = searchTerm.toLowerCase();
+    return (
+      (r.title || "").toLowerCase().includes(term) ||
+      (r.description || "").toLowerCase().includes(term)
+    );
   });
-
-  const handleActivate = (id) => {
-    setRoadmaps(
-      roadmaps.map((r) => (r.id === id ? { ...r, status: "active" } : r))
-    );
-    toast.success("Roadmap activated!");
-  };
-
-  const handleArchive = (id) => {
-    setRoadmaps(
-      roadmaps.map((r) => (r.id === id ? { ...r, status: "archived" } : r))
-    );
-    toast.success("Roadmap archived!");
-  };
 
   const handleEdit = () => {
     toast.info("Edit feature coming soon");
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const confirmed = window.confirm("Are you sure you want to delete this roadmap?");
-    if (confirmed) {
+    if (!confirmed) return;
+
+    try {
+      await deleteRoadmap(id);
       setRoadmaps(roadmaps.filter((r) => r.id !== id));
       toast.success("Roadmap deleted!");
+    } catch (err) {
+      console.error("Failed to delete roadmap:", err);
+      toast.error("Failed to delete roadmap");
     }
   };
 
@@ -149,111 +117,72 @@ export default function AdminRoadmapList() {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <div className="filter-group">
-                <select
-                  className="input"
-                  value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value)}
-                >
-                  <option value="">All Status</option>
-                  <option value="active">Active</option>
-                  <option value="draft">Draft</option>
-                  <option value="archived">Archived</option>
-                </select>
-              </div>
             </div>
           </div>
 
           {/* Roadmaps Table */}
           <div className="admin-card">
-            <div className="roadmaps-table-wrapper">
-              <table className="roadmaps-table">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Steps</th>
-                    <th>Difficulty</th>
-                    <th>Status</th>
-                    <th>Created</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredRoadmaps.length > 0 ? (
-                    filteredRoadmaps.map((roadmap) => (
-                      <tr key={roadmap.id}>
-                        <td>
-                          <strong>{roadmap.title}</strong>
-                        </td>
-                        <td>
-                          <span className="text-muted">{roadmap.description}</span>
-                        </td>
-                        <td>{roadmap.steps}</td>
-                        <td>
-                          <span
-                            className={`status-badge status-${roadmap.difficulty.toLowerCase()}`}
-                          >
-                            {roadmap.difficulty}
-                          </span>
-                        </td>
-                        <td>
-                          <span
-                            className={`status-badge status-${roadmap.status}`}
-                          >
-                            {roadmap.status.charAt(0).toUpperCase() +
-                              roadmap.status.slice(1)}
-                          </span>
-                        </td>
-                        <td>{new Date(roadmap.createdAt).toLocaleDateString()}</td>
-                        <td>
-                          <div className="action-buttons">
-                            <button
-                              className="btn-icon"
-                              onClick={() => handleEdit(roadmap.id)}
-                              title="Edit"
-                            >
-                              ✏️
-                            </button>
-                            {roadmap.status !== "active" && (
+            {loading ? (
+              <p style={{ padding: "20px", textAlign: "center" }}>Đang tải...</p>
+            ) : (
+              <div className="roadmaps-table-wrapper">
+                <table className="roadmaps-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Level</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredRoadmaps.length > 0 ? (
+                      filteredRoadmaps.map((roadmap) => (
+                        <tr key={roadmap.id}>
+                          <td>
+                            <strong>{roadmap.title}</strong>
+                          </td>
+                          <td>
+                            <span className="text-muted">{roadmap.description}</span>
+                          </td>
+                          <td>
+                            {roadmap.level && (
+                              <span className={`status-badge status-${(roadmap.level || "").toLowerCase()}`}>
+                                {roadmap.level}
+                              </span>
+                            )}
+                          </td>
+                          <td>
+                            <div className="action-buttons">
                               <button
                                 className="btn-icon"
-                                onClick={() => handleActivate(roadmap.id)}
-                                title="Activate"
+                                onClick={() => handleEdit(roadmap.id)}
+                                title="Edit"
                               >
-                                ✅
+                                ✏️
                               </button>
-                            )}
-                            {roadmap.status === "active" && (
                               <button
-                                className="btn-icon"
-                                onClick={() => handleArchive(roadmap.id)}
-                                title="Archive"
+                                className="btn-icon btn-delete"
+                                onClick={() => handleDelete(roadmap.id)}
+                                title="Delete"
                               >
-                                📦
+                                🗑️
                               </button>
-                            )}
-                            <button
-                              className="btn-icon btn-delete"
-                              onClick={() => handleDelete(roadmap.id)}
-                              title="Delete"
-                            >
-                              🗑️
-                            </button>
-                          </div>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="4" className="empty-state">
+                          No roadmaps found
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="7" className="empty-state">
-                        No roadmaps found
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <div className="table-footer">
               Total: {filteredRoadmaps.length} roadmap(s)

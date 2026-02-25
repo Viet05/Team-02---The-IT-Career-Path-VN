@@ -1,58 +1,130 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { mockJobs, filterJobs } from "../data/mockJobs";
-import { mockRoadmaps } from "../data/mockRoadmaps";
-import { useUserState } from "../store/useLocalStorage";
+import { getAllJobs, getFavouriteJobs, addFavouriteJob, removeFavouriteJob } from "../services/jobService";
+import { getRecommendations } from "../services/recommendationService";
+import { getToken } from "../services/session";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import Pill from "../components/Pill";
 import EmptyState from "../components/EmptyState";
 import "../styles/jobs-page.css";
 
+const JOB_TYPES = ["FULL_TIME", "PART_TIME", "CONTRACT", "INTERNSHIP", "REMOTE"];
+const JOB_LEVELS = ["INTERN", "JUNIOR", "MIDDLE", "SENIOR", "LEAD", "MANAGER"];
+
+// Helper: dịch enum từ backend sang text hiển thị
+const formatEnum = (value) => {
+  if (!value) return "";
+  return value.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+};
+
 export default function JobsPage() {
   const navigate = useNavigate();
-  const { user, selectedRoadmap, isJobSaved, toggleSavedJob } = useUserState();
+  const isLoggedIn = !!getToken();
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [recommendedJobs, setRecommendedJobs] = useState([]);
+  const [favouriteMap, setFavouriteMap] = useState({}); // { jobPostingId: userFavouriteJobId }
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     location: "",
-    type: "",
-    level: "",
-    tags: [],
+    jobType: "",
+    jobLevel: "",
   });
-  const [showMatchedOnly, setShowMatchedOnly] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
-  const allTags = [...new Set(mockJobs.flatMap((job) => job.tags))];
-
-  const filteredJobs = useMemo(() => {
-    let jobs = filterJobs(mockJobs, { ...filters, search: searchTerm });
-
-    if (showMatchedOnly && user && selectedRoadmap) {
-      const roadmap = mockRoadmaps.find((r) => r.id === selectedRoadmap);
-      if (roadmap) {
-        const userSkills = roadmap.skills;
-        jobs = jobs.filter((job) =>
-          job.tags.some((tag) => userSkills.includes(tag))
-        );
+  // Fetch jobs from API
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getAllJobs({
+          keyword: searchTerm || undefined,
+          location: filters.location || undefined,
+          jobType: filters.jobType || undefined,
+          jobLevel: filters.jobLevel || undefined,
+        });
+        setJobs(Array.isArray(data) ? data : []);
+        setCurrentPage(1);
+      } catch (err) {
+        console.error("Failed to fetch jobs:", err);
+        setError("Không thể tải danh sách việc làm.");
+      } finally {
+        setLoading(false);
       }
+    };
+
+    fetchJobs();
+  }, [searchTerm, filters]);
+
+  // Fetch favourites and recommendations for logged-in users
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    const fetchUserData = async () => {
+      try {
+        const [favData, recData] = await Promise.allSettled([
+          getFavouriteJobs(),
+          getRecommendations(6),
+        ]);
+
+        if (favData.status === "fulfilled" && Array.isArray(favData.value)) {
+          const map = {};
+          favData.value.forEach((fav) => {
+            if (fav.jobPosting?.id) {
+              map[fav.jobPosting.id] = fav.id;
+            } else if (fav.jobPostingId) {
+              map[fav.jobPostingId] = fav.id;
+            }
+          });
+          setFavouriteMap(map);
+        }
+
+        if (recData.status === "fulfilled" && Array.isArray(recData.value)) {
+          setRecommendedJobs(recData.value.slice(0, 5));
+        }
+      } catch (err) {
+        console.error("Failed to fetch user data:", err);
+      }
+    };
+
+    fetchUserData();
+  }, [isLoggedIn]);
+
+  const handleToggleFavourite = async (job) => {
+    const jobId = job.id;
+    const existingFavId = favouriteMap[jobId];
+
+    try {
+      if (existingFavId) {
+        // Xóa khỏi yêu thích
+        await removeFavouriteJob(existingFavId);
+        setFavouriteMap((prev) => {
+          const next = { ...prev };
+          delete next[jobId];
+          return next;
+        });
+      } else {
+        // Thêm vào yêu thích
+        const result = await addFavouriteJob(jobId);
+        const newFavId = result?.id || result?.userFavouriteJobId;
+        if (newFavId) {
+          setFavouriteMap((prev) => ({ ...prev, [jobId]: newFavId }));
+        }
+      }
+    } catch (err) {
+      console.error("Failed to toggle favourite:", err);
     }
+  };
 
-    return jobs;
-  }, [searchTerm, filters, showMatchedOnly, user, selectedRoadmap]);
-
-  const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
-  const paginatedJobs = filteredJobs.slice(
+  const totalPages = Math.ceil(jobs.length / itemsPerPage);
+  const paginatedJobs = jobs.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
-  const getMissingSkills = (job) => {
-    if (!user || !selectedRoadmap) return [];
-    const roadmap = mockRoadmaps.find((r) => r.id === selectedRoadmap);
-    if (!roadmap) return [];
-    return job.tags.filter((tag) => !roadmap.skills.includes(tag));
-  };
 
   return (
     <div className="jobs-page">
@@ -84,19 +156,6 @@ export default function JobsPage() {
             <Card>
               <h3>Filters</h3>
 
-              {user && selectedRoadmap && (
-                <div className="filter-section">
-                  <label className="filter-checkbox">
-                    <input
-                      type="checkbox"
-                      checked={showMatchedOnly}
-                      onChange={(e) => setShowMatchedOnly(e.target.checked)}
-                    />
-                    <span>Show matched jobs only</span>
-                  </label>
-                </div>
-              )}
-
               <div className="filter-section">
                 <label className="filter-label">Location</label>
                 <input
@@ -114,14 +173,13 @@ export default function JobsPage() {
                 <label className="filter-label">Type</label>
                 <select
                   className="filter-input"
-                  value={filters.type}
-                  onChange={(e) => setFilters({ ...filters, type: e.target.value })}
+                  value={filters.jobType}
+                  onChange={(e) => setFilters({ ...filters, jobType: e.target.value })}
                 >
                   <option value="">All Types</option>
-                  <option value="Full-time">Full-time</option>
-                  <option value="Part-time">Part-time</option>
-                  <option value="Contract">Contract</option>
-                  <option value="Internship">Internship</option>
+                  {JOB_TYPES.map((t) => (
+                    <option key={t} value={t}>{formatEnum(t)}</option>
+                  ))}
                 </select>
               </div>
 
@@ -129,45 +187,23 @@ export default function JobsPage() {
                 <label className="filter-label">Level</label>
                 <select
                   className="filter-input"
-                  value={filters.level}
-                  onChange={(e) => setFilters({ ...filters, level: e.target.value })}
+                  value={filters.jobLevel}
+                  onChange={(e) => setFilters({ ...filters, jobLevel: e.target.value })}
                 >
                   <option value="">All Levels</option>
-                  <option value="Junior">Junior</option>
-                  <option value="Middle">Middle</option>
-                  <option value="Senior">Senior</option>
-                </select>
-              </div>
-
-              <div className="filter-section">
-                <label className="filter-label">Skills</label>
-                <div className="tags-filter">
-                  {allTags.slice(0, 10).map((tag) => (
-                    <Pill
-                      key={tag}
-                      variant={filters.tags.includes(tag) ? "primary" : "default"}
-                      onClick={() => {
-                        setFilters({
-                          ...filters,
-                          tags: filters.tags.includes(tag)
-                            ? filters.tags.filter((t) => t !== tag)
-                            : [...filters.tags, tag],
-                        });
-                      }}
-                    >
-                      {tag}
-                    </Pill>
+                  {JOB_LEVELS.map((l) => (
+                    <option key={l} value={l}>{formatEnum(l)}</option>
                   ))}
-                </div>
+                </select>
               </div>
 
               <Button
                 variant="outline"
                 fullWidth
                 onClick={() => {
-                  setFilters({ location: "", type: "", level: "", tags: [] });
+                  setFilters({ location: "", jobType: "", jobLevel: "" });
                   setSearchTerm("");
-                  setShowMatchedOnly(false);
+                  setCurrentPage(1);
                 }}
               >
                 Reset Filters
@@ -180,68 +216,90 @@ export default function JobsPage() {
             <div className="results-header">
               <div>
                 <h2>
-                  {filteredJobs.length} {filteredJobs.length === 1 ? "job" : "jobs"} found
+                  {loading ? "Loading..." : `${jobs.length} ${jobs.length === 1 ? "job" : "jobs"} found`}
                 </h2>
               </div>
             </div>
 
-            {paginatedJobs.length === 0 ? (
+            {loading && (
+              <div style={{ padding: "40px", textAlign: "center" }}>
+                <p>Đang tải danh sách việc làm...</p>
+              </div>
+            )}
+
+            {error && !loading && (
+              <EmptyState
+                icon="⚠️"
+                title="Lỗi tải dữ liệu"
+                message={error}
+              />
+            )}
+
+            {!loading && !error && paginatedJobs.length === 0 && (
               <EmptyState
                 icon="🔍"
                 title="No jobs found"
                 message="Try adjusting your search or filters"
               />
-            ) : (
+            )}
+
+            {!loading && !error && paginatedJobs.length > 0 && (
               <>
                 <div className="jobs-list">
                   {paginatedJobs.map((job) => {
-                    const missingSkills = getMissingSkills(job);
-                    const isSaved = isJobSaved(job.id);
+                    const isSaved = !!(favouriteMap[job.id]);
 
                     return (
                       <Card key={job.id} className="job-card" hover>
                         <div className="job-card-header">
                           <div>
-                            <h3>{job.title}</h3>
-                            <p className="job-company">{job.company}</p>
+                            <h3>{job.title || job.jobTitle}</h3>
+                            <p className="job-company">{job.companyName || job.company}</p>
                           </div>
-                          <button
-                            className={`job-save-btn ${isSaved ? "saved" : ""}`}
-                            onClick={() => toggleSavedJob(job.id)}
-                            aria-label={isSaved ? "Unsave job" : "Save job"}
-                          >
-                            {isSaved ? "★" : "☆"}
-                          </button>
+                          {isLoggedIn && (
+                            <button
+                              className={`job-save-btn ${isSaved ? "saved" : ""}`}
+                              onClick={() => handleToggleFavourite(job)}
+                              aria-label={isSaved ? "Unsave job" : "Save job"}
+                            >
+                              {isSaved ? "★" : "☆"}
+                            </button>
+                          )}
                         </div>
 
                         <div className="job-meta">
-                          <span>{job.location}</span>
-                          <span>•</span>
-                          <span>{job.type}</span>
-                          <span>•</span>
-                          <span>{job.level}</span>
-                          {job.salary && (
+                          {job.location && <span>{job.location}</span>}
+                          {job.jobType && (
                             <>
                               <span>•</span>
-                              <span>{job.salary}</span>
+                              <span>{formatEnum(job.jobType)}</span>
+                            </>
+                          )}
+                          {job.jobLevel && (
+                            <>
+                              <span>•</span>
+                              <span>{formatEnum(job.jobLevel)}</span>
+                            </>
+                          )}
+                          {(job.minSalary || job.maxSalary) && (
+                            <>
+                              <span>•</span>
+                              <span>
+                                {job.minSalary && job.maxSalary
+                                  ? `${job.minSalary.toLocaleString()} - ${job.maxSalary.toLocaleString()}`
+                                  : job.minSalary
+                                    ? `From ${job.minSalary.toLocaleString()}`
+                                    : `Up to ${job.maxSalary.toLocaleString()}`}
+                              </span>
                             </>
                           )}
                         </div>
 
-                        <div className="job-tags">
-                          {job.tags.map((tag) => (
-                            <Pill key={tag} variant="default">
-                              {tag}
-                            </Pill>
-                          ))}
-                        </div>
-
-                        {missingSkills.length > 0 && (
-                          <div className="missing-skills">
-                            <span className="missing-label">Missing skills:</span>
-                            {missingSkills.map((skill) => (
-                              <Pill key={skill} variant="default">
-                                {skill}
+                        {job.skills && job.skills.length > 0 && (
+                          <div className="job-tags">
+                            {job.skills.slice(0, 5).map((skill, idx) => (
+                              <Pill key={idx} variant="default">
+                                {skill.skillName || skill.name || skill}
                               </Pill>
                             ))}
                           </div>
@@ -290,20 +348,26 @@ export default function JobsPage() {
           </main>
 
           {/* Recommended Jobs Sidebar */}
-          <aside className="recommended-jobs-sidebar">
-            <Card>
-              <h3>Recommended for You</h3>
-              <div className="recommended-jobs-list">
-                {mockJobs.slice(0, 5).map((job) => (
-                  <Link key={job.id} to={`/jobs/${job.id}`} className="recommended-job-card">
-                    <h4>{job.title}</h4>
-                    <p>{job.company}</p>
-                    {job.salary && <p style={{ color: 'var(--color-primary)', marginTop: '4px' }}>{job.salary}</p>}
-                  </Link>
-                ))}
-              </div>
-            </Card>
-          </aside>
+          {isLoggedIn && recommendedJobs.length > 0 && (
+            <aside className="recommended-jobs-sidebar">
+              <Card>
+                <h3>Recommended for You</h3>
+                <div className="recommended-jobs-list">
+                  {recommendedJobs.map((job, idx) => (
+                    <Link key={job.jobPostingId || job.id || idx} to={`/jobs/${job.jobPostingId || job.id}`} className="recommended-job-card">
+                      <h4>{job.jobTitle || job.title}</h4>
+                      <p>{job.companyName || job.company}</p>
+                      {job.matchScore !== undefined && (
+                        <p style={{ color: 'var(--color-primary)', marginTop: '4px', fontSize: '12px' }}>
+                          Match: {Math.round(job.matchScore * 100)}%
+                        </p>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </Card>
+            </aside>
+          )}
         </div>
       </div>
     </div>

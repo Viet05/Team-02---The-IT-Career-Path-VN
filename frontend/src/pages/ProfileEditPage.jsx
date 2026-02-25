@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
-import { http } from "../services/http";
+import { getUserProfile, updateUserProfile } from "../services/userProfileService";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import { toast } from "../components/Toast";
@@ -13,7 +13,7 @@ export default function ProfileEditPage() {
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-    fullName: user?.fullName || "",
+    fullName: user?.fullName || user?.name || "",
     dateOfBirth: user?.dateOfBirth || "",
     university: user?.university || "",
     major: user?.major || "",
@@ -21,24 +21,16 @@ export default function ProfileEditPage() {
     careerGoal: user?.careerGoal || "",
     bio: user?.bio || "",
     avatarUrl: user?.avatarUrl || "",
+    city: user?.city || "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Kiểm tra user ID
-    const userId = user?.id || user?.userId || user?.users_id;
-    if (!userId) {
-      toast.error("User ID not found. Please login again.");
-      navigate("/auth/login");
-      return;
-    }
-    
     setLoading(true);
 
     try {
-      // Gửi dữ liệu lên backend API
-      const res = await http.post(`/api/it-path/users/user_profile/${userId}`, {
+      // Gửi dữ liệu lên backend API (PUT /me)
+      const updatedProfile = await updateUserProfile({
         fullName: formData.fullName,
         dateOfBirth: formData.dateOfBirth,
         university: formData.university,
@@ -47,12 +39,14 @@ export default function ProfileEditPage() {
         careerGoal: formData.careerGoal,
         bio: formData.bio,
         avatarUrl: formData.avatarUrl,
+        city: formData.city,
       });
 
-      console.log("✅ Profile updated:", res.data);
+      console.log("✅ Profile updated:", updatedProfile);
 
-      // Cập nhật localStorage
+      // Cập nhật localStorage với name từ fullName
       updateUser({
+        name: formData.fullName,
         fullName: formData.fullName,
         dateOfBirth: formData.dateOfBirth,
         university: formData.university,
@@ -61,13 +55,15 @@ export default function ProfileEditPage() {
         careerGoal: formData.careerGoal,
         bio: formData.bio,
         avatarUrl: formData.avatarUrl,
+        city: formData.city,
       });
 
       toast.success("Profile updated successfully!");
       navigate("/profile");
     } catch (error) {
       console.error("❌ Update failed:", error);
-      toast.error("Failed to update profile");
+      const msg = error?.response?.data?.message || "Failed to update profile";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

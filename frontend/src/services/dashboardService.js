@@ -26,7 +26,7 @@ const handleResponse = async (response) => {
 };
 
 export const getDashboardStats = async () => {
-    const response = await fetch(`${BASE_URL}/get-stats`, {
+    const response = await fetch(`${BASE_URL}/stats`, {
         method: "GET",
         headers: getHeaders(),
     });
@@ -34,7 +34,7 @@ export const getDashboardStats = async () => {
 };
 
 export const getChartData = async () => {
-    const response = await fetch(`${BASE_URL}/get-chart`, {
+    const response = await fetch(`${BASE_URL}/chart`, {
         method: "GET",
         headers: getHeaders(),
     });
@@ -42,7 +42,7 @@ export const getChartData = async () => {
 };
 
 export const getRecentPostings = async () => {
-    const response = await fetch(`${BASE_URL}/get-recent`, {
+    const response = await fetch(`${BASE_URL}/recent`, {
         method: "GET",
         headers: getHeaders(),
     });

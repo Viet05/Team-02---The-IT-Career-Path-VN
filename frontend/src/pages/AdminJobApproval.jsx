@@ -1,69 +1,39 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
+import { getAllJobs } from "../services/jobService";
 import { toast } from "../components/Toast";
 import "../styles/admin-job-approval.css";
-
-const MOCK_JOBS = [
-  {
-    id: 1,
-    title: "Backend Developer (Java)",
-    company: "Tech Company Inc.",
-    location: "HCM",
-    type: "Full-time",
-    level: "Junior/Middle",
-    salary: "20-35M",
-    tags: ["Java", "Spring", "MySQL"],
-    status: "pending",
-    posted: "2024-01-20",
-    submittedBy: "company01",
-  },
-  {
-    id: 2,
-    title: "Frontend Developer (React)",
-    company: "Web Solutions Ltd.",
-    location: "Hà Nội",
-    type: "Full-time",
-    level: "Middle",
-    salary: "25-40M",
-    tags: ["React", "TypeScript", "CSS"],
-    status: "pending",
-    posted: "2024-01-21",
-    submittedBy: "company02",
-  },
-  {
-    id: 3,
-    title: "DevOps Engineer",
-    company: "Cloud Tech",
-    location: "Remote",
-    type: "Full-time",
-    level: "Senior",
-    salary: "30-50M",
-    tags: ["Docker", "Kubernetes", "AWS"],
-    status: "approved",
-    posted: "2024-01-18",
-    submittedBy: "company01",
-  },
-  {
-    id: 4,
-    title: "Data Scientist",
-    company: "AI Innovations",
-    location: "HCM",
-    type: "Full-time",
-    level: "Middle/Senior",
-    salary: "35-55M",
-    tags: ["Python", "Machine Learning", "SQL"],
-    status: "rejected",
-    posted: "2024-01-19",
-    submittedBy: "company03",
-  },
-];
 
 export default function AdminJobApproval() {
   const nav = useNavigate();
   const { logout } = useUserState();
-  const [jobs, setJobs] = useState(MOCK_JOBS);
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState("");
+
+  // Fetch jobs từ API
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        setLoading(true);
+        const data = await getAllJobs();
+        // Backend hiện không có trạng thái pending/approved/rejected – hiển thị tất cả
+        // với status mặc định là "approved"
+        const normalized = (Array.isArray(data) ? data : []).map((job) => ({
+          ...job,
+          status: job.status || "approved",
+        }));
+        setJobs(normalized);
+      } catch (err) {
+        console.error("Failed to fetch jobs:", err);
+        toast.error("Không thể tải danh sách việc làm");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchJobs();
+  }, []);
 
   const filteredJobs = useMemo(() => {
     if (!filterStatus) return jobs;
@@ -71,17 +41,13 @@ export default function AdminJobApproval() {
   }, [jobs, filterStatus]);
 
   const handleApprove = (jobId) => {
-    setJobs(
-      jobs.map((j) => (j.id === jobId ? { ...j, status: "approved" } : j))
-    );
-    toast.success("Job approved successfully!");
+    setJobs(jobs.map((j) => (j.id === jobId ? { ...j, status: "approved" } : j)));
+    toast.success("Job marked as approved!");
   };
 
   const handleReject = (jobId) => {
-    setJobs(
-      jobs.map((j) => (j.id === jobId ? { ...j, status: "rejected" } : j))
-    );
-    toast.success("Job rejected");
+    setJobs(jobs.map((j) => (j.id === jobId ? { ...j, status: "rejected" } : j)));
+    toast.success("Job marked as rejected");
   };
 
   const getStatusBadge = (status) => {
@@ -92,7 +58,7 @@ export default function AdminJobApproval() {
     };
     return (
       <span className={`status-badge ${styles[status] || ""}`}>
-        {status.toUpperCase()}
+        {(status || "").toUpperCase()}
       </span>
     );
   };
@@ -166,65 +132,67 @@ export default function AdminJobApproval() {
               </select>
             </div>
 
-            <div className="jobs-table-wrapper">
-              <table className="jobs-table">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Company</th>
-                    <th>Location</th>
-                    <th>Type</th>
-                    <th>Level</th>
-                    <th>Status</th>
-                    <th>Posted</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredJobs.length === 0 ? (
+            {loading ? (
+              <p style={{ padding: "20px", textAlign: "center" }}>Đang tải...</p>
+            ) : (
+              <div className="jobs-table-wrapper">
+                <table className="jobs-table">
+                  <thead>
                     <tr>
-                      <td colSpan="8" className="empty-state">
-                        No jobs found
-                      </td>
+                      <th>Title</th>
+                      <th>Company</th>
+                      <th>Location</th>
+                      <th>Type</th>
+                      <th>Level</th>
+                      <th>Status</th>
+                      <th>Actions</th>
                     </tr>
-                  ) : (
-                    filteredJobs.map((job) => (
-                      <tr key={job.id}>
-                        <td>
-                          <strong>{job.title}</strong>
-                        </td>
-                        <td>{job.company}</td>
-                        <td>{job.location}</td>
-                        <td>{job.type}</td>
-                        <td>{job.level}</td>
-                        <td>{getStatusBadge(job.status)}</td>
-                        <td>{job.posted}</td>
-                        <td>
-                          {job.status === "pending" ? (
-                            <div className="action-buttons">
-                              <button
-                                className="btn btn-success"
-                                onClick={() => handleApprove(job.id)}
-                              >
-                                Approve
-                              </button>
-                              <button
-                                className="btn btn-danger"
-                                onClick={() => handleReject(job.id)}
-                              >
-                                Reject
-                              </button>
-                            </div>
-                          ) : (
-                            <span className="text-muted">Reviewed</span>
-                          )}
+                  </thead>
+                  <tbody>
+                    {filteredJobs.length === 0 ? (
+                      <tr>
+                        <td colSpan="7" className="empty-state">
+                          No jobs found
                         </td>
                       </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
+                    ) : (
+                      filteredJobs.map((job) => (
+                        <tr key={job.id}>
+                          <td>
+                            <strong>{job.jobTitle || job.title}</strong>
+                          </td>
+                          <td>{job.companyName || job.company}</td>
+                          <td>{job.location}</td>
+                          <td>{job.jobType}</td>
+                          <td>{job.jobLevel}</td>
+                          <td>{getStatusBadge(job.status)}</td>
+                          <td>
+                            {job.status === "pending" ? (
+                              <div className="action-buttons">
+                                <button
+                                  className="btn btn-success"
+                                  onClick={() => handleApprove(job.id)}
+                                >
+                                  Approve
+                                </button>
+                                <button
+                                  className="btn btn-danger"
+                                  onClick={() => handleReject(job.id)}
+                                >
+                                  Reject
+                                </button>
+                              </div>
+                            ) : (
+                              <span className="text-muted">—</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <div className="table-footer">
               <span>Total: {filteredJobs.length} jobs</span>

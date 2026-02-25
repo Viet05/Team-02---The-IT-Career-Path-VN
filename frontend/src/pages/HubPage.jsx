@@ -1,251 +1,199 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
-import { getRoadmapById } from "../data/mockRoadmaps";
-import { mockJobs, getJobById } from "../data/mockJobs";
+import { getFavouriteJobs } from "../services/jobService";
+import { getRecommendations } from "../services/recommendationService";
+import { getUserProgress, getCompletedCount } from "../services/progressService";
+import { getRoadmapDetails } from "../services/roadmapService";
 import Card from "../components/Card";
 import Button from "../components/Button";
-import Pill from "../components/Pill";
 import ProgressBar from "../components/ProgressBar";
 import EmptyState from "../components/EmptyState";
 import "../styles/hub-page.css";
 
 export default function HubPage() {
-  const navigate = useNavigate();
-  const {
-    user,
-    selectedRoadmap,
-    getProgressPercentage,
-    savedJobs,
-    savedLessons,
-    getProgress,
-  } = useUserState();
+  const { user, selectedRoadmap } = useUserState();
+  const [savedJobs, setSavedJobs] = useState([]);
+  const [recommendedJobs, setRecommendedJobs] = useState([]);
+  const [roadmap, setRoadmap] = useState(null);
+  const [completedCount, setCompletedCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const roadmap = selectedRoadmap ? getRoadmapById(selectedRoadmap) : null;
-  const progress = roadmap ? getProgressPercentage(selectedRoadmap, roadmap.totalSteps) : 0;
-  const roadmapProgress = roadmap ? getProgress(roadmap.id) : {};
+  useEffect(() => {
+    if (!user) return;
 
-  const getNextStep = () => {
-    if (!roadmap) return null;
-    for (const step of roadmap.steps) {
-      if (!roadmapProgress[step.id]) {
-        return step;
+    const fetchAll = async () => {
+      setLoading(true);
+
+      // Fetch tất cả data song song
+      const [favResult, recResult, progressResult] = await Promise.allSettled([
+        getFavouriteJobs(),
+        getRecommendations(6),
+        getCompletedCount(),
+      ]);
+
+      if (favResult.status === "fulfilled" && Array.isArray(favResult.value)) {
+        setSavedJobs(favResult.value);
       }
-    }
-    return null;
-  };
-
-  const nextStep = getNextStep();
-  const nextLesson = nextStep ? nextStep.lessons[0] : null;
-
-  const savedJobsData = savedJobs.map((id) => getJobById(id)).filter(Boolean);
-  const savedLessonsData = savedLessons
-    .map((lessonId) => {
-      if (!roadmap) return null;
-      for (const step of roadmap.steps) {
-        const lesson = step.lessons.find((l) => l.id === lessonId);
-        if (lesson) return { lesson, step, roadmap };
+      if (recResult.status === "fulfilled" && Array.isArray(recResult.value)) {
+        setRecommendedJobs(recResult.value);
       }
-      return null;
-    })
-    .filter(Boolean);
+      if (progressResult.status === "fulfilled") {
+        setCompletedCount(Number(progressResult.value) || 0);
+      }
 
-  const recommendedJobs = mockJobs
-    .filter((job) => {
-      if (!roadmap) return false;
-      return job.tags.some((tag) => roadmap.skills.includes(tag));
-    })
-    .slice(0, 6);
+      // Fetch roadmap nếu user đang chọn
+      if (selectedRoadmap) {
+        try {
+          const userId = user?.id || user?.userId || 0;
+          const roadmapData = await getRoadmapDetails(Number(selectedRoadmap), userId);
+          setRoadmap(roadmapData);
+        } catch (err) {
+          console.error("Failed to load roadmap details:", err);
+        }
+      }
+
+      setLoading(false);
+    };
+
+    fetchAll();
+  }, [user, selectedRoadmap]);
 
   if (!user) {
     return (
       <div className="hub-page">
         <EmptyState
-          icon="👤"
+          icon="🔐"
           title="Please log in"
-          message="You need to be logged in to access your learning hub"
-          actionLabel="Go to Login"
-          onAction={() => navigate("/auth/login")}
+          message="You need to be logged in to see your learning hub"
+          actionLabel="Log In"
+          onAction={() => window.location.href = "/auth/login"}
         />
       </div>
     );
   }
+
+  const totalNodes = roadmap?.nodes?.length || 0;
+  const progressPercent = totalNodes > 0 ? Math.round((completedCount / totalNodes) * 100) : 0;
+
+  // Find next node in roadmap (assume front-end progress tracking here)
+  const nextNode = roadmap?.nodes?.[0] || null;
 
   return (
     <div className="hub-page">
       <div className="hub-container">
         <div className="hub-header">
           <div>
-            <h1>Welcome back, {user.name || "User"}! 👋</h1>
+            <h1>👋 Welcome back, {user?.name || user?.userName || "Learner"}!</h1>
             <p>Continue your learning journey</p>
           </div>
         </div>
 
-        {/* Continue Learning */}
-        {roadmap && nextStep && (
-          <section className="hub-section">
-            <h2>Continue Learning</h2>
-            <Card className="continue-card">
-              <div className="continue-content">
-                <div>
-                  <div className="continue-badge">{roadmap.icon} {roadmap.title}</div>
-                  <h3>Next: {nextStep.title}</h3>
-                  <p>{nextStep.description}</p>
-                  {nextLesson && (
-                    <div className="next-lesson">
-                      <span>📚 {nextLesson.title}</span>
-                      <span>•</span>
-                      <span>{nextLesson.duration} min</span>
-                    </div>
-                  )}
-                </div>
-                <div className="continue-actions">
-                  <ProgressBar value={progress} max={100} showLabel={true} size="lg" />
-                  <Button
-                    variant="primary"
-                    onClick={() => {
-                      if (nextLesson) {
-                        navigate(`/roadmaps/${roadmap.id}/lesson/${nextLesson.id}`);
-                      } else {
-                        navigate(`/roadmaps/${roadmap.id}`);
-                      }
-                    }}
-                  >
-                    Continue
-                  </Button>
-                </div>
-              </div>
-            </Card>
-          </section>
-        )}
-
-        {/* Saved Items */}
         <div className="hub-grid">
-          {/* Saved Jobs */}
-          <section className="hub-section">
-            <div className="section-header-row">
-              <h2>Saved Jobs</h2>
-              <Button variant="ghost" size="sm" onClick={() => navigate("/jobs")}>
-                View All
-              </Button>
-            </div>
-            {savedJobsData.length === 0 ? (
-              <Card>
-                <EmptyState
-                  icon="💼"
-                  title="No saved jobs"
-                  message="Save jobs you're interested in"
-                  actionLabel="Browse Jobs"
-                  onAction={() => navigate("/jobs")}
-                />
-              </Card>
-            ) : (
-              <div className="saved-items-grid">
-                {savedJobsData.slice(0, 3).map((job) => (
-                  <Card key={job.id} className="saved-item-card" hover>
-                    <h3>{job.title}</h3>
-                    <p className="saved-item-meta">{job.company} • {job.location}</p>
-                    <div className="saved-item-tags">
-                      {job.tags.slice(0, 3).map((tag) => (
-                        <Pill key={tag} variant="default">
-                          {tag}
-                        </Pill>
-                      ))}
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      fullWidth
-                      onClick={() => navigate(`/jobs/${job.id}`)}
-                    >
-                      View
-                    </Button>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* Saved Lessons */}
-          <section className="hub-section">
-            <div className="section-header-row">
-              <h2>Saved Lessons</h2>
-              {roadmap && (
-                <Button variant="ghost" size="sm" onClick={() => navigate(`/roadmaps/${roadmap.id}`)}>
-                  View Roadmap
-                </Button>
-              )}
-            </div>
-            {savedLessonsData.length === 0 ? (
-              <Card>
-                <EmptyState
-                  icon="📚"
-                  title="No saved lessons"
-                  message="Save lessons to review later"
-                />
-              </Card>
-            ) : (
-              <div className="saved-items-list">
-                {savedLessonsData.slice(0, 5).map((item, idx) => (
-                  <Card key={idx} className="saved-lesson-item" hover>
-                    <Link
-                      to={`/roadmaps/${item.roadmap.id}/lesson/${item.lesson.id}`}
-                      className="saved-lesson-link"
-                    >
-                      <div className="saved-lesson-icon">
-                        {item.lesson.type === "Video" ? "▶️" : item.lesson.type === "Article" ? "📄" : "📚"}
-                      </div>
-                      <div className="saved-lesson-content">
-                        <h4>{item.lesson.title}</h4>
-                        <p className="saved-item-meta">
-                          {item.step.title} • {item.lesson.duration} min
-                        </p>
-                      </div>
+          {/* Continue Learning */}
+          <Card className="hub-card continue-learning-card">
+            <h2>📚 Continue Learning</h2>
+            {!selectedRoadmap ? (
+              <EmptyState
+                icon="🗺️"
+                title="No roadmap selected"
+                message="Pick a roadmap to start learning"
+                actionLabel="Browse Roadmaps"
+                onAction={() => window.location.href = "/roadmaps"}
+              />
+            ) : loading ? (
+              <p style={{ color: "var(--color-text-secondary)" }}>Loading...</p>
+            ) : roadmap ? (
+              <>
+                <div className="roadmap-progress">
+                  <div className="roadmap-title">{roadmap.title}</div>
+                  <ProgressBar value={progressPercent} max={100} showLabel={true} />
+                  <p style={{ color: "var(--color-text-secondary)", marginTop: "8px" }}>
+                    {completedCount} of {totalNodes} steps completed
+                  </p>
+                </div>
+                {nextNode && (
+                  <div style={{ marginTop: "12px" }}>
+                    <p>Next step: <strong>{nextNode.title}</strong></p>
+                    <Link to={`/roadmaps/${selectedRoadmap}`}>
+                      <Button variant="primary" style={{ marginTop: "8px" }}>
+                        Continue Learning →
+                      </Button>
                     </Link>
-                  </Card>
+                  </div>
+                )}
+              </>
+            ) : (
+              <EmptyState icon="⚠️" title="Could not load roadmap" message="Please try again" />
+            )}
+          </Card>
+
+          {/* Saved Jobs */}
+          <Card className="hub-card saved-jobs-card">
+            <div className="card-header-row">
+              <h2>💼 Saved Jobs</h2>
+              <Link to="/jobs" className="see-all-link">See all →</Link>
+            </div>
+            {loading ? (
+              <p style={{ color: "var(--color-text-secondary)" }}>Loading...</p>
+            ) : savedJobs.length === 0 ? (
+              <EmptyState
+                icon="💼"
+                title="No saved jobs"
+                message="Save jobs you're interested in"
+                actionLabel="Browse Jobs"
+                onAction={() => window.location.href = "/jobs"}
+              />
+            ) : (
+              <div className="job-list">
+                {savedJobs.slice(0, 4).map((fav) => {
+                  const job = fav.jobPosting || fav;
+                  return (
+                    <Link key={fav.id} to={`/jobs/${job.id || job.jobPostingId}`} className="job-item">
+                      <div className="job-item-title">{job.jobTitle || job.title}</div>
+                      <div className="job-item-meta">{job.companyName || job.company}</div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </Card>
+
+          {/* Recommended Jobs */}
+          <Card className="hub-card recommended-jobs-card">
+            <div className="card-header-row">
+              <h2>⭐ Recommended Jobs</h2>
+              <Link to="/jobs" className="see-all-link">See all →</Link>
+            </div>
+            {loading ? (
+              <p style={{ color: "var(--color-text-secondary)" }}>Loading...</p>
+            ) : recommendedJobs.length === 0 ? (
+              <EmptyState
+                icon="⭐"
+                title="No recommendations yet"
+                message="Update your profile and skills for better recommendations"
+                actionLabel="Update Profile"
+                onAction={() => window.location.href = "/profile/edit"}
+              />
+            ) : (
+              <div className="job-list">
+                {recommendedJobs.map((job, idx) => (
+                  <Link key={job.jobPostingId || idx} to={`/jobs/${job.jobPostingId || job.id}`} className="job-item">
+                    <div className="job-item-title">{job.jobTitle || job.title}</div>
+                    <div className="job-item-meta">
+                      {job.companyName || job.company}
+                      {job.matchScore !== undefined && (
+                        <span style={{ marginLeft: "8px", color: "var(--color-primary)", fontSize: "12px" }}>
+                          {Math.round(job.matchScore * 100)}% match
+                        </span>
+                      )}
+                    </div>
+                  </Link>
                 ))}
               </div>
             )}
-          </section>
+          </Card>
         </div>
-
-        {/* Recommended Jobs */}
-        {recommendedJobs.length > 0 && (
-          <section className="hub-section">
-            <div className="section-header-row">
-              <div>
-                <h2>Recommended Jobs</h2>
-                <p>Jobs matched to your skills</p>
-              </div>
-              <Button variant="outline" onClick={() => navigate("/jobs")}>
-                View All
-              </Button>
-            </div>
-            <div className="recommended-jobs-grid">
-              {recommendedJobs.map((job) => (
-                <Card key={job.id} className="job-card-small" hover>
-                  <h3>{job.title}</h3>
-                  <p className="saved-item-meta">{job.company} • {job.location}</p>
-                  <div className="saved-item-tags">
-                    {job.tags.slice(0, 3).map((tag) => (
-                      <Pill key={tag} variant="default">
-                        {tag}
-                      </Pill>
-                    ))}
-                  </div>
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    fullWidth
-                    onClick={() => navigate(`/jobs/${job.id}`)}
-                  >
-                    View Details
-                  </Button>
-                </Card>
-              ))}
-            </div>
-          </section>
-        )}
       </div>
     </div>
   );
