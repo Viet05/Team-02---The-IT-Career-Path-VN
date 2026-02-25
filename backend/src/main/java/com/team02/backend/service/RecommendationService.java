@@ -94,9 +94,12 @@ public class RecommendationService {
       return 1;
 
     return switch (level.trim().toLowerCase()) {
+      case "fresher" -> 1;
       case "junior" -> 2;
       case "middle" -> 3;
       case "senior" -> 4;
+      case "leader" -> 5;
+      case "inspector", "staff" -> 3;
       default -> 1;
     };
   }
@@ -106,9 +109,12 @@ public class RecommendationService {
       return 1;
 
     return switch (level) {
+      case FRESHER -> 1;
       case JUNIOR -> 2;
       case MIDDLE -> 3;
       case SENIOR -> 4;
+      case LEADER -> 5;
+      case INSPECTOR, STAFF -> 3;
     };
   }
 

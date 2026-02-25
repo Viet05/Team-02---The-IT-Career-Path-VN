@@ -20,9 +20,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class JwtUtils {
 
-//  @Value("${jwt.secret}")
-//  private String SECRET_KEY;
-    private String SECRET_KEY = "ThisIsAVeryStrongJwtSecretKeyForHS256Algorithm123!";
+  @Value("${jwt.secret}")
+  private String SECRET_KEY;
+  
   private static final String ISSUES = "The It Career Path VN Web backend";
 
   public String generateToken(Users user) {
@@ -33,7 +33,7 @@ public class JwtUtils {
         .subject(user.getUsername())
         .issuer(ISSUES)
         .issueTime(new Date())
-        .expirationTime(Date.from(Instant.now().plus(5, ChronoUnit.DAYS)))
+        .expirationTime(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
         .claim("role", user.getRole())
         .claim("usersId", user.getUserId())
         .build();

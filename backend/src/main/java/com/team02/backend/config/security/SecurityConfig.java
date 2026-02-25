@@ -45,26 +45,30 @@ public class SecurityConfig {
       throws Exception {
 
     http
-        .csrf(Customizer.withDefaults())
         .csrf(csrf -> csrf.disable())
-        .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+        .sessionManagement(session ->
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        )
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/h2-console/**").permitAll()
-            .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs.yaml").permitAll()
-            .requestMatchers("/api/it-path/auth/register").permitAll()
-            .requestMatchers("/api/it-path/auth/login").permitAll()
-            .requestMatchers("/api/it-path/auth/verify-email").permitAll()
-            .requestMatchers("/api/it-path/auth/reset-password/request").permitAll()
-            .requestMatchers("/api/it-path/auth/reset-password/confirm").permitAll()
-            .requestMatchers("/api/it-path/admin/users").hasRole("ADMIN")
-            .requestMatchers("/api/it-path/admin/users/{id}").hasRole("ADMIN")
-            .requestMatchers("/api/it-path/admin/users/{id}/status").hasRole("ADMIN")
-                .requestMatchers("/api/it-path/admin/skills").hasRole("ADMIN")
-                .requestMatchers("/api/it-path/admin/skills/{skillId}").hasRole("ADMIN")
-                .requestMatchers("/api/it-path/jobs/import").permitAll()
-            .anyRequest().authenticated())
+            .requestMatchers(
+                "/h2-console/**",
+                "/swagger-ui/**",
+                "/swagger-ui.html",
+                "/v3/api-docs/**",
+                "/v3/api-docs.yaml"
+            ).permitAll()
+            .requestMatchers(
+                "/api/it-path/auth/register",
+                "/api/it-path/auth/login",
+                "/api/it-path/auth/refresh",
+                "/api/it-path/auth/verify-email/**",
+                "/api/it-path/auth/reset-password/**"
+            ).permitAll()
+            .requestMatchers("/api/it-path/admin/**").hasRole("ADMIN")
+            .anyRequest().authenticated()
+        )
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();

@@ -5,6 +5,8 @@ import com.team02.backend.dto.response.UserFavouriteJobResponse;
 import com.team02.backend.entity.JobPosting;
 import com.team02.backend.entity.UserFavoriteJob;
 import com.team02.backend.entity.Users;
+import com.team02.backend.exception.DuplicateResourceException;
+import com.team02.backend.exception.ResourceNotFoundException;
 import com.team02.backend.repository.JobPostingRepository;
 import com.team02.backend.repository.UserFavouriteJobRepository;
 import com.team02.backend.repository.UserRepository;
@@ -26,10 +28,16 @@ public class UserFavouriteJobService {
 
     public UserFavouriteJobResponse addUserFavouriteJob(UserFavouriteJobAddRequest request, Long userId){
         Users user = userRepository.findById(userId).
-                orElseThrow(() -> new RuntimeException("User not found"));
+                orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
         JobPosting jobPosting = jobPostingRepository.findById(request.getJobPostingId())
-                .orElseThrow(() -> new RuntimeException("Job posting not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("JobPosting", "id", request.getJobPostingId()));
+
+        // Check if already favourited
+        boolean exists = userFavouriteJobRepository.existsByUsers_UserIdAndJobPosting_JobPostingId(userId, request.getJobPostingId());
+        if (exists) {
+            throw new DuplicateResourceException("UserFavoriteJob", "jobPostingId", request.getJobPostingId());
+        }
 
         UserFavoriteJob userFavoriteJob = UserFavoriteJob.builder()
                 .jobPosting(jobPosting)
@@ -45,8 +53,8 @@ public class UserFavouriteJobService {
     }
 
     public List<UserFavouriteJobResponse> getUserFavouriteJobs(Long userId){
-        Users user = userRepository.findById(userId).
-                orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.findById(userId).
+                orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
         return userFavouriteJobRepository.findByUsers_UserId(userId)
                 .stream()
@@ -58,11 +66,16 @@ public class UserFavouriteJobService {
     }
 
     public void deleteUserFavouriteJob(Long userId, Long userFavoriteJobId){
-        Users user = userRepository.findById(userId).
-                orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.findById(userId).
+                orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
         UserFavoriteJob userFavoriteJob = userFavouriteJobRepository.findById(userFavoriteJobId).
-                orElseThrow(() -> new RuntimeException("User favourite job not found"));
+                orElseThrow(() -> new ResourceNotFoundException("UserFavoriteJob", "id", userFavoriteJobId));
+
+        // Verify the favorite belongs to the user
+        if (!userFavoriteJob.getUsers().getUserId().equals(userId)) {
+            throw new ResourceNotFoundException("UserFavoriteJob", "id", userFavoriteJobId);
+        }
 
         userFavouriteJobRepository.delete(userFavoriteJob);
     }

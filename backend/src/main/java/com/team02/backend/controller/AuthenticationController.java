@@ -1,6 +1,7 @@
 package com.team02.backend.controller;
 
 import com.team02.backend.dto.request.LoginRequest;
+import com.team02.backend.dto.request.RefreshTokenRequest;
 import com.team02.backend.dto.request.RegisterRequest;
 import com.team02.backend.dto.request.ResetPasswordRequest;
 import com.team02.backend.dto.response.ApiResponse;
@@ -110,4 +111,31 @@ public class AuthenticationController {
   authenticationService.emailVerification(token);
   response.sendRedirect("http://localhost:5173/auth/login?verified=1");
 }
+
+  @PostMapping("/refresh")
+  @Operation(
+    summary = "Làm mới access token",
+    description = "Sử dụng refresh token để lấy access token mới khi access token hết hạn"
+  )
+  public ApiResponse<AuthenticationResponse> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
+    return ApiResponse.<AuthenticationResponse>builder()
+        .code(200)
+        .message("Token refreshed successfully")
+        .data(authenticationService.refreshAccessToken(request.getRefreshToken()))
+        .build();
+  }
+
+  @PostMapping("/logout")
+  @Operation(
+    summary = "Đăng xuất",
+    description = "Thu hồi refresh token để đăng xuất khỏi hệ thống"
+  )
+  public ApiResponse<String> logout(@RequestBody @Valid RefreshTokenRequest request) {
+    authenticationService.logout(request.getRefreshToken());
+    return ApiResponse.<String>builder()
+        .code(200)
+        .message("Logged out successfully")
+        .data("Refresh token revoked")
+        .build();
+  }
 }

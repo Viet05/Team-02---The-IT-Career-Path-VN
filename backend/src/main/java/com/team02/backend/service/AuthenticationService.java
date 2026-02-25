@@ -3,6 +3,7 @@ package com.team02.backend.service;
 import com.team02.backend.dto.request.LoginRequest;
 import com.team02.backend.dto.request.RegisterRequest;
 import com.team02.backend.dto.response.AuthenticationResponse;
+import com.team02.backend.entity.RefreshToken;
 import com.team02.backend.exception.DuplicateResourceException;
 import com.team02.backend.exception.ResourceNotFoundException;
 import com.team02.backend.exception.UnauthorizedException;
@@ -42,6 +43,7 @@ public class AuthenticationService {
   EmailService emailService;
   PasswordResetTokenRepository passwordResetTokenRepository;
   UserProfileRepository userProfileRepository;
+  RefreshTokenService refreshTokenService;
 
   @Transactional
   public String register(RegisterRequest request) {
@@ -110,14 +112,45 @@ public class AuthenticationService {
       throw new UnauthorizedException("Please verify your email before logging in");
     }
 
-    String token = utils.generateToken(users);
+    String accessToken = utils.generateToken(users);
+    RefreshToken refreshToken = refreshTokenService.createRefreshToken(users);
 
-    return new AuthenticationResponse(
-        token,
-        "Bearer",
-        users.getUserId(),
-        users.getUsername(),
-        users.getRole().toString());
+    return AuthenticationResponse.builder()
+        .accessToken(accessToken)
+        .refreshToken(refreshToken.getToken())
+        .tokenType("Bearer")
+        .expiresIn(3600L) // 1 hour in seconds
+        .userId(users.getUserId())
+        .userName(users.getUsername())
+        .role(users.getRole().toString())
+        .build();
+  }
+
+  @Transactional
+  public AuthenticationResponse refreshAccessToken(String refreshTokenStr) {
+    RefreshToken refreshToken = refreshTokenService.verifyRefreshToken(refreshTokenStr);
+    Users users = refreshToken.getUser();
+
+    if (!users.getStatus().equals(UserStatus.ACTIVE)) {
+      throw new UnauthorizedException("User account is not active");
+    }
+
+    String newAccessToken = utils.generateToken(users);
+
+    return AuthenticationResponse.builder()
+        .accessToken(newAccessToken)
+        .refreshToken(refreshTokenStr)
+        .tokenType("Bearer")
+        .expiresIn(3600L)
+        .userId(users.getUserId())
+        .userName(users.getUsername())
+        .role(users.getRole().toString())
+        .build();
+  }
+
+  @Transactional
+  public void logout(String refreshToken) {
+    refreshTokenService.revokeRefreshToken(refreshToken);
   }
 
   public String requestResetPassword(String email) {
