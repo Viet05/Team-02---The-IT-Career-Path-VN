@@ -10,11 +10,10 @@ public class JobPostingMapper {
             .jobPostingId(job.getJobPostingId())
             .title(job.getTitle())
             .companyName(job.getCompanyName())
-            .salaryText(
-                job.getSalaryMin() == null && job.getSalaryMax() == null
-                    ? "Cạnh tranh"
-                    : job.getSalaryMin() + " - " + job.getSalaryMax()
-            )
+                .description(job.getDescription())
+                .salaryMin(job.getSalaryMin())
+                .salaryMax(job.getSalaryMax())
+            .salaryText(job.getSalaryText())
             .location(job.getLocation())
             .postedAt(job.getPostedAt())
             .jobUrl(job.getJobUrl())

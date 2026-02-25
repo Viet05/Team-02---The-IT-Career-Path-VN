@@ -26,7 +26,7 @@ public class JobPosting implements Serializable {
   @Column(name = "job_posting_id")
   private Long jobPostingId;
 
-  @Column(name = "external_job_id")
+  @Column(name = "external_job_id", unique = true)
   private String externalJobId;
 
   @Column(name = "title")
@@ -44,7 +44,11 @@ public class JobPosting implements Serializable {
   @Column(name = "salary_max")
   private Double  salaryMax;
 
-  @Column(name = "description")
+  @Column(name = "salary_text")
+  private String salaryText;
+
+  @Lob
+  @Column(name = "description", columnDefinition = "LONGTEXT")
   private String description;
 
   @Column(name = "job_url")
@@ -54,8 +58,8 @@ public class JobPosting implements Serializable {
   @Enumerated(EnumType.STRING)
   private JobType jobType;
 
-  @Column(name = "job_level")
   @Enumerated(EnumType.STRING)
+  @Column(name = "job_level")
   private JobLevel jobLevel;
 
   @Timestamp

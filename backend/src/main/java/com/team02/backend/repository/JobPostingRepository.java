@@ -3,6 +3,7 @@ package com.team02.backend.repository;
 import com.team02.backend.entity.JobPosting;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +17,10 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long>,
 
   Long countByPostedAtAfter(LocalDateTime date);
 
-  List<JobPosting> findTop10ByOrderByPostedAtDesc();
+    boolean existsByExternalJobId(String externalJobId);
+    Optional<JobPosting> findByExternalJobId(String externalJobId);
+
+    List<JobPosting> findTop10ByOrderByPostedAtDesc();
 
   @Query(value = "SELECT DATE(posted_at) as date, "
       + "COUNT(*) as count "
