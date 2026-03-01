@@ -152,27 +152,54 @@ def parse_job_detail(url):
     }
 
 
-def crawl_jobs(limit=10):
+# def crawl_jobs(limit):
+#     job_links = get_job_links()
+#     jobs = []
+#
+#     for link in job_links[:limit]:
+#         try:
+#             job = parse_job_detail(link)
+#             jobs.append(job)
+#             time.sleep(1)
+#         except Exception as e:
+#             print("Error:", e)
+#
+#     return jobs
+def crawl_jobs(limit):
     job_links = get_job_links()
     jobs = []
+    seen_ids = set()
 
-    for link in job_links[:limit]:
+    for link in job_links:
         try:
             job = parse_job_detail(link)
+
+            if not job["externalJobId"]:
+                continue
+
+            if job["externalJobId"] in seen_ids:
+                continue
+
+            seen_ids.add(job["externalJobId"])
+
             jobs.append(job)
+
+            if len(jobs) >= limit:
+                break
+
             time.sleep(1)
+
         except Exception as e:
             print("Error:", e)
 
     return jobs
-
 
 # =========================
 # API Endpoint
 # =========================
 @app.route("/crawl", methods=["GET"])
 def crawl_api():
-    jobs = crawl_jobs(limit=5)
+    jobs = crawl_jobs(limit=20)
 
     return jsonify(jobs)
 
