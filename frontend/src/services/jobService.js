@@ -24,6 +24,16 @@ export const getAllJobs = async (filters = {}) => {
 };
 
 /**
+ * Lấy chi tiết việc làm theo ID
+ * @param {number|string} id - ID của việc làm
+ * @returns {Promise<Object>}
+ */
+export const getJobById = async (id) => {
+    const res = await http.get(`/api/it-path/jobs/${id}`);
+    return res.data.data;
+};
+
+/**
  * Lấy danh sách việc làm yêu thích của user hiện tại
  * Yêu cầu đăng nhập
  * @returns {Promise<Array>}

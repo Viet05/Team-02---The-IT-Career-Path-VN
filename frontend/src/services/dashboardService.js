@@ -1,4 +1,4 @@
-import { getToken } from "./auth";
+import { getToken } from "./session";
 
 const BASE_URL = "/api/it-path/admin/dashboard";
 

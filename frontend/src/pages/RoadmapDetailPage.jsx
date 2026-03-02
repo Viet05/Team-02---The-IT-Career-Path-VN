@@ -21,6 +21,12 @@ export default function RoadmapDetailPage() {
   const [progressLoading, setProgressLoading] = useState({});
 
   useEffect(() => {
+    if (!user) {
+      navigate("/auth/login");
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
     const fetchRoadmapDetails = async () => {
       try {
         setLoading(true);
@@ -42,13 +48,26 @@ export default function RoadmapDetailPage() {
   }, [id, user?.id]);
 
   const localProgress = getProgress(id);
-  const totalNodes = roadmap?.nodes?.length || roadmap?.totalSteps || 0;
-  const progressPercentage = getProgressPercentage(id, totalNodes);
-  const completedSteps = Object.values(localProgress).filter(Boolean).length;
+  const nodes = roadmap?.roadmapNodes || [];
+
+  // Calculate true completed state for each node by combining backend and local state
+  const nodeCompletedMap = {};
+  nodes.forEach(node => {
+    if (localProgress[node.id] !== undefined) {
+      nodeCompletedMap[node.id] = localProgress[node.id];
+    } else {
+      nodeCompletedMap[node.id] = (node.status === "COMPLETED");
+    }
+  });
+
+  const totalNodes = nodes.length;
+  const completedSteps = Object.values(nodeCompletedMap).filter(Boolean).length;
+  const progressPercentage = totalNodes > 0 ? Math.round((completedSteps / totalNodes) * 100) : 0;
+  const nextNode = nodes.find((n) => !nodeCompletedMap[n.id]);
 
   const handleToggleComplete = async (node) => {
     const nodeId = node.id;
-    const isCompleted = !!localProgress[nodeId];
+    const isCompleted = !!nodeCompletedMap[nodeId];
 
     setProgressLoading((prev) => ({ ...prev, [nodeId]: true }));
     try {
@@ -98,11 +117,7 @@ export default function RoadmapDetailPage() {
     );
   }
 
-  // Backend trả về roadmap với nodes[] (mảng các node)
-  const nodes = roadmap.nodes || [];
-
-  // Tìm node tiếp theo chưa hoàn thành
-  const nextNode = nodes.find((n) => !localProgress[n.id]);
+  // Removed duplicate nodes and nextNode variables
 
   return (
     <div className="roadmap-detail-page">
@@ -164,7 +179,7 @@ export default function RoadmapDetailPage() {
               />
             )}
             {nodes.map((node, index) => {
-              const isCompleted = !!localProgress[node.id];
+              const isCompleted = !!nodeCompletedMap[node.id];
               const isExpanded = expandedStep === node.id;
               const isLoading = !!progressLoading[node.id];
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
 import { getDashboardStats, getChartData, getRecentPostings } from "../services/dashboardService";
 import { toast } from "../components/Toast";
-import "../styles/admin-dashboard.css";
+import "../styles/AdminDashboard.css";
 
 function MiniBarChart({ title, data }) {
   const max = Math.max(...data, 1);

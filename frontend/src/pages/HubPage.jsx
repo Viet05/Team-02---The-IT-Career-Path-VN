@@ -73,11 +73,11 @@ export default function HubPage() {
     );
   }
 
-  const totalNodes = roadmap?.nodes?.length || 0;
+  const totalNodes = roadmap?.roadmapNodes?.length || 0;
   const progressPercent = totalNodes > 0 ? Math.round((completedCount / totalNodes) * 100) : 0;
 
   // Find next node in roadmap (assume front-end progress tracking here)
-  const nextNode = roadmap?.nodes?.[0] || null;
+  const nextNode = roadmap?.roadmapNodes?.[0] || null;
 
   return (
     <div className="hub-page">
@@ -148,9 +148,11 @@ export default function HubPage() {
               <div className="job-list">
                 {savedJobs.slice(0, 4).map((fav) => {
                   const job = fav.jobPosting || fav;
+                  const favId = fav.userFavouriteJobId || fav.id;
+                  const jobId = job.jobPostingId || job.id;
                   return (
-                    <Link key={fav.id} to={`/jobs/${job.id || job.jobPostingId}`} className="job-item">
-                      <div className="job-item-title">{job.jobTitle || job.title}</div>
+                    <Link key={favId} to={`/jobs/${jobId}`} className="job-item">
+                      <div className="job-item-title">{job.title || job.jobTitle}</div>
                       <div className="job-item-meta">{job.companyName || job.company}</div>
                     </Link>
                   );
@@ -184,7 +186,7 @@ export default function HubPage() {
                       {job.companyName || job.company}
                       {job.matchScore !== undefined && (
                         <span style={{ marginLeft: "8px", color: "var(--color-primary)", fontSize: "12px" }}>
-                          {Math.round(job.matchScore * 100)}% match
+                          {job.matchScore > 1 ? Math.round(job.matchScore) : Math.round(job.matchScore * 100)}% match
                         </span>
                       )}
                     </div>

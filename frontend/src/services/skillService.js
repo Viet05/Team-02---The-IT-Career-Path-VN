@@ -24,6 +24,18 @@ export const getUserSkills = async () => {
 };
 
 /**
+ * Mapper helper to convert String Level to Integer for Backend
+ */
+const mapLevelToInt = (levelStr) => {
+    switch (levelStr) {
+        case "BEGINNER": return 1;
+        case "INTERMEDIATE": return 2;
+        case "ADVANCED": return 3;
+        default: return 1;
+    }
+};
+
+/**
  * Thêm kỹ năng cho user
  * @param {number} skillId - ID của skill
  * @param {string} level - Mức độ (e.g. "BEGINNER", "INTERMEDIATE", "ADVANCED")
@@ -32,7 +44,7 @@ export const getUserSkills = async () => {
 export const addUserSkill = async (skillId, level) => {
     const res = await http.post("/api/it-path/users/user_profile/skills", {
         skillId,
-        level,
+        level: mapLevelToInt(level),
     });
     return res.data.data;
 };
@@ -46,7 +58,7 @@ export const addUserSkill = async (skillId, level) => {
 export const updateUserSkill = async (userProfileSkillId, level) => {
     const res = await http.put(
         `/api/it-path/users/user_profile/skills/${userProfileSkillId}`,
-        { level }
+        { level: mapLevelToInt(level) }
     );
     return res.data.data;
 };

@@ -126,11 +126,12 @@ export default function RoadmapsPage() {
             {filteredRoadmaps.map((roadmap) => {
               // Backend totalSteps = số node trong roadmap (nếu có)
               const totalSteps = roadmap.totalNodes || roadmap.totalSteps || 0;
-              const localProgress = getLocalProgress(roadmap.id, totalSteps);
+              const localProgress = getLocalProgress(roadmap.roadmapId, totalSteps);
 
               return (
-                <Card key={roadmap.id} className="roadmap-card" hover>
-                  <Link to={`/roadmaps/${roadmap.id}`} className="roadmap-link">
+                <Card key={roadmap.roadmapId} className="roadmap-card" hover>
+                  <Link to={`/roadmaps/${roadmap.roadmapId}`} className="roadmap-link">
+
                     <div className="roadmap-card-top">
                       <div className="roadmap-icon">
                         {roadmap.icon || "🗺️"}

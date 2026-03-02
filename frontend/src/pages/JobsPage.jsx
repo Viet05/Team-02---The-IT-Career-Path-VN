@@ -74,10 +74,13 @@ export default function JobsPage() {
         if (favData.status === "fulfilled" && Array.isArray(favData.value)) {
           const map = {};
           favData.value.forEach((fav) => {
-            if (fav.jobPosting?.id) {
-              map[fav.jobPosting.id] = fav.id;
+            const favId = fav.userFavouriteJobId || fav.id;
+            if (fav.jobPosting?.jobPostingId) {
+              map[fav.jobPosting.jobPostingId] = favId;
+            } else if (fav.jobPosting?.id) {
+              map[fav.jobPosting.id] = favId;
             } else if (fav.jobPostingId) {
-              map[fav.jobPostingId] = fav.id;
+              map[fav.jobPostingId] = favId;
             }
           });
           setFavouriteMap(map);
@@ -95,7 +98,11 @@ export default function JobsPage() {
   }, [isLoggedIn]);
 
   const handleToggleFavourite = async (job) => {
-    const jobId = job.id;
+    const jobId = job.jobPostingId || job.id;
+    if (!jobId) {
+      console.error("Job ID applies is missing");
+      return;
+    }
     const existingFavId = favouriteMap[jobId];
 
     try {
@@ -247,10 +254,11 @@ export default function JobsPage() {
               <>
                 <div className="jobs-list">
                   {paginatedJobs.map((job) => {
-                    const isSaved = !!(favouriteMap[job.id]);
+                    const jobId = job.jobPostingId || job.id;
+                    const isSaved = !!(favouriteMap[jobId]);
 
                     return (
-                      <Card key={job.id} className="job-card" hover>
+                      <Card key={jobId} className="job-card" hover>
                         <div className="job-card-header">
                           <div>
                             <h3>{job.title || job.jobTitle}</h3>
@@ -310,7 +318,7 @@ export default function JobsPage() {
                             variant="primary"
                             size="sm"
                             fullWidth
-                            onClick={() => navigate(`/jobs/${job.id}`)}
+                            onClick={() => navigate(`/jobs/${jobId}`)}
                           >
                             View Details
                           </Button>
@@ -359,7 +367,7 @@ export default function JobsPage() {
                       <p>{job.companyName || job.company}</p>
                       {job.matchScore !== undefined && (
                         <p style={{ color: 'var(--color-primary)', marginTop: '4px', fontSize: '12px' }}>
-                          Match: {Math.round(job.matchScore * 100)}%
+                          Match: {job.matchScore > 1 ? Math.round(job.matchScore) : Math.round(job.matchScore * 100)}%
                         </p>
                       )}
                     </Link>

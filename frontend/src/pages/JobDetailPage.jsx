@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getJobById } from "../data/mockJobs";
+import { getJobById, getFavouriteJobs, addFavouriteJob, removeFavouriteJob } from "../services/jobService";
 import { mockRoadmaps } from "../data/mockRoadmaps";
 import { useUserState } from "../store/useLocalStorage";
 import Card from "../components/Card";
@@ -12,8 +12,51 @@ import "../styles/job-detail-page.css";
 export default function JobDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const job = getJobById(id);
-  const { user, selectedRoadmap, isJobSaved, toggleSavedJob } = useUserState();
+  const [job, setJob] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+
+  const { user, selectedRoadmap } = useUserState();
+  const [favouriteMap, setFavouriteMap] = React.useState({});
+
+  React.useEffect(() => {
+    if (!user) return;
+    const fetchFavs = async () => {
+      try {
+        const data = await getFavouriteJobs();
+        if (Array.isArray(data)) {
+          const map = {};
+          data.forEach(fav => {
+            const jId = fav.jobPosting?.id || fav.jobPostingId || fav.jobPosting?.jobPostingId;
+            if (jId) map[jId] = fav.id || fav.userFavouriteJobId;
+          });
+          setFavouriteMap(map);
+        }
+      } catch (err) {
+        console.error("Failed to fetch favourites:", err);
+      }
+    };
+    fetchFavs();
+  }, [user]);
+
+  React.useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        setLoading(true);
+        const data = await getJobById(id);
+        setJob(data);
+      } catch (err) {
+        setError("Lỗi tải thông tin công việc");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchJob();
+  }, [id]);
+
+  if (loading) {
+    return <div className="job-detail-page"><div style={{ padding: "40px", textAlign: "center" }}>Đang tải...</div></div>;
+  }
 
   if (!job) {
     return (
@@ -29,14 +72,43 @@ export default function JobDetailPage() {
     );
   }
 
-  const isSaved = isJobSaved(job.id);
+  const jobId = job.jobPostingId || job.id;
+  const isSaved = !!favouriteMap[jobId];
+
+  const handleToggleSavedJob = async () => {
+    if (!user) {
+      alert("Vui lòng đăng nhập để lưu công việc!");
+      return;
+    }
+    const existingFavId = favouriteMap[jobId];
+    try {
+      if (existingFavId) {
+        await removeFavouriteJob(existingFavId);
+        setFavouriteMap((prev) => {
+          const next = { ...prev };
+          delete next[jobId];
+          return next;
+        });
+      } else {
+        const result = await addFavouriteJob(jobId);
+        const newFavId = result?.id || result?.userFavouriteJobId;
+        if (newFavId) {
+          setFavouriteMap((prev) => ({ ...prev, [jobId]: newFavId }));
+        }
+      }
+    } catch (err) {
+      console.error("Lỗi khi lưu việc làm", err);
+    }
+  };
+
   const getMissingSkills = () => {
     if (!user || !selectedRoadmap) return [];
     const roadmap = mockRoadmaps.find(
       (r) => r.id === selectedRoadmap
     );
     if (!roadmap) return [];
-    return job.tags.filter((tag) => !roadmap.skills.includes(tag));
+    const jobSkills = job.skills || [];
+    return jobSkills.filter((tag) => !roadmap.skills.includes(tag));
   };
 
   const missingSkills = getMissingSkills();
@@ -54,24 +126,26 @@ export default function JobDetailPage() {
               <div className="job-header">
                 <div>
                   <h1>{job.title}</h1>
-                  <p className="job-company">{job.company}</p>
+                  <p className="job-company">{job.companyName}</p>
                   <div className="job-meta">
                     <span>{job.location}</span>
                     <span>•</span>
-                    <span>{job.type}</span>
+                    <span>{job.jobType}</span>
                     <span>•</span>
-                    <span>{job.level}</span>
-                    {job.salary && (
+                    <span>{job.jobLevel}</span>
+                    {(job.salaryText || job.salaryMin || job.salaryMax) && (
                       <>
                         <span>•</span>
-                        <span>{job.salary}</span>
+                        <span>{job.salaryText ||
+                          (job.salaryMin && job.salaryMax ? `${job.salaryMin.toLocaleString()} - ${job.salaryMax.toLocaleString()}` : "")}
+                        </span>
                       </>
                     )}
                   </div>
                 </div>
                 <button
                   className={`job-save-btn-large ${isSaved ? "saved" : ""}`}
-                  onClick={() => toggleSavedJob(job.id)}
+                  onClick={handleToggleSavedJob}
                 >
                   {isSaved ? "★ Saved" : "☆ Save Job"}
                 </button>
@@ -97,7 +171,7 @@ export default function JobDetailPage() {
               <div className="job-tags-section">
                 <h3>Required Skills</h3>
                 <div className="job-tags">
-                  {job.tags.map((tag) => (
+                  {(job.skills || []).map((tag) => (
                     <Pill key={tag} variant="default">
                       {tag}
                     </Pill>
@@ -130,21 +204,21 @@ export default function JobDetailPage() {
               </div>
               <div className="detail-row">
                 <span className="detail-label">Type:</span>
-                <span className="detail-value">{job.type}</span>
+                <span className="detail-value">{job.jobType}</span>
               </div>
               <div className="detail-row">
                 <span className="detail-label">Level:</span>
-                <span className="detail-value">{job.level}</span>
+                <span className="detail-value">{job.jobLevel}</span>
               </div>
-              {job.salary && (
+              {(job.salaryText || job.salaryMin || job.salaryMax) && (
                 <div className="detail-row">
                   <span className="detail-label">Salary:</span>
-                  <span className="detail-value">{job.salary}</span>
+                  <span className="detail-value">{job.salaryText}</span>
                 </div>
               )}
               <div className="detail-row">
                 <span className="detail-label">Posted:</span>
-                <span className="detail-value">{job.posted}</span>
+                <span className="detail-value">{new Date(job.postedAt).toLocaleDateString()}</span>
               </div>
             </Card>
 
