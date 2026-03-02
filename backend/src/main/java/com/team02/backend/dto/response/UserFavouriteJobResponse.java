@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserFavouriteJobResponse {
     private Long userFavouriteJobId;
-    private Long jobPostingId;
+    private JobPostingResponse jobPosting;
     private Long userId;
 }

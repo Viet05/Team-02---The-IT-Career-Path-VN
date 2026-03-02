@@ -48,27 +48,32 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-        .sessionManagement(session ->
-            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        )
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
                 "/h2-console/**",
                 "/swagger-ui/**",
                 "/swagger-ui.html",
                 "/v3/api-docs/**",
-                "/v3/api-docs.yaml"
-            ).permitAll()
+                "/v3/api-docs.yaml")
+            .permitAll()
             .requestMatchers(
                 "/api/it-path/auth/register",
                 "/api/it-path/auth/login",
                 "/api/it-path/auth/refresh",
                 "/api/it-path/auth/verify-email/**",
-                "/api/it-path/auth/reset-password/**"
-            ).permitAll()
+                "/api/it-path/auth/reset-password/**")
+            .permitAll()
+            .requestMatchers("/api/it-path/jobs/favourite/**").authenticated()
+            .requestMatchers(
+                "/api/it-path/roadmaps/all",
+                "/api/it-path/jobs",
+                "/api/it-path/jobs/**",
+                "/api/it-path/admin/skills",
+                "/api/it-path/recommendation/**")
+            .permitAll()
             .requestMatchers("/api/it-path/admin/**").hasRole("ADMIN")
-            .anyRequest().authenticated()
-        )
+            .anyRequest().authenticated())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();

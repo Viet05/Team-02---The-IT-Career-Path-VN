@@ -27,10 +27,7 @@ public class JobPostingController {
     JobPostingService jobPostingService;
 
     @GetMapping
-    @Operation(
-        summary = "Lấy danh sách tất cả tin tuyển dụng",
-        description = "Lấy toàn bộ danh sách các tin tuyển dụng trong hệ thống"
-    )
+    @Operation(summary = "Lấy danh sách tất cả tin tuyển dụng", description = "Lấy toàn bộ danh sách các tin tuyển dụng trong hệ thống")
     public ApiResponse<Object> getAllJobPostings(
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false) String location,
@@ -38,8 +35,7 @@ public class JobPostingController {
             @RequestParam(required = false) JobLevel jobLevel,
             @RequestParam(required = false) Long skillId,
             @RequestParam(required = false) Double minSalary,
-            @RequestParam(required = false) Double maxSalary
-    ) {
+            @RequestParam(required = false) Double maxSalary) {
         return ApiResponse.builder()
                 .code(200)
                 .message("Get all job postings successfully!")
@@ -50,8 +46,17 @@ public class JobPostingController {
                         jobLevel,
                         skillId,
                         minSalary,
-                        maxSalary
-                ))
+                        maxSalary))
+                .build();
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Lấy chi tiết tin tuyển dụng", description = "Lấy thông tin chi tiết của một tin tuyển dụng theo ID")
+    public ApiResponse<Object> getJobPostingById(@PathVariable Long id) {
+        return ApiResponse.builder()
+                .code(200)
+                .message("Get job posting successfully!")
+                .data(jobPostingService.getJobPostingById(id))
                 .build();
     }
 
@@ -63,11 +68,11 @@ public class JobPostingController {
                 .message("Import job postings successfully!")
                 .build();
     }
-//@PostMapping("/import")
-//public ResponseEntity<?> importJobs(@RequestBody String rawBody) {
-//    System.out.println("RAW BODY:");
-//    System.out.println(rawBody);
-//    return ResponseEntity.ok().build();
-//}
+    // @PostMapping("/import")
+    // public ResponseEntity<?> importJobs(@RequestBody String rawBody) {
+    // System.out.println("RAW BODY:");
+    // System.out.println(rawBody);
+    // return ResponseEntity.ok().build();
+    // }
 
 }
