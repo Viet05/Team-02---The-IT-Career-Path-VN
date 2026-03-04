@@ -9,8 +9,8 @@ import Pill from "../components/Pill";
 import EmptyState from "../components/EmptyState";
 import "../styles/jobs-page.css";
 
-const JOB_TYPES = ["FULL_TIME", "PART_TIME", "CONTRACT", "INTERNSHIP", "REMOTE"];
-const JOB_LEVELS = ["INTERN", "JUNIOR", "MIDDLE", "SENIOR", "LEAD", "MANAGER"];
+const JOB_TYPES = ["FULL_TIME", "PART_TIME", "CONTRACT", "INTERNSHIP", "FREELANCE"];
+const JOB_LEVELS = ["FRESHER", "JUNIOR", "MIDDLE", "SENIOR", "LEADER", "INSPECTOR", "STAFF"];
 
 // Helper: dịch enum từ backend sang text hiển thị
 const formatEnum = (value) => {

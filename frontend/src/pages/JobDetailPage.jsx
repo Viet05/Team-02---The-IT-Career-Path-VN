@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getJobById, getFavouriteJobs, addFavouriteJob, removeFavouriteJob } from "../services/jobService";
-import { mockRoadmaps } from "../data/mockRoadmaps";
+import { getUserSkills } from "../services/skillService";
 import { useUserState } from "../store/useLocalStorage";
 import Card from "../components/Card";
 import Button from "../components/Button";
@@ -16,8 +16,9 @@ export default function JobDetailPage() {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
-  const { user, selectedRoadmap } = useUserState();
+  const { user } = useUserState();
   const [favouriteMap, setFavouriteMap] = React.useState({});
+  const [userSkillNames, setUserSkillNames] = React.useState(new Set());
 
   React.useEffect(() => {
     if (!user) return;
@@ -36,7 +37,18 @@ export default function JobDetailPage() {
         console.error("Failed to fetch favourites:", err);
       }
     };
+    const fetchUserSkills = async () => {
+      try {
+        const skills = await getUserSkills();
+        if (Array.isArray(skills)) {
+          setUserSkillNames(new Set(skills.map(s => s.name)));
+        }
+      } catch (err) {
+        console.error("Failed to fetch user skills:", err);
+      }
+    };
     fetchFavs();
+    fetchUserSkills();
   }, [user]);
 
   React.useEffect(() => {
@@ -102,13 +114,9 @@ export default function JobDetailPage() {
   };
 
   const getMissingSkills = () => {
-    if (!user || !selectedRoadmap) return [];
-    const roadmap = mockRoadmaps.find(
-      (r) => r.id === selectedRoadmap
-    );
-    if (!roadmap) return [];
+    if (!user) return [];
     const jobSkills = job.skills || [];
-    return jobSkills.filter((tag) => !roadmap.skills.includes(tag));
+    return jobSkills.filter((skillName) => !userSkillNames.has(skillName));
   };
 
   const missingSkills = getMissingSkills();

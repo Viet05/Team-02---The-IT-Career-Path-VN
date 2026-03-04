@@ -172,7 +172,7 @@ def crawl_jobs(limit=10):
 # =========================
 @app.route("/crawl", methods=["GET"])
 def crawl_api():
-    jobs = crawl_jobs(limit=5)
+    jobs = crawl_jobs(limit=70)
 
     return jsonify(jobs)
 

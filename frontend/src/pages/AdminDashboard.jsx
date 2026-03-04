@@ -30,14 +30,16 @@ export default function AdminDashboard() {
   const { logout } = useUserState();
   const [dashboardStats, setDashboardStats] = useState(null);
   const [recentPostings, setRecentPostings] = useState([]);
+  const [chartData, setChartData] = useState({ jobsCreated: [0, 0, 0, 0, 0, 0, 0], activeUsers: [0, 0, 0, 0, 0, 0, 0] });
 
   // Fetch dashboard stats từ API
   useEffect(() => {
     const loadStats = async () => {
       try {
-        const [statsResult, recentResult] = await Promise.allSettled([
+        const [statsResult, recentResult, chartResult] = await Promise.allSettled([
           getDashboardStats(),
           getRecentPostings(),
+          getChartData(),
         ]);
 
         if (statsResult.status === "fulfilled") {
@@ -46,6 +48,13 @@ export default function AdminDashboard() {
         }
         if (recentResult.status === "fulfilled" && Array.isArray(recentResult.value)) {
           setRecentPostings(recentResult.value);
+        }
+        if (chartResult.status === "fulfilled" && chartResult.value) {
+          setChartData({
+            jobsCreated: chartResult.value.jobsCreated || [0, 0, 0, 0, 0, 0, 0],
+            activeUsers: chartResult.value.activeUsers || [0, 0, 0, 0, 0, 0, 0],
+          });
+          console.log("📈 Chart data:", chartResult.value);
         }
       } catch (error) {
         console.error("❌ Failed to load dashboard:", error);
@@ -67,8 +76,8 @@ export default function AdminDashboard() {
   ];
 
 
-  const jobsCreated = [2, 5, 8, 3, 6, 9, 7];
-  const activeUsers = [4, 6, 7, 5, 8, 10, 6];
+  const jobsCreated = chartData.jobsCreated;
+  const activeUsers = chartData.activeUsers;
 
   const recentActivity = recentPostings.length > 0
     ? recentPostings.slice(0, 5).map((job) => ({

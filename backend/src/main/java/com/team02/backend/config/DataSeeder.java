@@ -519,76 +519,98 @@ public class DataSeeder implements ApplicationRunner {
                                 "Phát triển ứng dụng React lớn cho khách hàng Úc. Yêu cầu TypeScript, unit test, code review.",
                                 "https://itviec.com/axon-senior-react", JobType.FULL_TIME, JobLevel.SENIOR, src));
 
-                jobs.add(job("Python Data Engineer", "VNG Corporation", "Hồ Chí Minh", 25_000_000d, 45_000_000d,
+                jobs.add(jobWithSkills("Python Data Engineer", "VNG Corporation", "Hồ Chí Minh", 25_000_000d,
+                                45_000_000d,
                                 "25-45 triệu",
                                 "Xây dựng data pipeline với Python, Spark, Airflow. Xử lý hàng triệu sự kiện mỗi ngày.",
-                                "https://itviec.com/vng-python-data", JobType.FULL_TIME, JobLevel.MIDDLE, src));
+                                "https://itviec.com/vng-python-data", JobType.FULL_TIME, JobLevel.MIDDLE, src, python,
+                                sql));
 
-                jobs.add(job("DevOps Engineer", "MoMo E-wallet", "Hồ Chí Minh", 30_000_000d, 50_000_000d, "30-50 triệu",
+                jobs.add(jobWithSkills("DevOps Engineer", "MoMo E-wallet", "Hồ Chí Minh", 30_000_000d, 50_000_000d,
+                                "30-50 triệu",
                                 "Quản lý Kubernetes cluster, thiết lập CI/CD trên GitLab, monitoring với Grafana/Prometheus.",
-                                "https://itviec.com/momo-devops", JobType.FULL_TIME, JobLevel.MIDDLE, src));
+                                "https://itviec.com/momo-devops", JobType.FULL_TIME, JobLevel.MIDDLE, src, docker, k8s,
+                                cicd, linux));
 
-                jobs.add(job("Node.js Backend Developer", "Shopee Việt Nam", "Hồ Chí Minh", 22_000_000d, 38_000_000d,
+                jobs.add(jobWithSkills("Node.js Backend Developer", "Shopee Việt Nam", "Hồ Chí Minh", 22_000_000d,
+                                38_000_000d,
                                 "22-38 triệu",
                                 "Phát triển microservices Node.js, MongoDB, Redis cho e-commerce platform hàng chục triệu users.",
-                                "https://itviec.com/shopee-nodejs", JobType.FULL_TIME, JobLevel.MIDDLE, src));
+                                "https://itviec.com/shopee-nodejs", JobType.FULL_TIME, JobLevel.MIDDLE, src, nodejs,
+                                mongo, redis));
 
-                jobs.add(job("Go Backend Engineer", "Tiki", "Hồ Chí Minh", 35_000_000d, 60_000_000d, "35-60 triệu",
+                jobs.add(jobWithSkills("Go Backend Engineer", "Tiki", "Hồ Chí Minh", 35_000_000d, 60_000_000d,
+                                "35-60 triệu",
                                 "Xây dựng và scale distributed systems với Golang, Kafka, Redis. Hệ thống xử lý 100k req/s.",
-                                "https://itviec.com/tiki-golang", JobType.FULL_TIME, JobLevel.SENIOR, src));
+                                "https://itviec.com/tiki-golang", JobType.FULL_TIME, JobLevel.SENIOR, src, go, redis,
+                                docker));
 
-                jobs.add(job("Vue.js Frontend Developer", "KMS Technology", "Hồ Chí Minh", 18_000_000d, 32_000_000d,
+                jobs.add(jobWithSkills("Vue.js Frontend Developer", "KMS Technology", "Hồ Chí Minh", 18_000_000d,
+                                32_000_000d,
                                 "18-32 triệu",
                                 "Phát triển dashboard quản lý với Vue 3, Pinia, Vite. Tích hợp Chart.js và REST API.",
-                                "https://itviec.com/kms-vuejs", JobType.FULL_TIME, JobLevel.JUNIOR, src));
+                                "https://itviec.com/kms-vuejs", JobType.FULL_TIME, JobLevel.JUNIOR, src, vue, js, ts));
 
-                jobs.add(job("Full Stack Developer (React+Java)", "Nashtech Global", "Hà Nội", 25_000_000d, 42_000_000d,
+                jobs.add(jobWithSkills("Full Stack Developer (React+Java)", "Nashtech Global", "Hà Nội", 25_000_000d,
+                                42_000_000d,
                                 "25-42 triệu",
                                 "Full stack developer làm việc với React frontend và Spring Boot backend cho khách hàng UK.",
-                                "https://itviec.com/nashtech-fullstack", JobType.FULL_TIME, JobLevel.MIDDLE, src));
+                                "https://itviec.com/nashtech-fullstack", JobType.FULL_TIME, JobLevel.MIDDLE, src, react,
+                                java, spring, git));
 
-                jobs.add(job("C# .NET Developer", "Harvey Nash Vietnam", "Hà Nội", 20_000_000d, 35_000_000d,
+                jobs.add(jobWithSkills("C# .NET Developer", "Harvey Nash Vietnam", "Hà Nội", 20_000_000d, 35_000_000d,
                                 "20-35 triệu",
                                 "Phát triển ứng dụng doanh nghiệp với C# .NET 7, Entity Framework, SQL Server.",
-                                "https://itviec.com/harvey-csharp", JobType.FULL_TIME, JobLevel.JUNIOR, src));
+                                "https://itviec.com/harvey-csharp", JobType.FULL_TIME, JobLevel.JUNIOR, src, csharp,
+                                sql, git));
 
-                jobs.add(job("PHP Laravel Developer", "Sendo", "Hà Nội", 12_000_000d, 22_000_000d, "12-22 triệu",
+                jobs.add(jobWithSkills("PHP Laravel Developer", "Sendo", "Hà Nội", 12_000_000d, 22_000_000d,
+                                "12-22 triệu",
                                 "Backend PHP/Laravel cho platform thương mại điện tử. Kinh nghiệm MySQL, Redis là lợi thế.",
-                                "https://itviec.com/sendo-php", JobType.FULL_TIME, JobLevel.FRESHER, src));
+                                "https://itviec.com/sendo-php", JobType.FULL_TIME, JobLevel.FRESHER, src, php, sql,
+                                redis));
 
-                jobs.add(job("Angular Developer", "Orient Software", "Hồ Chí Minh", 20_000_000d, 35_000_000d,
+                jobs.add(jobWithSkills("Angular Developer", "Orient Software", "Hồ Chí Minh", 20_000_000d, 35_000_000d,
                                 "20-35 triệu",
                                 "Xây dựng CRM web application với Angular 16, NgRx, TypeScript cho khách hàng Nhật Bản.",
-                                "https://itviec.com/orient-angular", JobType.FULL_TIME, JobLevel.JUNIOR, src));
+                                "https://itviec.com/orient-angular", JobType.FULL_TIME, JobLevel.JUNIOR, src, angular,
+                                ts, git));
 
-                jobs.add(job("Next.js SSR Developer", "Zalo Pay", "Hồ Chí Minh", 28_000_000d, 48_000_000d,
+                jobs.add(jobWithSkills("Next.js SSR Developer", "Zalo Pay", "Hồ Chí Minh", 28_000_000d, 48_000_000d,
                                 "28-48 triệu",
                                 "Xây dựng landing page và campaign page với Next.js, SEO optimization, Core Web Vitals.",
-                                "https://itviec.com/zalopay-nextjs", JobType.FULL_TIME, JobLevel.MIDDLE, src));
+                                "https://itviec.com/zalopay-nextjs", JobType.FULL_TIME, JobLevel.MIDDLE, src, nextjs,
+                                react, ts));
 
-                jobs.add(job("Android Developer (Kotlin)", "VinID", "Hà Nội", 22_000_000d, 40_000_000d, "22-40 triệu",
+                jobs.add(jobWithSkills("Android Developer (Kotlin)", "VinID", "Hà Nội", 22_000_000d, 40_000_000d,
+                                "22-40 triệu",
                                 "Phát triển ứng dụng Android native với Kotlin, Jetpack Compose, Room Database.",
-                                "https://itviec.com/vinid-android", JobType.FULL_TIME, JobLevel.JUNIOR, src));
+                                "https://itviec.com/vinid-android", JobType.FULL_TIME, JobLevel.JUNIOR, src, kotlin,
+                                git));
 
-                jobs.add(job("Staff Software Engineer", "Grab Vietnam", "Hồ Chí Minh", 70_000_000d, 120_000_000d,
+                jobs.add(jobWithSkills("Staff Software Engineer", "Grab Vietnam", "Hồ Chí Minh", 70_000_000d,
+                                120_000_000d,
                                 "70-120 triệu",
                                 "Lead architect cho nền tảng fintech ASEAN. Yêu cầu 7+ năm, system design, distributed systems.",
-                                "https://itviec.com/grab-staff-engineer", JobType.FULL_TIME, JobLevel.STAFF, src));
+                                "https://itviec.com/grab-staff-engineer", JobType.FULL_TIME, JobLevel.STAFF, src, java,
+                                docker, k8s, aws, cicd));
 
                 jobs.add(job("Software Architect", "Masan Tech", "Hà Nội", null, null, "Thương lượng",
                                 "Thiết kế kiến trúc hệ thống ERP cho tập đoàn 30.000 nhân viên. Không yêu cầu kinh nghiệm vendor cụ thể.",
                                 "https://itviec.com/masan-architect", JobType.FULL_TIME, JobLevel.LEADER, src));
 
                 // ---- PART_TIME JOBS ----
-                jobs.add(job("React Developer (Part-time)", "Startup ABC", "Hà Nội", 8_000_000d, 15_000_000d,
+                jobs.add(jobWithSkills("React Developer (Part-time)", "Startup ABC", "Hà Nội", 8_000_000d, 15_000_000d,
                                 "8-15 triệu",
                                 "Làm bán thời gian 4h/ngày. Phát triển admin dashboard với React, Ant Design.",
-                                "https://itviec.com/startup-abc-parttime", JobType.PART_TIME, JobLevel.JUNIOR, src));
+                                "https://itviec.com/startup-abc-parttime", JobType.PART_TIME, JobLevel.JUNIOR, src,
+                                react, js));
 
-                jobs.add(job("Backend Python (Part-time)", "Freelancer.vn", "Remote", 6_000_000d, 12_000_000d,
+                jobs.add(jobWithSkills("Backend Python (Part-time)", "Freelancer.vn", "Remote", 6_000_000d, 12_000_000d,
                                 "6-12 triệu",
                                 "Xây dựng chatbot tích hợp API GPT-4 với Python FastAPI. 3h/ngày, làm online.",
-                                "https://itviec.com/freelancer-python-pt", JobType.PART_TIME, JobLevel.FRESHER, src));
+                                "https://itviec.com/freelancer-python-pt", JobType.PART_TIME, JobLevel.FRESHER, src,
+                                python));
 
                 jobs.add(job("WordPress Developer (Freelance)", "Agency Design", "Remote", 5_000_000d, 10_000_000d,
                                 "5-10 triệu/dự án",
@@ -596,32 +618,41 @@ public class DataSeeder implements ApplicationRunner {
                                 "https://itviec.com/agency-wp", JobType.FREELANCE, JobLevel.FRESHER, src));
 
                 // ---- INTERNSHIP JOBS ----
-                jobs.add(job("Java Backend Intern", "FPT Software", "Hà Nội", 2_000_000d, 5_000_000d, "2-5 triệu",
+                jobs.add(jobWithSkills("Java Backend Intern", "FPT Software", "Hà Nội", 2_000_000d, 5_000_000d,
+                                "2-5 triệu",
                                 "Thực tập sinh Java tại FPT Software. Được mentor bởi senior engineer, tham gia dự án thực tế.",
-                                "https://itviec.com/fpt-intern-java", JobType.INTERNSHIP, JobLevel.FRESHER, src));
+                                "https://itviec.com/fpt-intern-java", JobType.INTERNSHIP, JobLevel.FRESHER, src, java,
+                                spring, git));
 
-                jobs.add(job("React Frontend Intern", "Base.vn", "Hà Nội", 3_000_000d, 5_000_000d, "3-5 triệu",
+                jobs.add(jobWithSkills("React Frontend Intern", "Base.vn", "Hà Nội", 3_000_000d, 5_000_000d,
+                                "3-5 triệu",
                                 "Thực tập Frontend với React/Next.js. Cơ hội convert full-time sau thực tập.",
-                                "https://itviec.com/base-intern-react", JobType.INTERNSHIP, JobLevel.FRESHER, src));
+                                "https://itviec.com/base-intern-react", JobType.INTERNSHIP, JobLevel.FRESHER, src,
+                                react, js));
 
-                jobs.add(job("QA Intern", "Axon Active", "Đà Nẵng", 2_500_000d, 4_000_000d, "2.5-4 triệu",
+                jobs.add(jobWithSkills("QA Intern", "Axon Active", "Đà Nẵng", 2_500_000d, 4_000_000d, "2.5-4 triệu",
                                 "Học manual testing, viết test case, báo cáo bug. Sau 3 tháng được đào tạo automation.",
-                                "https://itviec.com/axon-qa-intern", JobType.INTERNSHIP, JobLevel.FRESHER, src));
+                                "https://itviec.com/axon-qa-intern", JobType.INTERNSHIP, JobLevel.FRESHER, src, git));
 
-                jobs.add(job("Data Analyst Intern", "VNG Corporation", "Hồ Chí Minh", 3_000_000d, 6_000_000d,
+                jobs.add(jobWithSkills("Data Analyst Intern", "VNG Corporation", "Hồ Chí Minh", 3_000_000d, 6_000_000d,
                                 "3-6 triệu",
                                 "Phân tích dữ liệu người dùng với Python, SQL, Tableau. Hỗ trợ team product.",
-                                "https://itviec.com/vng-data-intern", JobType.INTERNSHIP, JobLevel.FRESHER, src));
+                                "https://itviec.com/vng-data-intern", JobType.INTERNSHIP, JobLevel.FRESHER, src, python,
+                                sql));
 
-                jobs.add(job("DevOps Intern", "KMS Technology", "Hồ Chí Minh", 2_000_000d, 4_000_000d, "2-4 triệu",
+                jobs.add(jobWithSkills("DevOps Intern", "KMS Technology", "Hồ Chí Minh", 2_000_000d, 4_000_000d,
+                                "2-4 triệu",
                                 "Học Docker, CI/CD pipeline, cấu hình Linux server. Môi trường agile chuyên nghiệp.",
-                                "https://itviec.com/kms-devops-intern", JobType.INTERNSHIP, JobLevel.FRESHER, src));
+                                "https://itviec.com/kms-devops-intern", JobType.INTERNSHIP, JobLevel.FRESHER, src,
+                                docker, linux, git));
 
                 // ---- CONTRACT / FREELANCE JOBS ----
-                jobs.add(job("Full Stack Developer (Contract)", "Client Singapore", "Remote", 50_000_000d, 80_000_000d,
+                jobs.add(jobWithSkills("Full Stack Developer (Contract)", "Client Singapore", "Remote", 50_000_000d,
+                                80_000_000d,
                                 "50-80 triệu",
                                 "Hợp đồng 6 tháng. Xây dựng B2B SaaS platform với React + Java Spring Boot. 100% remote.",
-                                "https://itviec.com/contract-sg-fullstack", JobType.CONTRACT, JobLevel.SENIOR, src));
+                                "https://itviec.com/contract-sg-fullstack", JobType.CONTRACT, JobLevel.SENIOR, src,
+                                react, java, spring, docker));
 
                 jobs.add(job("Solution Architect (Contract)", "Bank BIDV", "Hà Nội", null, null, "Thương lượng",
                                 "Hợp đồng tư vấn kiến trúc hệ thống core banking migration. Duration: 12 tháng.",
@@ -632,9 +663,11 @@ public class DataSeeder implements ApplicationRunner {
                                 "Kết nối và tích hợp các third-party API (payment, shipping, ERP). Làm remote, flexible time.",
                                 "https://itviec.com/xyz-api-freelance", JobType.FREELANCE, JobLevel.MIDDLE, src));
 
-                jobs.add(job("Tech Lead (Hà Nội)", "ViettelPay", "Hà Nội", 55_000_000d, 90_000_000d, "55-90 triệu",
+                jobs.add(jobWithSkills("Tech Lead (Hà Nội)", "ViettelPay", "Hà Nội", 55_000_000d, 90_000_000d,
+                                "55-90 triệu",
                                 "Lead team 8 người, định hướng kỹ thuật, review PR, pair programming với developers.",
-                                "https://itviec.com/viettelpay-techlead", JobType.FULL_TIME, JobLevel.LEADER, src));
+                                "https://itviec.com/viettelpay-techlead", JobType.FULL_TIME, JobLevel.LEADER, src, java,
+                                spring, docker, k8s));
 
                 jobs.add(job("Inspector / Inspector-level QA", "Harvey Nash Vietnam", "Hà Nội", 60_000_000d,
                                 100_000_000d,

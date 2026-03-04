@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useUserState } from "../store/useLocalStorage";
 import { getUserProfile } from "../services/userProfileService";
-import Card from "../components/Card";
-import Button from "../components/Button";
-import Pill from "../components/Pill";
 import "../styles/profile-page.css";
 
 export default function ProfilePage() {
@@ -28,24 +25,30 @@ export default function ProfilePage() {
         setProfile(data);
       } catch (err) {
         console.error("Failed to fetch profile:", err);
-        setError("Không thể tải thông tin hồ sơ.");
+        setError("Could not load your profile details");
       } finally {
         setLoading(false);
       }
     };
 
     fetchProfile();
-  }, [user]);
+  }, [user, navigate]);
 
   if (loading) {
     return (
       <div className="profile-page">
-        <div style={{ padding: "40px", textAlign: "center" }}>Đang tải hồ sơ...</div>
+        <div className="profile-container">
+          {/* Skeleton View */}
+          <div className="profile-header-skeleton" style={{ height: 60, width: "30%", marginBottom: 30, background: "var(--color-border)", borderRadius: 12 }} />
+          <div className="profile-content">
+            <div className="profile-info-card" style={{ height: 400, background: "var(--color-surface)", borderRadius: 20 }} />
+            <div className="profile-quick-links" style={{ height: 250, background: "var(--color-surface)", borderRadius: 20 }} />
+          </div>
+        </div>
       </div>
     );
   }
 
-  // Kết hợp dữ liệu từ auth store và profile API
   const displayData = {
     name: profile?.fullName || user?.name || user?.userName || "Unknown User",
     email: user?.email || "",
@@ -63,32 +66,33 @@ export default function ProfilePage() {
   return (
     <div className="profile-page">
       <div className="profile-container">
+
+        {/* Header */}
         <div className="profile-header">
           <div>
             <h1>My Profile</h1>
-            <p>Your personal information and career goals</p>
+            <p>Your personal details and career information</p>
           </div>
-          <Button variant="primary" onClick={() => navigate("/profile/edit")}>
-            Edit Profile
-          </Button>
+          <button className="profile-action-btn" onClick={() => navigate("/profile/edit")}>
+            ✏️ Edit Profile
+          </button>
         </div>
 
         {error && (
-          <Card style={{ marginBottom: "16px", background: "var(--color-error-subtle, #fef2f2)" }}>
-            <p style={{ color: "var(--color-error, #ef4444)" }}>⚠️ {error}</p>
-          </Card>
+          <div style={{ padding: "12px 20px", background: "var(--color-error-bg)", color: "var(--color-error)", borderRadius: 12, marginBottom: 20 }}>
+            ⚠️ {error}
+          </div>
         )}
 
         <div className="profile-content">
-          {/* Profile Info Card */}
-          <Card className="profile-info-card">
+
+          {/* Main Layout Card */}
+          <div className="profile-info-card">
+
+            {/* Avatar Row */}
             <div className="profile-avatar-section">
               {displayData.avatarUrl ? (
-                <img
-                  src={displayData.avatarUrl}
-                  alt="Avatar"
-                  className="profile-avatar"
-                />
+                <img src={displayData.avatarUrl} alt="Avatar" className="profile-avatar" />
               ) : (
                 <div className="profile-avatar-placeholder">
                   {displayData.name.charAt(0).toUpperCase()}
@@ -98,20 +102,22 @@ export default function ProfilePage() {
                 <h2>{displayData.name}</h2>
                 <p className="profile-email">{displayData.email}</p>
                 {displayData.currentLevel && (
-                  <Pill variant="primary">{displayData.currentLevel}</Pill>
+                  <span className="profile-level-badge">{displayData.currentLevel}</span>
                 )}
               </div>
             </div>
 
+            {/* About Setion */}
             {displayData.bio && (
               <div className="profile-section">
-                <h3>About</h3>
+                <h3>About Me</h3>
                 <p>{displayData.bio}</p>
               </div>
             )}
 
+            {/* Details Grid */}
             <div className="profile-section">
-              <h3>Details</h3>
+              <h3>Personal Details</h3>
               <div className="profile-details">
                 {displayData.university && (
                   <div className="detail-row">
@@ -143,39 +149,49 @@ export default function ProfilePage() {
                     <span>{new Date(displayData.dateOfBirth).toLocaleDateString()}</span>
                   </div>
                 )}
+                {/* Fallback empty message for Details rows */}
+                {(!displayData.university && !displayData.major && !displayData.careerGoal && !displayData.city && !displayData.dateOfBirth) && (
+                  <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem" }}>No additional details provided yet.</p>
+                )}
               </div>
             </div>
 
+            {/* Skills */}
             {displayData.skills && displayData.skills.length > 0 && (
               <div className="profile-section">
-                <h3>Skills</h3>
+                <h3>Technical Skills</h3>
                 <div className="skills-grid">
                   {displayData.skills.map((skill, idx) => (
-                    <Pill key={idx} variant="default">
+                    <span key={idx} className="profile-skill-badge">
                       {skill.skillName || skill.name || skill}
-                      {skill.level && ` (${skill.level})`}
-                    </Pill>
+                      {skill.level && <span className="skill-lvl-text"> · {skill.level}</span>}
+                    </span>
                   ))}
                 </div>
               </div>
             )}
-          </Card>
 
-          {/* Quick Links */}
-          <Card className="profile-quick-links">
+          </div>
+
+          {/* Quick Links Column */}
+          <div className="profile-quick-links">
             <h3>Quick Links</h3>
             <div className="quick-links-list">
               <Link to="/skills" className="quick-link-item">
-                🎯 Manage Skills
+                <span style={{ fontSize: "1.2rem" }}>🎯</span> Manage Skills
               </Link>
               <Link to="/roadmaps" className="quick-link-item">
-                🗺️ Learning Roadmaps
+                <span style={{ fontSize: "1.2rem" }}>🗺️</span> Learning Roadmaps
               </Link>
               <Link to="/hub" className="quick-link-item">
-                🏠 My Learning Hub
+                <span style={{ fontSize: "1.2rem" }}>🎓</span> My Learning Hub
+              </Link>
+              <Link to="/jobs" className="quick-link-item" style={{ borderTop: "1px dashed var(--color-border)", borderRadius: 0, paddingTop: 18 }}>
+                <span style={{ fontSize: "1.2rem" }}>👔</span> Explore Jobs
               </Link>
             </div>
-          </Card>
+          </div>
+
         </div>
       </div>
     </div>

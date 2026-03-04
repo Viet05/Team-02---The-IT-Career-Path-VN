@@ -179,6 +179,17 @@ export default function ProfileEditPage() {
               />
             </div>
 
+            {/* 9) City */}
+            <div className="form-group">
+              <label>City</label>
+              <input
+                type="text"
+                value={formData.city}
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                placeholder="e.g. Hà Nội, TP. Hồ Chí Minh"
+              />
+            </div>
+
             <div className="form-actions">
               <Button variant="outline" type="button" onClick={() => navigate("/profile")} disabled={loading}>
                 Cancel

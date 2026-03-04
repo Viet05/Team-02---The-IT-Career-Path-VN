@@ -12,10 +12,12 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserProfileSkillService {
@@ -38,6 +40,7 @@ public class UserProfileSkillService {
                                 .stream()
                                 .map(skill -> UserSkillResponse.builder()
                                                 .userProfileSkillId(skill.getUserProfileSkillId())
+                                                .skillId(skill.getSkill().getSkillId())
                                                 .name(skill.getSkill().getName())
                                                 .description(skill.getSkill().getDescription())
                                                 .level(skill.getLevel())
@@ -71,6 +74,7 @@ public class UserProfileSkillService {
 
                 return UserSkillResponse.builder()
                                 .userProfileSkillId(saved.getUserProfileSkillId())
+                                .skillId(skill.getSkillId())
                                 .name(skill.getName())
                                 .description(skill.getDescription())
                                 .level(saved.getLevel())
@@ -92,6 +96,7 @@ public class UserProfileSkillService {
 
                 return UserSkillResponse.builder()
                                 .userProfileSkillId(ups.getUserProfileSkillId())
+                                .skillId(ups.getSkill().getSkillId())
                                 .name(ups.getSkill().getName())
                                 .description(ups.getSkill().getDescription())
                                 .level(ups.getLevel())

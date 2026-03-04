@@ -3,11 +3,12 @@ package com.team02.backend.controller;
 import com.team02.backend.dto.response.ApiResponse;
 import com.team02.backend.dto.response.ChartDataResponse;
 import com.team02.backend.dto.response.DashboardStatsResponse;
+import com.team02.backend.dto.response.RecentJobResponse;
 import com.team02.backend.service.DashboardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.logging.Level;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,10 +29,7 @@ public class DashboardController {
   DashboardService dashboardService;
 
   @GetMapping("/stats")
-  @Operation(
-    summary = "Lấy thống kê dashboard",
-    description = "Lấy các số liệu thống kê tổng quan cho dashboard admin"
-  )
+  @Operation(summary = "Lấy thống kê dashboard", description = "Lấy các số liệu thống kê tổng quan cho dashboard admin")
   public ApiResponse<DashboardStatsResponse> getDashboardStats() {
 
     return ApiResponse.<DashboardStatsResponse>builder()
@@ -42,10 +40,7 @@ public class DashboardController {
   }
 
   @GetMapping("/chart")
-  @Operation(
-    summary = "Lấy dữ liệu biểu đồ",
-    description = "Lấy dữ liệu để hiển thị các biểu đồ thống kê"
-  )
+  @Operation(summary = "Lấy dữ liệu biểu đồ", description = "Lấy dữ liệu để hiển thị các biểu đồ thống kê")
   public ApiResponse<ChartDataResponse> getChartData() {
 
     return ApiResponse.<ChartDataResponse>builder()
@@ -56,12 +51,9 @@ public class DashboardController {
   }
 
   @GetMapping("/recent")
-  @Operation(
-    summary = "Lấy bài đăng gần đây",
-    description = "Lấy danh sách các tin tuyển dụng được đăng gần đây"
-  )
-  public ApiResponse<Object> getRecent() {
-    return ApiResponse.<Object>builder()
+  @Operation(summary = "Lấy bài đăng gần đây", description = "Lấy danh sách các tin tuyển dụng được đăng gần đây")
+  public ApiResponse<List<RecentJobResponse>> getRecent() {
+    return ApiResponse.<List<RecentJobResponse>>builder()
         .code(200)
         .message("Get recent data successfully")
         .data(dashboardService.getRecentPostings())

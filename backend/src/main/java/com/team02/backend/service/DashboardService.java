@@ -2,7 +2,7 @@ package com.team02.backend.service;
 
 import com.team02.backend.dto.response.ChartDataResponse;
 import com.team02.backend.dto.response.DashboardStatsResponse;
-import com.team02.backend.entity.JobPosting;
+import com.team02.backend.dto.response.RecentJobResponse;
 import com.team02.backend.enums.UserRole;
 import com.team02.backend.repository.JobPostingRepository;
 import com.team02.backend.repository.UserRepository;
@@ -31,15 +31,19 @@ public class DashboardService {
 
     Long totalUsers = userRepository.count();
     Long totalStudents = userRepository.countByRole(UserRole.STUDENT);
+    Long totalCompanies = userRepository.countByRole(UserRole.COMPANY);
     Long totalJobs = postingRepository.count();
 
-    LocalDateTime startOfDay = LocalDateTime.now().with(LocalDateTime.MIN);
+    // Bug fix: use atStartOfDay() instead of LocalDateTime.MIN (which was year
+    // -9999)
+    LocalDateTime startOfDay = LocalDateTime.now().toLocalDate().atStartOfDay();
 
     Long jobsToday = postingRepository.countByPostedAtAfter(startOfDay);
 
     return DashboardStatsResponse.builder()
         .totalUser(totalUsers)
         .totalStudent(totalStudents)
+        .totalCompanies(totalCompanies)
         .totalJobs(totalJobs)
         .jobsToday(jobsToday)
         .build();
@@ -84,7 +88,15 @@ public class DashboardService {
         .build();
   }
 
-  public List<JobPosting> getRecentPostings() {
-    return postingRepository.findTop10ByOrderByPostedAtDesc();
+  public List<RecentJobResponse> getRecentPostings() {
+    return postingRepository.findTop10ByOrderByPostedAtDesc().stream()
+        .map(job -> RecentJobResponse.builder()
+            .jobPostingId(job.getJobPostingId())
+            .title(job.getTitle())
+            .companyName(job.getCompanyName())
+            .location(job.getLocation())
+            .postedAt(job.getPostedAt())
+            .build())
+        .collect(Collectors.toList());
   }
 }

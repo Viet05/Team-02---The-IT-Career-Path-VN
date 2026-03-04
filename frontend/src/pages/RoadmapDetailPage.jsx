@@ -3,8 +3,6 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getRoadmapDetails } from "../services/roadmapService";
 import { startProgress, completeProgress, resetProgress } from "../services/progressService";
 import { useUserState } from "../store/useLocalStorage";
-import Card from "../components/Card";
-import Button from "../components/Button";
 import ProgressBar from "../components/ProgressBar";
 import EmptyState from "../components/EmptyState";
 import "../styles/roadmap-detail-page.css";
@@ -12,7 +10,7 @@ import "../styles/roadmap-detail-page.css";
 export default function RoadmapDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user, updateProgress: updateLocalProgress, getProgress, getProgressPercentage } = useUserState();
+  const { user, updateProgress: updateLocalProgress, getProgress } = useUserState();
 
   const [roadmap, setRoadmap] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -50,7 +48,6 @@ export default function RoadmapDetailPage() {
   const localProgress = getProgress(id);
   const nodes = roadmap?.roadmapNodes || [];
 
-  // Calculate true completed state for each node by combining backend and local state
   const nodeCompletedMap = {};
   nodes.forEach(node => {
     if (localProgress[node.id] !== undefined) {
@@ -72,21 +69,14 @@ export default function RoadmapDetailPage() {
     setProgressLoading((prev) => ({ ...prev, [nodeId]: true }));
     try {
       if (!isCompleted) {
-        // Nếu chưa hoàn thành → đánh dấu hoàn thành
-        if (user) {
-          await completeProgress(nodeId);
-        }
+        if (user) await completeProgress(nodeId);
         updateLocalProgress(id, nodeId, true);
       } else {
-        // Nếu đã hoàn thành → reset
-        if (user) {
-          await resetProgress(nodeId);
-        }
+        if (user) await resetProgress(nodeId);
         updateLocalProgress(id, nodeId, false);
       }
     } catch (err) {
       console.error("Failed to update progress:", err);
-      // Vẫn update localStorage dù API lỗi (offline mode)
       updateLocalProgress(id, nodeId, !isCompleted);
     } finally {
       setProgressLoading((prev) => ({ ...prev, [nodeId]: false }));
@@ -96,8 +86,13 @@ export default function RoadmapDetailPage() {
   if (loading) {
     return (
       <div className="roadmap-detail-page">
-        <div style={{ padding: "40px", textAlign: "center" }}>
-          <p>Đang tải...</p>
+        <div className="roadmap-detail-container">
+          <div className="roadmap-loading">
+            <div className="skeleton-header"></div>
+            <div className="skeleton-box"></div>
+            <div className="skeleton-box"></div>
+            <div className="skeleton-box"></div>
+          </div>
         </div>
       </div>
     );
@@ -106,152 +101,198 @@ export default function RoadmapDetailPage() {
   if (error || !roadmap) {
     return (
       <div className="roadmap-detail-page">
-        <EmptyState
-          icon="❌"
-          title="Roadmap not found"
-          message={error || "The roadmap you're looking for doesn't exist"}
-          actionLabel="Back to Roadmaps"
-          onAction={() => navigate("/roadmaps")}
-        />
+        <div className="roadmap-detail-container">
+          <button className="back-btn" onClick={() => navigate("/roadmaps")}>
+            ← Back to Roadmaps
+          </button>
+          <div className="roadmap-card-wrapper mt-4">
+            <EmptyState
+              icon="❌"
+              title="Roadmap not found"
+              message={error || "The roadmap you're looking for doesn't exist"}
+              actionLabel="Back to Roadmaps"
+              onAction={() => navigate("/roadmaps")}
+            />
+          </div>
+        </div>
       </div>
     );
   }
 
-  // Removed duplicate nodes and nextNode variables
-
   return (
     <div className="roadmap-detail-page">
       <div className="roadmap-detail-container">
-        <div className="roadmap-header">
-          <Button variant="ghost" onClick={() => navigate("/roadmaps")}>
-            ← Back to Roadmaps
-          </Button>
-          <div className="roadmap-header-content">
-            <div className="roadmap-title-section">
-              <div className="roadmap-icon-large">{roadmap.icon || "🗺️"}</div>
-              <div>
-                <h1>{roadmap.title}</h1>
-                <p>{roadmap.description}</p>
-              </div>
+
+        {/* ── Top Navigation ── */}
+        <button className="back-btn" onClick={() => navigate("/roadmaps")}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Back to Roadmaps
+        </button>
+
+        {/* ── Main Header Card ── */}
+        <div className="roadmap-header-card">
+          <div className="roadmap-header-main">
+            <div className="roadmap-hero-icon">{roadmap.icon || "🗺️"}</div>
+            <div className="roadmap-hero-content">
+              <h1>{roadmap.title}</h1>
+              <p>{roadmap.description}</p>
             </div>
-            <div className="roadmap-progress-overview">
-              <ProgressBar value={progressPercentage} max={100} showLabel={true} size="lg" />
-              <div className="progress-stats">
-                <span>
-                  {completedSteps} of {totalNodes} steps completed
-                </span>
-              </div>
+          </div>
+
+          <div className="roadmap-progress-widget">
+            <div className="progress-widget-header">
+              <span className="progress-title">Your Progress</span>
+              <span className="progress-text">{completedSteps} of {totalNodes} steps</span>
             </div>
+            <ProgressBar value={progressPercentage} max={100} showLabel={true} size="lg" />
+            {progressPercentage === 100 && (
+              <div className="completion-message">
+                🎉 Congratulations! You have completed this roadmap!
+              </div>
+            )}
           </div>
         </div>
 
-        {nextNode && (
-          <Card className="continue-learning-card">
-            <div className="continue-content">
-              <div>
-                <h3>Continue Learning</h3>
-                <p>Your next step: {nextNode.title}</p>
-                {nextNode.description && <p style={{ color: 'var(--color-text-secondary)', marginTop: '4px' }}>{nextNode.description}</p>}
-              </div>
-              <Button
-                variant="primary"
-                onClick={async () => {
-                  if (user) {
-                    try { await startProgress(nextNode.id); } catch (e) { /* ignore */ }
-                  }
-                  updateLocalProgress(id, nextNode.id, false);
-                }}
-              >
-                Start Learning
-              </Button>
+        {/* ── Continue Learning ── */}
+        {nextNode && progressPercentage > 0 && progressPercentage < 100 && (
+          <div className="continue-learning-widget">
+            <div className="continue-learning-content">
+              <h3>Continue Learning</h3>
+              <p>Next up: <strong>{nextNode.title}</strong></p>
             </div>
-          </Card>
+            <button
+              className="btn-continue"
+              onClick={async () => {
+                if (user) {
+                  try { await startProgress(nextNode.id); } catch (e) { }
+                }
+                updateLocalProgress(id, nextNode.id, false);
+                // Scroll to step
+                const el = document.getElementById(`step-${nextNode.id}`);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }}
+            >
+              Resume Journey
+            </button>
+          </div>
         )}
 
-        <div className="steps-section">
-          <h2>Learning Path</h2>
-          <div className="steps-list">
+        {/* ── Steps Timeline ── */}
+        <div className="roadmap-steps-container">
+          <div className="steps-title-row">
+            <h2>Learning Path</h2>
+          </div>
+
+          <div className="steps-timeline">
             {nodes.length === 0 && (
-              <EmptyState
-                icon="📭"
-                title="No steps yet"
-                message="This roadmap doesn't have any learning steps yet"
-              />
+              <div className="roadmap-card-wrapper">
+                <EmptyState
+                  icon="📭"
+                  title="No steps yet"
+                  message="This roadmap doesn't have any learning steps yet"
+                />
+              </div>
             )}
+
             {nodes.map((node, index) => {
               const isCompleted = !!nodeCompletedMap[node.id];
               const isExpanded = expandedStep === node.id;
               const isLoading = !!progressLoading[node.id];
 
               return (
-                <Card key={node.id} className="step-card">
-                  <div className="step-header">
-                    <div className="step-number" style={{ background: isCompleted ? 'var(--color-success, #22c55e)' : undefined }}>
-                      {isCompleted ? "✓" : index + 1}
-                    </div>
-                    <div className="step-content">
-                      <div className="step-title-row">
-                        <h3 style={{ textDecoration: isCompleted ? 'line-through' : 'none', opacity: isCompleted ? 0.6 : 1 }}>
-                          {node.title}
-                        </h3>
-                        <label className="step-checkbox">
-                          <input
-                            type="checkbox"
-                            checked={isCompleted}
-                            disabled={isLoading}
-                            onChange={() => handleToggleComplete(node)}
-                          />
-                          <span>{isLoading ? "Saving..." : "Mark as complete"}</span>
-                        </label>
-                      </div>
-                      {node.description && <p>{node.description}</p>}
-                      {node.nodeType && (
-                        <div className="step-meta">
-                          <span style={{ background: 'var(--color-surface-secondary)', padding: '2px 8px', borderRadius: '4px', fontSize: '12px' }}>
-                            {node.nodeType}
-                          </span>
-                        </div>
-                      )}
-                      {/* Resources nếu backend cung cấp */}
-                      {node.resources && node.resources.length > 0 && (
-                        <>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setExpandedStep(isExpanded ? null : node.id)}
-                            className="toggle-lessons-btn"
-                          >
-                            {isExpanded ? "Hide" : "Show"} Resources ({node.resources.length})
-                          </Button>
-                          {isExpanded && (
-                            <div className="lessons-list">
-                              {node.resources.map((resource, rIdx) => (
-                                <div key={rIdx} className="lesson-item">
-                                  <div className="lesson-content">
-                                    <div className="lesson-title">
-                                      {resource.url ? (
-                                        <a href={resource.url} target="_blank" rel="noopener noreferrer">
-                                          {resource.title || resource.url}
-                                        </a>
-                                      ) : (
-                                        resource.title
-                                      )}
-                                    </div>
-                                    {resource.type && (
-                                      <div className="lesson-meta">
-                                        <span>{resource.type}</span>
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </>
+                <div key={node.id} id={`step-${node.id}`} className={`timeline-step ${isCompleted ? "step-completed" : ""}`}>
+
+                  {/* Circle Indicator */}
+                  <div className="step-indicator">
+                    <div className="step-circle">
+                      {isCompleted ? (
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      ) : (
+                        index + 1
                       )}
                     </div>
+                    {/* Line connection (except last item) */}
+                    {index < nodes.length - 1 && <div className="step-line" />}
                   </div>
-                </Card>
+
+                  {/* Step Card Content */}
+                  <div className="step-content-card">
+                    <div className="step-content-header">
+                      <div className="step-main-info">
+                        <h3>{node.title}</h3>
+                        {node.nodeType && (
+                          <span className="node-type-badge">{node.nodeType}</span>
+                        )}
+                      </div>
+                      <label className="custom-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={isCompleted}
+                          disabled={isLoading}
+                          onChange={() => handleToggleComplete(node)}
+                          aria-label={`Mark ${node.title} as complete`}
+                        />
+                        <span className="checkmark">
+                          {isLoading ? (
+                            <span className="checkbox-spinner" />
+                          ) : (
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                              <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                          )}
+                        </span>
+                        <span className="checkbox-label">
+                          {isCompleted ? "Completed" : "Mark as complete"}
+                        </span>
+                      </label>
+                    </div>
+
+                    {node.description && <p className="step-desc">{node.description}</p>}
+
+                    {node.resources && node.resources.length > 0 && (
+                      <div className="step-resources-section">
+                        <button
+                          className="toggle-resources-btn"
+                          onClick={() => setExpandedStep(isExpanded ? null : node.id)}
+                        >
+                          <svg className={`chevron ${isExpanded ? "rotated" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                          {isExpanded ? "Hide" : "Show"} Resources ({node.resources.length})
+                        </button>
+
+                        {isExpanded && (
+                          <div className="resources-list">
+                            {node.resources.map((resource, rIdx) => (
+                              <a
+                                key={rIdx}
+                                href={resource.url || "#"}
+                                target={resource.url ? "_blank" : "_self"}
+                                rel="noopener noreferrer"
+                                className="resource-item"
+                              >
+                                <div className="resource-icon">
+                                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                  </svg>
+                                </div>
+                                <div className="resource-detail">
+                                  <span className="resource-title">{resource.title || resource.url}</span>
+                                  {resource.type && <span className="resource-type">{resource.type}</span>}
+                                </div>
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
               );
             })}
           </div>

@@ -13,12 +13,11 @@ import com.team02.backend.specification.JobPostingSpecification;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import com.team02.backend.exception.ResourceNotFoundException;
+import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.team02.backend.exception.ResourceNotFoundException;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +26,7 @@ public class JobPostingService {
 
         JobPostingRepository jobPostingRepository;
         JobSourceRepository jobSourceRepository;
+        JobImportHelper jobImportHelper;
 
         @Transactional(readOnly = true)
         public List<JobPostingResponse> getAllJobPostings() {
@@ -63,41 +63,23 @@ public class JobPostingService {
         }
 
         public void importFromApi(List<JobImportDTO> jobs) {
-                for (JobImportDTO jobImportDTO : jobs) {
-                        if (jobImportDTO.getExternalJobId() == null) {
+                // Tìm hoặc tạo JobSource "CareerViet" (1 lần duy nhất cho cả batch)
+                JobSource jobSource = jobSourceRepository.findByName("CareerViet")
+                                .orElseGet(() -> jobSourceRepository.save(
+                                                JobSource.builder()
+                                                                .name("CareerViet")
+                                                                .apiUrl("https://careerviet.vn")
+                                                                .build()));
+
+                for (JobImportDTO dto : jobs) {
+                        if (dto.getExternalJobId() == null)
                                 continue;
+                        try {
+                                // Gọi qua bean riêng → Spring proxy hoạt động → REQUIRES_NEW được áp dụng
+                                jobImportHelper.importSingleJob(dto, jobSource);
+                        } catch (Exception e) {
+                                // Race condition: duplicate key → bỏ qua, tiếp tục job tiếp theo
                         }
-
-                        Optional<JobPosting> existing = jobPostingRepository
-                                        .findByExternalJobId(jobImportDTO.getExternalJobId());
-
-                        JobPosting jobPosting;
-
-                        if (existing.isPresent()) {
-                                jobPosting = existing.get(); // update
-                        } else {
-                                jobPosting = new JobPosting(); // insert
-                                jobPosting.setExternalJobId(jobImportDTO.getExternalJobId());
-                        }
-
-                        jobPosting.setExternalJobId(jobImportDTO.getExternalJobId());
-                        jobPosting.setCompanyName(jobImportDTO.getCompanyName());
-                        jobPosting.setDescription(jobImportDTO.getDescription());
-                        jobPosting.setJobLevel(jobImportDTO.getJobLevel());
-                        jobPosting.setJobType(jobImportDTO.getJobType());
-                        jobPosting.setJobUrl(jobImportDTO.getJobUrl());
-                        jobPosting.setLocation(jobImportDTO.getLocation());
-                        jobPosting.setPostedAt(jobImportDTO.getPostedAt());
-                        jobPosting.setSalaryMax(jobImportDTO.getSalaryMax());
-                        jobPosting.setSalaryMin(jobImportDTO.getSalaryMin());
-                        jobPosting.setSalaryText(jobImportDTO.getSalaryText());
-                        jobPosting.setTitle(jobImportDTO.getTitle());
-
-                        JobSource jobSource = jobSourceRepository.findByName("CareerViet")
-                                        .orElseThrow();
-
-                        jobPosting.setJobSource(jobSource);
-                        jobPostingRepository.save(jobPosting);
                 }
         }
 }
