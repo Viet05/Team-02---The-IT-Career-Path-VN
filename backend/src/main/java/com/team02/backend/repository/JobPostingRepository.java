@@ -1,0 +1,34 @@
+package com.team02.backend.repository;
+
+import com.team02.backend.entity.JobPosting;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface JobPostingRepository extends JpaRepository<JobPosting, Long>,
+        JpaSpecificationExecutor<JobPosting> {
+
+  Long countByPostedAtAfter(LocalDateTime date);
+
+    boolean existsByExternalJobId(String externalJobId);
+    Optional<JobPosting> findByExternalJobId(String externalJobId);
+
+    List<JobPosting> findTop10ByOrderByPostedAtDesc();
+
+  @Query(value = "SELECT DATE(posted_at) as date, "
+      + "COUNT(*) as count "
+      + "FROM job_posting "
+      + "WHERE posted_at >= :startDate "
+      + "GROUP BY DATE(posted_at)", nativeQuery = true)
+  List<Object[]> countJobsByDate(@Param("startDate") LocalDateTime startDate);
+
+  @Query("SELECT DISTINCT jp FROM JobPosting jp LEFT JOIN FETCH jp.jobSkills")
+  List<JobPosting> findAllWithSkills();
+}

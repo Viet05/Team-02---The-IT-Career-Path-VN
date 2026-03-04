@@ -1,0 +1,453 @@
+/* ── Page Layout ── */
+.roadmap-detail-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: 40px 24px;
+}
+
+.roadmap-detail-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-text-muted, #6b7280);
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 24px;
+  padding: 8px 0;
+  transition: color 0.2s;
+}
+
+.back-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.back-btn:hover {
+  color: var(--color-primary);
+}
+
+/* ── Hero Card ── */
+.roadmap-header-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.roadmap-header-main {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.roadmap-hero-icon {
+  font-size: 54px;
+  line-height: 1;
+}
+
+.roadmap-hero-content h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--color-text), #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.roadmap-hero-content p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.roadmap-progress-widget {
+  background: var(--color-bg);
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+}
+
+.progress-widget-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.progress-title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.progress-text {
+  color: var(--color-text-muted);
+}
+
+.completion-message {
+  margin-top: 12px;
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* ── Continue Learning Widget ── */
+.continue-learning-widget {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%);
+  border: 1px solid #c7d2fe;
+  border-radius: 16px;
+  margin-bottom: 32px;
+}
+
+.continue-learning-content h3 {
+  font-size: 1rem;
+  color: #4338ca;
+  margin-bottom: 4px;
+}
+
+.continue-learning-content p {
+  font-size: 0.95rem;
+  color: #3730a3;
+}
+
+.btn-continue {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-continue:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+}
+
+/* ── Timeline Steps ── */
+.roadmap-steps-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.steps-title-row h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.steps-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-step {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+}
+
+.step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.step-circle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.step-line {
+  width: 2px;
+  flex-grow: 1;
+  background: var(--color-border);
+  margin-top: 4px;
+  margin-bottom: 4px;
+  transition: background 0.3s ease;
+}
+
+.step-completed .step-circle {
+  background: #10b981;
+  border-color: #10b981;
+  color: white;
+}
+
+.step-completed .step-line {
+  background: #10b981;
+}
+
+/* ── Step Content ── */
+.step-content-card {
+  flex: 1;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 32px;
+  /* space between cards */
+  transition: border-color 0.2s;
+}
+
+.step-completed .step-content-card {
+  opacity: 0.85;
+}
+
+.step-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.step-main-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.step-completed .step-main-info h3 {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.node-type-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: var(--color-surface-secondary, #f3f4f6);
+  color: var(--color-text-muted);
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.step-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Checkbox */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: all 0.2s;
+}
+
+.checkmark svg {
+  width: 14px;
+  height: 14px;
+}
+
+.custom-checkbox input:checked~.checkmark {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.checkbox-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.checkbox-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  display: block;
+}
+
+/* Resources */
+.step-resources-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.toggle-resources-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s;
+}
+
+.chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.resource-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.resource-item:hover {
+  border-color: var(--color-primary);
+  transform: translateX(2px);
+  background: var(--color-bg);
+}
+
+.resource-icon {
+  color: var(--color-text-muted);
+  width: 20px;
+  height: 20px;
+}
+
+.resource-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.resource-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.resource-type {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* ── Loading Skeleton ── */
+.roadmap-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 0;
+}
+
+.skeleton-header {
+  height: 100px;
+  border-radius: 20px;
+  background: var(--color-surface);
+  animation: pulse 1.5s infinite;
+}
+
+.skeleton-box {
+  height: 80px;
+  border-radius: 16px;
+  background: var(--color-surface);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 600px) {
+  .roadmap-detail-page {
+    padding: 20px 14px;
+  }
+
+  .roadmap-header-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .step-content-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

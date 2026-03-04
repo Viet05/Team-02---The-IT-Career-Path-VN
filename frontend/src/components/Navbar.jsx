@@ -1,10 +1,11 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useUserState } from "../store/useLocalStorage";
 import "../styles/navbar.css";
 
 export default function Navbar() {
   const nav = useNavigate();
-  const token = localStorage.getItem("access_token");
+  const { user, logout } = useUserState();
 
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
@@ -29,13 +30,10 @@ export default function Navbar() {
     };
   }, []);
 
-  // Nếu logout mà đang mở dropdown thì đóng lại
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("role");
-    localStorage.removeItem("user"); // nếu có dùng
+    logout();
     setOpen(false);
-    nav("/login", { replace: true });
+    nav("/", { replace: true });
   };
 
   const toggleAccountMenu = () => setOpen((v) => !v);
@@ -58,8 +56,8 @@ export default function Navbar() {
           <NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>
             About
           </NavLink>
-          <NavLink to="/roadmap" className={({ isActive }) => (isActive ? "active" : "")}>
-            Roadmap
+          <NavLink to="/roadmaps" className={({ isActive }) => (isActive ? "active" : "")}>
+            Roadmaps
           </NavLink>
           <NavLink to="/jobs" className={({ isActive }) => (isActive ? "active" : "")}>
             Jobs
@@ -67,8 +65,8 @@ export default function Navbar() {
         </nav>
 
         {/* Right */}
-        {!token ? (
-          <Link to="/login" className="nav-login-btn">
+        {!user ? (
+          <Link to="/auth/login" className="nav-login-btn">
             Login
           </Link>
         ) : (
@@ -80,15 +78,20 @@ export default function Navbar() {
               aria-haspopup="menu"
               aria-expanded={open}
             >
-              Account
+              {user.name || "Account"}
             </button>
 
             {open && (
               <div className="account-dropdown" role="menu">
+                <Link to="/hub" className="account-item" onClick={closeMenu} role="menuitem">
+                  Learning Hub
+                </Link>
                 <Link to="/profile" className="account-item" onClick={closeMenu} role="menuitem">
                   Profile
                 </Link>
-
+                <Link to="/skills" className="account-item" onClick={closeMenu} role="menuitem">
+                  Skills
+                </Link>
                 <button
                   type="button"
                   className="account-item account-item--danger"

@@ -21,6 +21,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "user_profile")
@@ -36,8 +38,8 @@ public class UserProfile implements Serializable {
   private Long userProfileId;
 
   @OneToOne
-  @JoinColumn(name = "users_id" , nullable = false, unique = true)
-  private Users usersId;
+  @JoinColumn(name = "users_id", nullable = false, unique = true)
+  private Users users;
 
   @Column(name = "full_name")
   private String fullName;
@@ -63,12 +65,15 @@ public class UserProfile implements Serializable {
   @Column(name = "avatar_url")
   private String avatarUrl;
 
+  @Column(name = "city")
+  private String city;
+
   @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<UserProfileSkill> userProfileSkills;
 
-  @Timestamp
+  @CreationTimestamp
   private LocalDateTime createdAt;
 
-  @Timestamp
+  @UpdateTimestamp
   private LocalDateTime updatedAt;
 }

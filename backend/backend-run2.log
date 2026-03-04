@@ -1,0 +1,921 @@
+﻿[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.team02:backend:jar:0.0.1-SNAPSHOT
+[WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.boot:spring-boot-starter-thymeleaf:jar -> duplicate declaration of version (?) @ line 130, column 15
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] -------------------------< com.team02:backend >-------------------------
+[INFO] Building backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.4.1:run (default-cli) > test-compile @ backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ backend ---
+[INFO] skip non existing resourceDirectory D:\The IT Career Path VN Web\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.4.1:run (default-cli) < test-compile @ backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.4.1:run (default-cli) @ backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.1)
+
+2026-03-01T14:56:29.190+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : Starting BackendApplication using Java 23.0.1 with PID 17664 (D:\The IT Career Path VN Web\backend\target\classes started by VietD in D:\The IT Career Path VN Web\backend)
+2026-03-01T14:56:29.193+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-03-01T14:56:29.273+07:00  INFO 17664 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-01T14:56:29.274+07:00  INFO 17664 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-01T14:56:30.566+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-01T14:56:30.567+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-03-01T14:56:30.609+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.CareerRoleRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.611+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.JobPostingRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.612+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.JobSourceRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.613+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.LearningResourceRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.614+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.PasswordResetTokenRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.616+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.RefreshTokenRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.617+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.RoadmapNodeRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.618+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.RoadmapRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.619+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.SkillRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.623+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserFavouriteJobRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.624+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserProfileRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.626+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserProfileSkillRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.627+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.628+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserRoleProgressRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T14:56:30.628+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 0 JDBC repository interfaces.
+2026-03-01T14:56:30.641+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-01T14:56:30.642+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-01T14:56:30.702+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 56 ms. Found 14 JPA repository interfaces.
+2026-03-01T14:56:31.498+07:00  INFO 17664 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-01T14:56:31.517+07:00  INFO 17664 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-01T14:56:31.517+07:00  INFO 17664 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2026-03-01T14:56:31.573+07:00  INFO 17664 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-01T14:56:31.573+07:00  INFO 17664 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2299 ms
+2026-03-01T14:56:31.726+07:00  INFO 17664 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-01T14:56:31.786+07:00  INFO 17664 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.4.Final
+2026-03-01T14:56:31.817+07:00  INFO 17664 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-01T14:56:32.091+07:00  INFO 17664 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-01T14:56:32.123+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-01T14:56:32.611+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3dd154f2
+2026-03-01T14:56:32.613+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-01T14:56:32.666+07:00  WARN 17664 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-01T14:56:32.682+07:00  INFO 17664 --- [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.36
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-01T14:56:33.941+07:00  INFO 17664 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: alter table job_posting drop foreign key FKac63a861pp05nfvu04il174ig
+Hibernate: alter table job_skill drop foreign key FKclxtg4ksw6mngmi6t36aodr21
+Hibernate: alter table job_skill drop foreign key FKj33qbbf3vk1lvhqpcosnh54u1
+Hibernate: alter table learning_resource drop foreign key FKi6od06nvhjuc4mf03wubacec1
+Hibernate: alter table password_reset_tokens drop foreign key FKk3ndxg5xp6v7wd4gjyusp15gq
+Hibernate: alter table refresh_tokens drop foreign key FK1lih5y2npsf8u5o3vhdb9y0os
+Hibernate: alter table roadmap drop foreign key FKpu3eul0aib3c1nqcol62yspd9
+Hibernate: alter table roadmap_node drop foreign key FKc069v5euuqrboxv0fs936r1sr
+Hibernate: alter table roadmap_node drop foreign key FKgeovc8u0ie166ojhyos2v1db2
+Hibernate: alter table roadmap_node_skill drop foreign key FKc71j4vtn44iudk3avm0q90209
+Hibernate: alter table roadmap_node_skill drop foreign key FKp2wtei2l2iko6addgmmskkfdw
+Hibernate: alter table user_favorite_job drop foreign key FKmew63lj4b256bf5o0w05ecad6
+Hibernate: alter table user_favorite_job drop foreign key FKrqhm5fmnqgbi80jfw6n0w4clq
+Hibernate: alter table user_profile drop foreign key FKg2u1batogkupo0e6rmuwolbug
+Hibernate: alter table user_profile_skill drop foreign key FKt9dudmh5tst3awyv7f5gjmy3w
+Hibernate: alter table user_profile_skill drop foreign key FKxfkfhqrbatpgsiktxpt5wkd5
+Hibernate: alter table user_role_progress drop foreign key FKklm3t7p9uhifs7qqhjkwntjjl
+2026-03-01T14:56:34.647+07:00  WARN 17664 --- [  restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table user_role_progress drop foreign key FKklm3t7p9uhifs7qqhjkwntjjl" via JDBC [Can't DROP 'FKklm3t7p9uhifs7qqhjkwntjjl'; check that column/key exists]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table user_role_progress drop foreign key FKklm3t7p9uhifs7qqhjkwntjjl" via JDBC [Can't DROP 'FKklm3t7p9uhifs7qqhjkwntjjl'; check that column/key exists]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:479) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropConstraintsTablesSequences(SchemaDropperImpl.java:245) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:218) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:186) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:156) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:116) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:238) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1430) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66) ~[spring-orm-6.2.1.jar:6.2.1]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.2.1.jar:6.2.1]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419) ~[spring-orm-6.2.1.jar:6.2.1]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400) ~[spring-orm-6.2.1.jar:6.2.1]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1855) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:691) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:513) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1357) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1187) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1707) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1456) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1573) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1519) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1377) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1214) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1631) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1519) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1377) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1214) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204) ~[spring-beans-6.2.1.jar:6.2.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:211) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:174) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:169) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:154) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:87) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getServletContextInitializerBeans(ServletWebServerApplicationContext.java:266) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.selfInitialize(ServletWebServerApplicationContext.java:240) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:52) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4426) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:148) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:772) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1203) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1193) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:148) ~[na:na]
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:749) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:203) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:415) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:870) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:437) ~[tomcat-embed-core-10.1.34.jar:10.1.34]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:128) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:107) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:516) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:222) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621) ~[spring-context-6.2.1.jar:6.2.1]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361) ~[spring-boot-3.4.1.jar:3.4.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350) ~[spring-boot-3.4.1.jar:3.4.1]
+	at com.team02.backend.BackendApplication.main(BackendApplication.java:12) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.4.1.jar:3.4.1]
+Caused by: java.sql.SQLSyntaxErrorException: Can't DROP 'FKklm3t7p9uhifs7qqhjkwntjjl'; check that column/key exists
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:112) ~[mysql-connector-j-9.1.0.jar:9.1.0]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114) ~[mysql-connector-j-9.1.0.jar:9.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:837) ~[mysql-connector-j-9.1.0.jar:9.1.0]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:685) ~[mysql-connector-j-9.1.0.jar:9.1.0]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.6.4.Final.jar:6.6.4.Final]
+	... 127 common frames omitted
+
+Hibernate: alter table user_role_progress drop foreign key FK4uqb435ul77pj3wlkp6korrm0
+Hibernate: drop table if exists career_role
+Hibernate: drop table if exists job_posting
+Hibernate: drop table if exists job_skill
+Hibernate: drop table if exists job_source
+Hibernate: drop table if exists learning_resource
+Hibernate: drop table if exists password_reset_tokens
+Hibernate: drop table if exists refresh_tokens
+Hibernate: drop table if exists roadmap
+Hibernate: drop table if exists roadmap_node
+Hibernate: drop table if exists roadmap_node_skill
+Hibernate: drop table if exists skill
+Hibernate: drop table if exists user_favorite_job
+Hibernate: drop table if exists user_profile
+Hibernate: drop table if exists user_profile_skill
+Hibernate: drop table if exists user_role_progress
+Hibernate: drop table if exists users
+Hibernate: create table career_role (career_role_id bigint not null auto_increment, code varchar(255), description varchar(255), name varchar(255), primary key (career_role_id)) engine=InnoDB
+Hibernate: create table job_posting (salary_max float(53), salary_min float(53), job_posting_id bigint not null auto_increment, job_source_id bigint not null, posted_at datetime(6), company_name varchar(255), external_job_id varchar(255), job_url varchar(255), location varchar(255), salary_text varchar(255), title varchar(255), description LONGTEXT, job_level enum ('FRESHER','INSPECTOR','JUNIOR','LEADER','MIDDLE','SENIOR','STAFF'), job_type enum ('CONTRACT','FREELANCE','FULL_TIME','INTERNSHIP','PART_TIME'), primary key (job_posting_id)) engine=InnoDB
+Hibernate: create table job_skill (job_posting_id bigint not null, job_skill_id bigint not null auto_increment, skill_id bigint not null, primary key (job_skill_id)) engine=InnoDB
+Hibernate: create table job_source (job_source_id bigint not null auto_increment, api_url varchar(255), name varchar(255), primary key (job_source_id)) engine=InnoDB
+Hibernate: create table learning_resource (learning_resource_id bigint not null auto_increment, roadmap_node_id bigint not null, title varchar(255), type varchar(255), url varchar(255), primary key (learning_resource_id)) engine=InnoDB
+Hibernate: create table password_reset_tokens (created_at datetime(6), expires_at datetime(6), id bigint not null auto_increment, user_id bigint not null, token varchar(255), primary key (id)) engine=InnoDB
+Hibernate: create table refresh_tokens (revoked bit, created_at datetime(6), expires_at datetime(6) not null, id bigint not null auto_increment, user_id bigint not null, token varchar(255) not null, primary key (id)) engine=InnoDB
+Hibernate: create table roadmap (career_role_id bigint not null, roadmap_id bigint not null auto_increment, description varchar(255), level varchar(255), title varchar(255), primary key (roadmap_id)) engine=InnoDB
+Hibernate: create table roadmap_node (order_index integer, parent_node_id bigint, roadmap_id bigint not null, roadmap_node_id bigint not null auto_increment, description varchar(255), node_type varchar(255), title varchar(255), primary key (roadmap_node_id)) engine=InnoDB
+Hibernate: create table roadmap_node_skill (roadmap_node_id bigint not null, roadmap_node_skill_id bigint not null auto_increment, skill_id bigint not null, primary key (roadmap_node_skill_id)) engine=InnoDB
+Hibernate: create table skill (skill_id bigint not null auto_increment, description varchar(255), name varchar(255), primary key (skill_id)) engine=InnoDB
+Hibernate: create table user_favorite_job (job_posting_id bigint not null, user_favorite_job_id bigint not null auto_increment, users_id bigint not null, primary key (user_favorite_job_id)) engine=InnoDB
+Hibernate: create table user_profile (date_of_birth date, created_at datetime(6), updated_at datetime(6), user_profile_id bigint not null auto_increment, users_id bigint not null, avatar_url varchar(255), bio varchar(255), career_goal varchar(255), city varchar(255), current_level varchar(255), full_name varchar(255), major varchar(255), university varchar(255), primary key (user_profile_id)) engine=InnoDB
+Hibernate: create table user_profile_skill (level integer, skill_id bigint not null, user_profile_id bigint not null, user_profile_skill_id bigint not null auto_increment, primary key (user_profile_skill_id)) engine=InnoDB
+Hibernate: create table user_role_progress (roadmap_node_id bigint not null, updated_at datetime(6), user_role_progress_id bigint not null auto_increment, users_id bigint not null, status enum ('COMPLETED','IN_PROGRESS','NOT_STARTED') not null, primary key (user_role_progress_id)) engine=InnoDB
+Hibernate: create table users (email_verified bit, created_at datetime(6), updated_at datetime(6), users_id bigint not null auto_increment, verification_token_expiry datetime(6), email varchar(255), password varchar(255), username varchar(255), verification_token varchar(255), role enum ('ADMIN','COMPANY','STUDENT'), status enum ('ACTIVE','INACTIVE'), primary key (users_id)) engine=InnoDB
+Hibernate: alter table job_posting add constraint UK7wncdtgjluxsr1fye240euci4 unique (external_job_id)
+Hibernate: alter table job_skill add constraint UK885om2p2pgyrw90wivmfnbxpm unique (skill_id, job_posting_id)
+Hibernate: alter table password_reset_tokens add constraint UK71lqwbwtklmljk3qlsugr1mig unique (token)
+Hibernate: alter table refresh_tokens add constraint UKghpmfn23vmxfu3spu3lfg4r2d unique (token)
+Hibernate: alter table roadmap_node_skill add constraint UK758xwscueuodwhrs94xtuvdqy unique (roadmap_node_id, skill_id)
+Hibernate: alter table skill add constraint UK5ljf2l2h4odhtxrsuohlro4ir unique (name)
+Hibernate: alter table user_favorite_job add constraint UKcsfe6tmndgk3fegpnico8etyg unique (users_id, job_posting_id)
+Hibernate: alter table user_profile add constraint UKpqxh5okj09odrbjk6cwna79mq unique (users_id)
+Hibernate: alter table user_profile_skill add constraint UKp0ruw39x1atjxnj38l6ylrfxu unique (user_profile_id, skill_id)
+Hibernate: alter table user_role_progress add constraint UK37snwjql3qm3x6yg2fcedxp0k unique (users_id, roadmap_node_id)
+Hibernate: alter table job_posting add constraint FKac63a861pp05nfvu04il174ig foreign key (job_source_id) references job_source (job_source_id)
+Hibernate: alter table job_skill add constraint FKclxtg4ksw6mngmi6t36aodr21 foreign key (job_posting_id) references job_posting (job_posting_id)
+Hibernate: alter table job_skill add constraint FKj33qbbf3vk1lvhqpcosnh54u1 foreign key (skill_id) references skill (skill_id)
+Hibernate: alter table learning_resource add constraint FKi6od06nvhjuc4mf03wubacec1 foreign key (roadmap_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table password_reset_tokens add constraint FKk3ndxg5xp6v7wd4gjyusp15gq foreign key (user_id) references users (users_id)
+Hibernate: alter table refresh_tokens add constraint FK1lih5y2npsf8u5o3vhdb9y0os foreign key (user_id) references users (users_id)
+Hibernate: alter table roadmap add constraint FKpu3eul0aib3c1nqcol62yspd9 foreign key (career_role_id) references career_role (career_role_id)
+Hibernate: alter table roadmap_node add constraint FKc069v5euuqrboxv0fs936r1sr foreign key (parent_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table roadmap_node add constraint FKgeovc8u0ie166ojhyos2v1db2 foreign key (roadmap_id) references roadmap (roadmap_id)
+Hibernate: alter table roadmap_node_skill add constraint FKc71j4vtn44iudk3avm0q90209 foreign key (roadmap_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table roadmap_node_skill add constraint FKp2wtei2l2iko6addgmmskkfdw foreign key (skill_id) references skill (skill_id)
+Hibernate: alter table user_favorite_job add constraint FKmew63lj4b256bf5o0w05ecad6 foreign key (job_posting_id) references job_posting (job_posting_id)
+Hibernate: alter table user_favorite_job add constraint FKrqhm5fmnqgbi80jfw6n0w4clq foreign key (users_id) references users (users_id)
+Hibernate: alter table user_profile add constraint FKg2u1batogkupo0e6rmuwolbug foreign key (users_id) references users (users_id)
+Hibernate: alter table user_profile_skill add constraint FKt9dudmh5tst3awyv7f5gjmy3w foreign key (skill_id) references skill (skill_id)
+Hibernate: alter table user_profile_skill add constraint FKxfkfhqrbatpgsiktxpt5wkd5 foreign key (user_profile_id) references user_profile (user_profile_id)
+Hibernate: alter table user_role_progress add constraint FKklm3t7p9uhifs7qqhjkwntjjl foreign key (roadmap_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table user_role_progress add constraint FK4uqb435ul77pj3wlkp6korrm0 foreign key (users_id) references users (users_id)
+2026-03-01T14:56:37.622+07:00  INFO 17664 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01T14:56:38.040+07:00  INFO 17664 --- [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-01T14:56:39.533+07:00  INFO 17664 --- [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-03-01T14:56:40.641+07:00  INFO 17664 --- [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://127.0.0.1:3306/cdio_project'
+2026-03-01T14:56:40.735+07:00  INFO 17664 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-03-01T14:56:40.790+07:00  INFO 17664 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-03-01T14:56:40.802+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : Started BackendApplication in 12.166 seconds (process running for 12.679)
+Hibernate: select u1_0.users_id,u1_0.created_at,u1_0.email,u1_0.email_verified,u1_0.password,u1_0.role,u1_0.status,u1_0.updated_at,u1_0.username,u1_0.verification_token,u1_0.verification_token_expiry from users u1_0 where u1_0.role=?
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Default admin created
+2026-03-01T14:56:41.114+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : === DataSeeder: Bß║»t ─æß║ºu seed 30 bß║ún ghi mß╗ùi entity ===
+Hibernate: select count(*) from skill s1_0
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+2026-03-01T14:56:41.245+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 30 Skills.
+Hibernate: select count(*) from career_role cr1_0
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+2026-03-01T14:56:41.293+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 10 CareerRoles.
+Hibernate: select count(*) from job_source js1_0
+Hibernate: insert into job_source (api_url,name) values (?,?)
+2026-03-01T14:56:41.306+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded JobSource: ITviec
+Hibernate: select count(*) from users u1_0
+2026-03-01T14:56:41.315+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Users ─æ├ú tß╗ôn tß║íi, bß╗Å qua.
+Hibernate: select u1_0.users_id,u1_0.created_at,u1_0.email,u1_0.email_verified,u1_0.password,u1_0.role,u1_0.status,u1_0.updated_at,u1_0.username,u1_0.verification_token,u1_0.verification_token_expiry from users u1_0
+Hibernate: select up1_0.user_profile_id,up1_0.avatar_url,up1_0.bio,up1_0.career_goal,up1_0.city,up1_0.created_at,up1_0.current_level,up1_0.date_of_birth,up1_0.full_name,up1_0.major,up1_0.university,up1_0.updated_at,up1_0.users_id,u1_0.users_id,u1_0.created_at,u1_0.email,u1_0.email_verified,u1_0.password,u1_0.role,u1_0.status,u1_0.updated_at,u1_0.username,u1_0.verification_token,u1_0.verification_token_expiry from user_profile up1_0 join users u1_0 on u1_0.users_id=up1_0.users_id where up1_0.users_id=?
+Hibernate: select count(*) from user_profile up1_0
+2026-03-01T14:56:41.360+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 0 UserProfiles.
+Hibernate: select count(*) from roadmap r1_0
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+2026-03-01T14:56:41.534+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 10 Roadmaps vß╗¢i 30 Nodes.
+Hibernate: select count(*) from job_posting jp1_0
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-03-01T14:56:41.671+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 30 JobPostings.
+2026-03-01T14:56:41.671+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : === DataSeeder: Ho├án tß║Ñt ===
+2026-03-01T15:00:48.583+07:00  INFO 17664 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 177 class path changes (0 additions, 176 deletions, 1 modification)
+2026-03-01T15:00:48.593+07:00  INFO 17664 --- [       Thread-5] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-01T15:00:48.619+07:00  INFO 17664 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-03-01T15:00:48.636+07:00  INFO 17664 --- [       Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01T15:00:48.644+07:00  INFO 17664 --- [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-01T15:00:48.693+07:00  INFO 17664 --- [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.1)
+
+2026-03-01T15:00:48.851+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : Starting BackendApplication using Java 23.0.1 with PID 17664 (D:\The IT Career Path VN Web\backend\target\classes started by VietD in D:\The IT Career Path VN Web\backend)
+2026-03-01T15:00:48.852+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-03-01T15:00:49.272+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-01T15:00:49.272+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-03-01T15:00:49.276+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JDBC repository interfaces.
+2026-03-01T15:00:49.281+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-01T15:00:49.283+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-01T15:00:49.285+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2026-03-01T15:00:49.491+07:00  INFO 17664 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-01T15:00:49.491+07:00  INFO 17664 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-01T15:00:49.491+07:00  INFO 17664 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2026-03-01T15:00:49.527+07:00  INFO 17664 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-01T15:00:49.528+07:00  INFO 17664 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 672 ms
+2026-03-01T15:00:49.624+07:00  INFO 17664 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-01T15:00:49.628+07:00  INFO 17664 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-01T15:00:49.646+07:00  INFO 17664 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-01T15:00:49.649+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-03-01T15:00:49.730+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1fb795b4
+2026-03-01T15:00:49.730+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-03-01T15:00:49.734+07:00  WARN 17664 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-01T15:00:49.735+07:00  INFO 17664 --- [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0.36
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-01T15:00:49.764+07:00  INFO 17664 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-01T15:00:49.765+07:00  INFO 17664 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01T15:00:50.197+07:00  INFO 17664 --- [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://127.0.0.1:3306/cdio_project'
+2026-03-01T15:00:50.236+07:00  WARN 17664 --- [  restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a7a4a92f-7e32-4920-a934-98eda45c0056
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-03-01T15:00:50.251+07:00  INFO 17664 --- [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-03-01T15:00:50.331+07:00  INFO 17664 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-03-01T15:00:50.347+07:00  INFO 17664 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-03-01T15:00:50.352+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : Started BackendApplication in 1.547 seconds (process running for 262.229)
+2026-03-01T15:00:50.358+07:00  INFO 17664 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   SpringBootWebSecurityConfiguration.SecurityFilterChainConfiguration matched:
+      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+      - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   UserDetailsServiceAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+      - found 'session' scope (OnWebApplicationCondition)
+      - AnyNestedCondition 1 matched 2 did not; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.PasswordConfigured @ConditionalOnProperty (spring.security.user.password) did not find property 'password'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.NameConfigured @ConditionalOnProperty (spring.security.user.name) did not find property 'name'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.MissingAlternative @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured)
+      - @ConditionalOnBean (types: org.springframework.security.config.ObjectPostProcessor; SearchStrategy: all) found beans 'objectPostProcessor', 'webAuthorizationManagerPostProcessor', 'filterChainDecoratorPostProcessor', 'authenticationManagerPostProcessor'; @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-03-01T15:00:56.950+07:00  INFO 17664 --- [   File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 176 class path changes (176 additions, 0 deletions, 0 modifications)
+2026-03-01T15:00:56.951+07:00  INFO 17664 --- [       Thread-7] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-01T15:00:56.967+07:00  INFO 17664 --- [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-03-01T15:00:56.970+07:00  INFO 17664 --- [       Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01T15:00:56.970+07:00  INFO 17664 --- [       Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-03-01T15:00:56.993+07:00  INFO 17664 --- [       Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.1)
+
+2026-03-01T15:00:57.130+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : Starting BackendApplication using Java 23.0.1 with PID 17664 (D:\The IT Career Path VN Web\backend\target\classes started by VietD in D:\The IT Career Path VN Web\backend)
+2026-03-01T15:00:57.130+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-03-01T15:00:57.648+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-01T15:00:57.648+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2026-03-01T15:00:57.660+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.CareerRoleRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.663+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.JobPostingRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.663+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.JobSourceRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.666+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.LearningResourceRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.667+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.PasswordResetTokenRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.668+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.RefreshTokenRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.668+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.RoadmapNodeRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.672+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.RoadmapRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.673+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.SkillRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.673+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserFavouriteJobRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.675+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserProfileRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.677+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserProfileSkillRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.679+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.680+07:00  INFO 17664 --- [  restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.team02.backend.repository.UserRoleProgressRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2026-03-01T15:00:57.681+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 0 JDBC repository interfaces.
+2026-03-01T15:00:57.684+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-03-01T15:00:57.684+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-01T15:00:57.716+07:00  INFO 17664 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 14 JPA repository interfaces.
+2026-03-01T15:00:57.922+07:00  INFO 17664 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-01T15:00:57.923+07:00  INFO 17664 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-01T15:00:57.923+07:00  INFO 17664 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2026-03-01T15:00:57.945+07:00  INFO 17664 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-01T15:00:57.945+07:00  INFO 17664 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 811 ms
+2026-03-01T15:00:58.030+07:00  INFO 17664 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-01T15:00:58.033+07:00  INFO 17664 --- [  restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-01T15:00:58.043+07:00  INFO 17664 --- [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-01T15:00:58.043+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-03-01T15:00:58.079+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c27b87b
+2026-03-01T15:00:58.079+07:00  INFO 17664 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-03-01T15:00:58.083+07:00  WARN 17664 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-01T15:00:58.083+07:00  INFO 17664 --- [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0.36
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-01T15:00:58.572+07:00  INFO 17664 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: alter table job_posting drop foreign key FKac63a861pp05nfvu04il174ig
+Hibernate: alter table job_skill drop foreign key FKclxtg4ksw6mngmi6t36aodr21
+Hibernate: alter table job_skill drop foreign key FKj33qbbf3vk1lvhqpcosnh54u1
+Hibernate: alter table learning_resource drop foreign key FKi6od06nvhjuc4mf03wubacec1
+Hibernate: alter table password_reset_tokens drop foreign key FKk3ndxg5xp6v7wd4gjyusp15gq
+Hibernate: alter table refresh_tokens drop foreign key FK1lih5y2npsf8u5o3vhdb9y0os
+Hibernate: alter table roadmap drop foreign key FKpu3eul0aib3c1nqcol62yspd9
+Hibernate: alter table roadmap_node drop foreign key FKc069v5euuqrboxv0fs936r1sr
+Hibernate: alter table roadmap_node drop foreign key FKgeovc8u0ie166ojhyos2v1db2
+Hibernate: alter table roadmap_node_skill drop foreign key FKc71j4vtn44iudk3avm0q90209
+Hibernate: alter table roadmap_node_skill drop foreign key FKp2wtei2l2iko6addgmmskkfdw
+Hibernate: alter table user_favorite_job drop foreign key FKmew63lj4b256bf5o0w05ecad6
+Hibernate: alter table user_favorite_job drop foreign key FKrqhm5fmnqgbi80jfw6n0w4clq
+Hibernate: alter table user_profile drop foreign key FKg2u1batogkupo0e6rmuwolbug
+Hibernate: alter table user_profile_skill drop foreign key FKt9dudmh5tst3awyv7f5gjmy3w
+Hibernate: alter table user_profile_skill drop foreign key FKxfkfhqrbatpgsiktxpt5wkd5
+Hibernate: alter table user_role_progress drop foreign key FKklm3t7p9uhifs7qqhjkwntjjl
+Hibernate: alter table user_role_progress drop foreign key FK4uqb435ul77pj3wlkp6korrm0
+Hibernate: drop table if exists career_role
+Hibernate: drop table if exists job_posting
+Hibernate: drop table if exists job_skill
+Hibernate: drop table if exists job_source
+Hibernate: drop table if exists learning_resource
+Hibernate: drop table if exists password_reset_tokens
+Hibernate: drop table if exists refresh_tokens
+Hibernate: drop table if exists roadmap
+Hibernate: drop table if exists roadmap_node
+Hibernate: drop table if exists roadmap_node_skill
+Hibernate: drop table if exists skill
+Hibernate: drop table if exists user_favorite_job
+Hibernate: drop table if exists user_profile
+Hibernate: drop table if exists user_profile_skill
+Hibernate: drop table if exists user_role_progress
+Hibernate: drop table if exists users
+Hibernate: create table career_role (career_role_id bigint not null auto_increment, code varchar(255), description varchar(255), name varchar(255), primary key (career_role_id)) engine=InnoDB
+Hibernate: create table job_posting (salary_max float(53), salary_min float(53), job_posting_id bigint not null auto_increment, job_source_id bigint not null, posted_at datetime(6), company_name varchar(255), external_job_id varchar(255), job_url varchar(255), location varchar(255), salary_text varchar(255), title varchar(255), description LONGTEXT, job_level enum ('FRESHER','INSPECTOR','JUNIOR','LEADER','MIDDLE','SENIOR','STAFF'), job_type enum ('CONTRACT','FREELANCE','FULL_TIME','INTERNSHIP','PART_TIME'), primary key (job_posting_id)) engine=InnoDB
+Hibernate: create table job_skill (job_posting_id bigint not null, job_skill_id bigint not null auto_increment, skill_id bigint not null, primary key (job_skill_id)) engine=InnoDB
+Hibernate: create table job_source (job_source_id bigint not null auto_increment, api_url varchar(255), name varchar(255), primary key (job_source_id)) engine=InnoDB
+Hibernate: create table learning_resource (learning_resource_id bigint not null auto_increment, roadmap_node_id bigint not null, title varchar(255), type varchar(255), url varchar(255), primary key (learning_resource_id)) engine=InnoDB
+Hibernate: create table password_reset_tokens (created_at datetime(6), expires_at datetime(6), id bigint not null auto_increment, user_id bigint not null, token varchar(255), primary key (id)) engine=InnoDB
+Hibernate: create table refresh_tokens (revoked bit, created_at datetime(6), expires_at datetime(6) not null, id bigint not null auto_increment, user_id bigint not null, token varchar(255) not null, primary key (id)) engine=InnoDB
+Hibernate: create table roadmap (career_role_id bigint not null, roadmap_id bigint not null auto_increment, description varchar(255), level varchar(255), title varchar(255), primary key (roadmap_id)) engine=InnoDB
+Hibernate: create table roadmap_node (order_index integer, parent_node_id bigint, roadmap_id bigint not null, roadmap_node_id bigint not null auto_increment, description varchar(255), node_type varchar(255), title varchar(255), primary key (roadmap_node_id)) engine=InnoDB
+Hibernate: create table roadmap_node_skill (roadmap_node_id bigint not null, roadmap_node_skill_id bigint not null auto_increment, skill_id bigint not null, primary key (roadmap_node_skill_id)) engine=InnoDB
+Hibernate: create table skill (skill_id bigint not null auto_increment, description varchar(255), name varchar(255), primary key (skill_id)) engine=InnoDB
+Hibernate: create table user_favorite_job (job_posting_id bigint not null, user_favorite_job_id bigint not null auto_increment, users_id bigint not null, primary key (user_favorite_job_id)) engine=InnoDB
+Hibernate: create table user_profile (date_of_birth date, created_at datetime(6), updated_at datetime(6), user_profile_id bigint not null auto_increment, users_id bigint not null, avatar_url varchar(255), bio varchar(255), career_goal varchar(255), city varchar(255), current_level varchar(255), full_name varchar(255), major varchar(255), university varchar(255), primary key (user_profile_id)) engine=InnoDB
+Hibernate: create table user_profile_skill (level integer, skill_id bigint not null, user_profile_id bigint not null, user_profile_skill_id bigint not null auto_increment, primary key (user_profile_skill_id)) engine=InnoDB
+Hibernate: create table user_role_progress (roadmap_node_id bigint not null, updated_at datetime(6), user_role_progress_id bigint not null auto_increment, users_id bigint not null, status enum ('COMPLETED','IN_PROGRESS','NOT_STARTED') not null, primary key (user_role_progress_id)) engine=InnoDB
+Hibernate: create table users (email_verified bit, created_at datetime(6), updated_at datetime(6), users_id bigint not null auto_increment, verification_token_expiry datetime(6), email varchar(255), password varchar(255), username varchar(255), verification_token varchar(255), role enum ('ADMIN','COMPANY','STUDENT'), status enum ('ACTIVE','INACTIVE'), primary key (users_id)) engine=InnoDB
+Hibernate: alter table job_posting add constraint UK7wncdtgjluxsr1fye240euci4 unique (external_job_id)
+Hibernate: alter table job_skill add constraint UK885om2p2pgyrw90wivmfnbxpm unique (skill_id, job_posting_id)
+Hibernate: alter table password_reset_tokens add constraint UK71lqwbwtklmljk3qlsugr1mig unique (token)
+Hibernate: alter table refresh_tokens add constraint UKghpmfn23vmxfu3spu3lfg4r2d unique (token)
+Hibernate: alter table roadmap_node_skill add constraint UK758xwscueuodwhrs94xtuvdqy unique (roadmap_node_id, skill_id)
+Hibernate: alter table skill add constraint UK5ljf2l2h4odhtxrsuohlro4ir unique (name)
+Hibernate: alter table user_favorite_job add constraint UKcsfe6tmndgk3fegpnico8etyg unique (users_id, job_posting_id)
+Hibernate: alter table user_profile add constraint UKpqxh5okj09odrbjk6cwna79mq unique (users_id)
+Hibernate: alter table user_profile_skill add constraint UKp0ruw39x1atjxnj38l6ylrfxu unique (user_profile_id, skill_id)
+Hibernate: alter table user_role_progress add constraint UK37snwjql3qm3x6yg2fcedxp0k unique (users_id, roadmap_node_id)
+Hibernate: alter table job_posting add constraint FKac63a861pp05nfvu04il174ig foreign key (job_source_id) references job_source (job_source_id)
+Hibernate: alter table job_skill add constraint FKclxtg4ksw6mngmi6t36aodr21 foreign key (job_posting_id) references job_posting (job_posting_id)
+Hibernate: alter table job_skill add constraint FKj33qbbf3vk1lvhqpcosnh54u1 foreign key (skill_id) references skill (skill_id)
+Hibernate: alter table learning_resource add constraint FKi6od06nvhjuc4mf03wubacec1 foreign key (roadmap_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table password_reset_tokens add constraint FKk3ndxg5xp6v7wd4gjyusp15gq foreign key (user_id) references users (users_id)
+Hibernate: alter table refresh_tokens add constraint FK1lih5y2npsf8u5o3vhdb9y0os foreign key (user_id) references users (users_id)
+Hibernate: alter table roadmap add constraint FKpu3eul0aib3c1nqcol62yspd9 foreign key (career_role_id) references career_role (career_role_id)
+Hibernate: alter table roadmap_node add constraint FKc069v5euuqrboxv0fs936r1sr foreign key (parent_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table roadmap_node add constraint FKgeovc8u0ie166ojhyos2v1db2 foreign key (roadmap_id) references roadmap (roadmap_id)
+Hibernate: alter table roadmap_node_skill add constraint FKc71j4vtn44iudk3avm0q90209 foreign key (roadmap_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table roadmap_node_skill add constraint FKp2wtei2l2iko6addgmmskkfdw foreign key (skill_id) references skill (skill_id)
+Hibernate: alter table user_favorite_job add constraint FKmew63lj4b256bf5o0w05ecad6 foreign key (job_posting_id) references job_posting (job_posting_id)
+Hibernate: alter table user_favorite_job add constraint FKrqhm5fmnqgbi80jfw6n0w4clq foreign key (users_id) references users (users_id)
+Hibernate: alter table user_profile add constraint FKg2u1batogkupo0e6rmuwolbug foreign key (users_id) references users (users_id)
+Hibernate: alter table user_profile_skill add constraint FKt9dudmh5tst3awyv7f5gjmy3w foreign key (skill_id) references skill (skill_id)
+Hibernate: alter table user_profile_skill add constraint FKxfkfhqrbatpgsiktxpt5wkd5 foreign key (user_profile_id) references user_profile (user_profile_id)
+Hibernate: alter table user_role_progress add constraint FKklm3t7p9uhifs7qqhjkwntjjl foreign key (roadmap_node_id) references roadmap_node (roadmap_node_id)
+Hibernate: alter table user_role_progress add constraint FK4uqb435ul77pj3wlkp6korrm0 foreign key (users_id) references users (users_id)
+2026-03-01T15:01:02.767+07:00  INFO 17664 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01T15:01:03.583+07:00  INFO 17664 --- [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-03-01T15:01:04.192+07:00  INFO 17664 --- [  restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:mysql://127.0.0.1:3306/cdio_project'
+2026-03-01T15:01:04.233+07:00  INFO 17664 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-03-01T15:01:04.254+07:00  INFO 17664 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-03-01T15:01:04.258+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.BackendApplication    : Started BackendApplication in 7.174 seconds (process running for 276.137)
+2026-03-01T15:01:04.267+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : === DataSeeder: Bß║»t ─æß║ºu seed 30 bß║ún ghi mß╗ùi entity ===
+Hibernate: select count(*) from skill s1_0
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+Hibernate: insert into skill (description,name) values (?,?)
+2026-03-01T15:01:04.400+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 30 Skills.
+Hibernate: select count(*) from career_role cr1_0
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+Hibernate: insert into career_role (code,description,name) values (?,?,?)
+2026-03-01T15:01:04.442+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 10 CareerRoles.
+Hibernate: select count(*) from job_source js1_0
+Hibernate: insert into job_source (api_url,name) values (?,?)
+2026-03-01T15:01:04.451+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded JobSource: ITviec
+Hibernate: select count(*) from users u1_0
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into users (created_at,email,email_verified,password,role,status,updated_at,username,verification_token,verification_token_expiry) values (?,?,?,?,?,?,?,?,?,?)
+2026-03-01T15:01:04.672+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 30 Users.
+Hibernate: select count(*) from user_profile up1_0
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into user_profile (avatar_url,bio,career_goal,city,created_at,current_level,date_of_birth,full_name,major,university,updated_at,users_id) values (?,?,?,?,?,?,?,?,?,?,?,?)
+2026-03-01T15:01:04.772+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 20 UserProfiles.
+Hibernate: select count(*) from roadmap r1_0
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap (career_role_id,description,level,title) values (?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+Hibernate: insert into roadmap_node (description,node_type,order_index,parent_node_id,roadmap_id,title) values (?,?,?,?,?,?)
+2026-03-01T15:01:04.954+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 10 Roadmaps vß╗¢i 30 Nodes.
+Hibernate: select count(*) from job_posting jp1_0
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: insert into job_posting (company_name,description,external_job_id,job_level,job_source_id,job_type,job_url,location,posted_at,salary_max,salary_min,salary_text,title) values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-03-01T15:01:05.166+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : Seeded 30 JobPostings.
+2026-03-01T15:01:05.167+07:00  INFO 17664 --- [  restartedMain] com.team02.backend.config.DataSeeder     : === DataSeeder: Ho├án tß║Ñt ===
+Hibernate: select u1_0.users_id,u1_0.created_at,u1_0.email,u1_0.email_verified,u1_0.password,u1_0.role,u1_0.status,u1_0.updated_at,u1_0.username,u1_0.verification_token,u1_0.verification_token_expiry from users u1_0 where u1_0.role=?
+Hibernate: select up1_0.user_profile_id,up1_0.avatar_url,up1_0.bio,up1_0.career_goal,up1_0.city,up1_0.created_at,up1_0.current_level,up1_0.date_of_birth,up1_0.full_name,up1_0.major,up1_0.university,up1_0.updated_at,up1_0.users_id,u1_0.users_id,u1_0.created_at,u1_0.email,u1_0.email_verified,u1_0.password,u1_0.role,u1_0.status,u1_0.updated_at,u1_0.username,u1_0.verification_token,u1_0.verification_token_expiry from user_profile up1_0 join users u1_0 on u1_0.users_id=up1_0.users_id where up1_0.users_id=?
+2026-03-01T15:01:05.270+07:00  INFO 17664 --- [  restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   SpringBootWebSecurityConfiguration.SecurityFilterChainConfiguration:
+      Did not match:
+         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' securityFilterChain; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) found beans named springSecurityFilterChain (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+
+   UserDetailsServiceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) found beans of type 'org.springframework.security.authentication.AuthenticationManager' authenticationManager and found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' customUserDetailsService (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+         - found 'session' scope (OnWebApplicationCondition)
+         - AnyNestedCondition 1 matched 2 did not; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.PasswordConfigured @ConditionalOnProperty (spring.security.user.password) did not find property 'password'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.NameConfigured @ConditionalOnProperty (spring.security.user.name) did not find property 'name'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.MissingAlternative @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+

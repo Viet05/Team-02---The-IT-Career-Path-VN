@@ -1,0 +1,105 @@
+﻿[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 156 modules transformed.
+node.exe : [31mΓ£ù[39m 
+Build failed in 908ms
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: ([3  
+  1mΓ£ù[39m Build faile   
+ d in 908ms:String) [],    
+ RemoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+[31merror during build:
+[31msrc/services/dashboard
+Service.js (1:9): 
+"getToken" is not exported 
+by "src/services/auth.js", 
+imported by "src/services/d
+ashboardService.js".[31m
+file: [36mD:/The IT 
+Career Path VN Web/frontend
+/src/services/dashboardServ
+ice.js:1:9[31m
+[33m
+1: import { getToken } 
+from "./auth";
+            ^
+2: 
+3: const BASE_URL = "/api/i
+t-path/admin/dashboard";
+[31m
+    at getRollupError (file
+:///D:/The%20IT%20Career%20
+Path%20VN%20Web/frontend/no
+de_modules/vite/node_module
+s/rollup/dist/es/shared/par
+seAst.js:401:41)
+    at error (file:///D:/Th
+e%20IT%20Career%20Path%20VN
+%20Web/frontend/node_module
+s/vite/node_modules/rollup/
+dist/es/shared/parseAst.js:
+397:42)
+    at Module.error (file:/
+//D:/The%20IT%20Career%20Pa
+th%20VN%20Web/frontend/node
+_modules/vite/node_modules/
+rollup/dist/es/shared/node-
+entry.js:17022:16)
+    at 
+Module.traceVariable (file:
+///D:/The%20IT%20Career%20P
+ath%20VN%20Web/frontend/nod
+e_modules/vite/node_modules
+/rollup/dist/es/shared/node
+-entry.js:17478:29)
+    at 
+ModuleScope.findVariable (f
+ile:///D:/The%20IT%20Career
+%20Path%20VN%20Web/frontend
+/node_modules/vite/node_mod
+ules/rollup/dist/es/shared/
+node-entry.js:15141:39)
+    at ReturnValueScope.fin
+dVariable (file:///D:/The%2
+0IT%20Career%20Path%20VN%20
+Web/frontend/node_modules/v
+ite/node_modules/rollup/dis
+t/es/shared/node-entry.js:5
+688:38)
+    at FunctionBodyScope.fi
+ndVariable (file:///D:/The%
+20IT%20Career%20Path%20VN%2
+0Web/frontend/node_modules/
+vite/node_modules/rollup/di
+st/es/shared/node-entry.js:
+5688:38)
+    at Identifier.bind (fil
+e:///D:/The%20IT%20Career%2
+0Path%20VN%20Web/frontend/n
+ode_modules/vite/node_modul
+es/rollup/dist/es/shared/no
+de-entry.js:5462:40)
+    at CallExpression.bind 
+(file:///D:/The%20IT%20Care
+er%20Path%20VN%20Web/fronte
+nd/node_modules/vite/node_m
+odules/rollup/dist/es/share
+d/node-entry.js:2829:23)
+    at CallExpression.bind 
+(file:///D:/The%20IT%20Care
+er%20Path%20VN%20Web/fronte
+nd/node_modules/vite/node_m
+odules/rollup/dist/es/share
+d/node-entry.js:12172:15)[
+39m

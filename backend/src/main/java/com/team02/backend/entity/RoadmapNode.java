@@ -1,6 +1,4 @@
 package com.team02.backend.entity;
-
-import com.team02.backend.enums.UserRole;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ public class RoadmapNode implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "roadmap_node_id")
-  private int roadmapNodeId;
+  private Long roadmapNodeId;
 
   @Column(name = "title")
   private String title;

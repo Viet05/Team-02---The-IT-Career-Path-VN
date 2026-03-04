@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "job_skill", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"skill_id", "job_posting_skill"})
+    @UniqueConstraint(columnNames = { "skill_id", "job_posting_id" })
 })
 @Data
 @Builder
@@ -32,7 +32,7 @@ public class JobSkill implements Serializable {
   private Long jobSkillId;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "skill_id",nullable = false)
+  @JoinColumn(name = "skill_id", nullable = false)
   private Skill skill;
 
   @ManyToOne(fetch = FetchType.LAZY)

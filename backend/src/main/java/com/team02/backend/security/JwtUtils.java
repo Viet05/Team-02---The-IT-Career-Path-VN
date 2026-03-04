@@ -22,18 +22,18 @@ public class JwtUtils {
 
   @Value("${jwt.secret}")
   private String SECRET_KEY;
-
+  
   private static final String ISSUES = "The It Career Path VN Web backend";
 
   public String generateToken(Users user) {
 
-    JWSHeader header = new JWSHeader(JWSAlgorithm.ES512);
+    JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
 
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
         .subject(user.getUsername())
         .issuer(ISSUES)
         .issueTime(new Date())
-        .expirationTime(Date.from(Instant.now().plus(5, ChronoUnit.DAYS)))
+        .expirationTime(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
         .claim("role", user.getRole())
         .claim("usersId", user.getUserId())
         .build();

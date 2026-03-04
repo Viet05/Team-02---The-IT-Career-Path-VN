@@ -1,7 +1,10 @@
 package com.team02.backend.entity;
 
+import com.team02.backend.enums.ProgressStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,11 +15,11 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "user_role_progress",
@@ -34,6 +37,10 @@ public class UserRoleProgress implements Serializable {
   @Column(name = "user_role_progress_id")
   private Long userRoleProgressId;
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status", nullable = false)
+  private ProgressStatus status;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "users_id", nullable = false)
   private Users usersId;
@@ -42,6 +49,6 @@ public class UserRoleProgress implements Serializable {
   @JoinColumn(name = "roadmap_node_id", nullable = false)
   private RoadmapNode roadmapNode;
 
-  @Timestamp
+  @UpdateTimestamp
   private LocalDateTime updatedAt;
 }

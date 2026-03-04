@@ -29,7 +29,7 @@ public class Skill implements Serializable {
   @Column(name = "skill_id")
   private Long skillId;
 
-  @Column(name = "name")
+  @Column(name = "name", unique = true)
   private String name;
 
   @Column(name = "description")
@@ -40,7 +40,4 @@ public class Skill implements Serializable {
 
   @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<UserProfileSkill> userProfileSkills;
-
-  @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<Skill> skills;
 }

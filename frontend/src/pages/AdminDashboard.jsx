@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../services/auth";
+import { useUserState } from "../store/useLocalStorage";
+import { getDashboardStats, getChartData, getRecentPostings } from "../services/dashboardService";
+import { toast } from "../components/Toast";
 import "../styles/AdminDashboard.css";
 
 function MiniBarChart({ title, data }) {
@@ -14,8 +16,8 @@ function MiniBarChart({ title, data }) {
           <div
             key={idx}
             className="chart-bar"
-            style={{ height: `${Math.round((v / max) * 100)}%` }}
-            title={`${v}`}
+            style={{ height: `${Math.round((v / max) * 100)}% ` }}
+            title={`${v} `}
           />
         ))}
       </div>
@@ -25,22 +27,69 @@ function MiniBarChart({ title, data }) {
 
 export default function AdminDashboard() {
   const nav = useNavigate();
+  const { logout } = useUserState();
+  const [dashboardStats, setDashboardStats] = useState(null);
+  const [recentPostings, setRecentPostings] = useState([]);
+  const [chartData, setChartData] = useState({ jobsCreated: [0, 0, 0, 0, 0, 0, 0], activeUsers: [0, 0, 0, 0, 0, 0, 0] });
+
+  // Fetch dashboard stats từ API
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const [statsResult, recentResult, chartResult] = await Promise.allSettled([
+          getDashboardStats(),
+          getRecentPostings(),
+          getChartData(),
+        ]);
+
+        if (statsResult.status === "fulfilled") {
+          setDashboardStats(statsResult.value);
+          console.log("📊 Dashboard stats:", statsResult.value);
+        }
+        if (recentResult.status === "fulfilled" && Array.isArray(recentResult.value)) {
+          setRecentPostings(recentResult.value);
+        }
+        if (chartResult.status === "fulfilled" && chartResult.value) {
+          setChartData({
+            jobsCreated: chartResult.value.jobsCreated || [0, 0, 0, 0, 0, 0, 0],
+            activeUsers: chartResult.value.activeUsers || [0, 0, 0, 0, 0, 0, 0],
+          });
+          console.log("📈 Chart data:", chartResult.value);
+        }
+      } catch (error) {
+        console.error("❌ Failed to load dashboard:", error);
+      }
+    };
+
+    loadStats();
+  }, []);
 
   const stats = [
-    { title: "Users", main: "1,240", sub: "Students 1,050 • Companies 180" },
-    { title: "Jobs", main: "420", sub: "Pending 8 • Approved 305" },
-    { title: "Roadmaps", main: "24", sub: "Steps 1,380" },
-    { title: "Notifications", main: "86", sub: "Sent today 12" },
+    {
+      title: "Users",
+      main: dashboardStats?.totalUser ?? "—",
+      sub: `Students ${dashboardStats?.totalStudent ?? "—"} • Companies ${dashboardStats?.totalCompanies ?? "—"}`
+    },
+    { title: "Jobs", main: dashboardStats?.totalJobs ?? "—", sub: `Posted today: ${dashboardStats?.jobsToday ?? "—"}` },
+    { title: "Roadmaps", main: "—", sub: "Learning paths" },
+    { title: "Jobs Today", main: dashboardStats?.jobsToday ?? "—", sub: "New postings today" },
   ];
 
-  const jobsCreated = [2, 5, 8, 3, 6, 9, 7];
-  const activeUsers = [4, 6, 7, 5, 8, 10, 6];
 
-  const recentActivity = [
-    { time: "09:12", event: "Approved job: Backend Dev (Java)", actor: "admin01" },
-    { time: "09:05", event: "Rejected job: DevOps Engineer", actor: "admin02" },
-    { time: "08:50", event: "Company registered: NamiTechsystem", actor: "system" },
-  ];
+  const jobsCreated = chartData.jobsCreated;
+  const activeUsers = chartData.activeUsers;
+
+  const recentActivity = recentPostings.length > 0
+    ? recentPostings.slice(0, 5).map((job) => ({
+      time: new Date(job.postedDate || job.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      event: `New job: ${job.jobTitle || job.title} at ${job.companyName || job.company}`,
+      actor: "company",
+    }))
+    : [
+      { time: "09:12", event: "Approved job: Backend Dev (Java)", actor: "admin01" },
+      { time: "09:05", event: "Rejected job: DevOps Engineer", actor: "admin02" },
+      { time: "08:50", event: "Company registered: NamiTechsystem", actor: "system" },
+    ];
 
   const systemAlerts = [
     { title: "Pending approvals high", desc: "8 jobs waiting > 24h" },
@@ -70,20 +119,20 @@ export default function AdminDashboard() {
               <button className="admin-navbtn active" onClick={() => nav("/admin")}>
                 Admin Dashboard
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Approve Jobs")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/jobs")}>
                 Approve Jobs
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Manage Users")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/users")}>
                 Manage Users
               </button>
-              <button className="admin-navbtn" onClick={comingSoon("Manage Roadmaps")}>
+              <button className="admin-navbtn" onClick={() => nav("/admin/roadmaps")}>
                 Manage Roadmaps
               </button>
               <button
                 className="admin-navbtn"
                 onClick={() => {
                   logout();
-                  nav("/login", { replace: true });
+                  nav("/auth/login", { replace: true });
                 }}
               >
                 Logout
@@ -102,7 +151,7 @@ export default function AdminDashboard() {
               <p>Overview of system health • approvals • users • content</p>
             </div>
 
-            <button className="admin-primary" onClick={comingSoon("Go to Approvals")}>
+            <button className="admin-primary" onClick={() => nav("/admin/jobs")}>
               Go to Approvals
             </button>
           </div>

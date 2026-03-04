@@ -1,17 +1,9 @@
 package com.team02.backend.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
+import com.team02.backend.enums.JobLevel;
+import com.team02.backend.enums.JobType;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,7 +26,7 @@ public class JobPosting implements Serializable {
   @Column(name = "job_posting_id")
   private Long jobPostingId;
 
-  @Column(name = "external_job_id")
+  @Column(name = "external_job_id", unique = true)
   private String externalJobId;
 
   @Column(name = "title")
@@ -47,16 +39,28 @@ public class JobPosting implements Serializable {
   private String location;
 
   @Column(name = "salary_min")
-  private double  salaryMin;
+  private Double  salaryMin;
 
   @Column(name = "salary_max")
-  private double  salaryMax;
+  private Double  salaryMax;
 
-  @Column(name = "description")
+  @Column(name = "salary_text")
+  private String salaryText;
+
+  @Lob
+  @Column(name = "description", columnDefinition = "LONGTEXT")
   private String description;
 
   @Column(name = "job_url")
   private String jobUrl;
+
+  @Column(name = "job_type")
+  @Enumerated(EnumType.STRING)
+  private JobType jobType;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "job_level")
+  private JobLevel jobLevel;
 
   @Timestamp
   private LocalDateTime postedAt;
